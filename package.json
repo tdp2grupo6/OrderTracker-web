@@ -1,0 +1,28 @@
+{
+  "name": "OrderTracker-web",
+  "version": "0.0.0",
+  "description": "Frontend para OrderTracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tdp2grupo6/OrderTracker-web.git"
+  },
+  "author": "TDP2 Grupo6",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tdp2grupo6/OrderTracker-web/issues"
+  },
+  "devDependencies": {
+    "angular": "^1.5.1",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.2.0",
+    "gulp-uglify": "^1.5.3",
+    "jshint": "^2.9.1"
+  }
+}
