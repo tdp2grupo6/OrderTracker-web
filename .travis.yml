@@ -18,3 +18,4 @@ deploy:
   domain: tdp2grupo6
   on:
     repo: tdp2grupo6/OrderTracker-web
+    node_js: '0.10'
