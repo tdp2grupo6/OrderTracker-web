@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= dir %></p>
+    <form id="fileupload" action="<%= uploadUrl %>" enctype="multipart/form-data" method="post">
+      <input type="file" name="files[]" multiple>
+      <input type="submit" value="Enviar">
+    </form>
+    <br/>
+    <img src="<%= imgTest %>">
+    <script>
+      $('#fileupload').fileupload('option', {
+          xhrFields: {
+              withCredentials: true
+          }
+      });
+    </script>
+    <!-- Live reload script -->
+    <script type="text/javascript" src="http://localhost:35729/livereload.js"></script>
+  </body>
+</html>
