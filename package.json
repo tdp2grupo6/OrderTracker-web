@@ -1,13 +1,13 @@
 {
   "name": "angular",
   "version": "0.0.0",
+  "scripts": {
+    "test": "gulp test"
+  },
   "dependencies": {
     "bower": "^1.7.9",
     "express": "~3.4.4",
     "openshift-bower-install": "^1.0.7"
-  },
-  "scripts": {
-    "test": "gulp test"
   },
   "devDependencies": {
     "browser-sync": "~2.1.4",
