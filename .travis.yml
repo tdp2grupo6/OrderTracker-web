@@ -14,6 +14,10 @@ install:
 
 script: gulp build
 
+before_deploy:
+- npm install -q 
+- bower install
+
 deploy:
   provider: openshift
   user: tdp2grupo6@gmail.com
