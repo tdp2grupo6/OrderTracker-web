@@ -1,0 +1,36 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
+
+html {
+  font-family: 'Roboto Slab', serif;
+}
+
+html,body {
+  overflow: hidden;
+}
+
+[layout=row] {
+  flex-direction: row;
+}
+
+header {
+  .md-button {
+    &.md-default-theme {
+      &.md-flat {
+        margin: 0 15px;
+        padding-top: 27px;
+      }
+    }
+  }
+}
+
+.md-button.md-active {
+  background-color: rgba(158, 158, 158, 0.2);
+}
+
+
+/* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
+   all your sass files automatically */
+// injector
+// endinjector
+
+

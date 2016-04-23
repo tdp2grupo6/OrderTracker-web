@@ -1,0 +1,25 @@
+languaje: node_js
+
+node_js:
+- '0.10'
+
+before_install:
+- npm install -g npm
+- npm install -g gulp
+- npm install -g bower
+
+install:
+- npm install
+- bower install
+
+script: gulp build
+
+deploy:
+  provider: openshift
+  user: tdp2grupo6@gmail.com
+  password:
+    secure: y3WDC697UDtOuzB9G8AYcq4VUagkHdAOorR6pXAFrYReL1VZo+kKcJ5uf6qwWRzJIkRXbfEi7Zr//x2hj/o1hjuTMx6WRQi51mASwnmHy2aVbYQIRyvE+nwndSgMpfXSWeJopT4fmMXTON5N5O9fLhxrCDF5AAo4OMsBzjCMwTiL3w000Q2FU5aGlbrEa0lOC3zPoHHQ9g6plkhTOpIV0rfiY+dJVqwmFxIuOhHyIpTULNGCM6XvE8o0I+2bX6ZfrcJMqyvbOovhPMAA/UolEh9uiCvVooHb/pfzJVQXW8ZWs1R8yoHkcyShuYRMRcFRj2tAsxf5s++g+PnWeQUbx5znKRvksTWZFXAKBwoZGocjiwfsznAmjspWZScHn+PxdL3crwUEYlnOgcBJW/B+oxVQDXLANprAjkrx+ix5RuDruaIUGRjge2PD6z53j4PZ8qIwotYcgLtlZCCym4kf21Y0/IB+lwnhgi4CRXs3JUMlIZAZNOm1UaTILGGftQLapOfy1T61v3dicygi774rR6fc+tWsHQ1VaioE1VQuH8QB/qkMVRK2oMpe8TylbaFgnexdWyJhMD4AXtnztQjaTrQgcvuECOgqpEA0oZPfa6/7Gyvqj7s3chc7jNlylCcBCmis6dbBczJKU6+ON6kiPXJfdiDb4dOh+AAyVTBSM2U=
+  app: ordertrackerweb
+  domain: tdp2grupo6
+  on:
+    repo: tdp2grupo6/OrderTracker-web
