@@ -1,0 +1,7 @@
+#!/bin/bash
+
+cd $OPENSHIFT_HOMEDIR/nodejs
+npm install bower
+
+# cd $OPENSHIFT_REPO_DIR
+# npm install -q
