@@ -4,6 +4,7 @@
   "scripts": {
     "test": "gulp test"
   },
+  "main": "server.js",
   "dependencies": {
     "bower": "^1.7.9",
     "express": "~3.4.4",

@@ -1,4 +1,5 @@
 #!/bin/bash
 
+cd $OPENSHIFT_REPO_DIR
 npm install -q
-bower install
+HOME=$OPENSHIFT_REPO_DIR bower install
