@@ -1,4 +1,0 @@
-#!/bin/bash
-
-cd $OPENSHIFT_REPO_DIR
-HOME=$OPENSHIFT_REPO_DIR bower install
