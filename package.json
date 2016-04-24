@@ -4,11 +4,8 @@
   "scripts": {
     "test": "gulp test"
   },
-  "main": "server.js",
   "dependencies": {
-    "bower": "^1.7.9",
-    "express": "~3.4.4",
-    "openshift-bower-install": "^1.0.7"
+    "express": "~3.4.4"
   },
   "devDependencies": {
     "browser-sync": "~2.1.4",
