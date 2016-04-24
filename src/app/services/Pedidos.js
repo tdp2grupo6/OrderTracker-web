@@ -3,15 +3,12 @@
 
 	angular
 		.module('myApp')
-		.controller('Pedidos', Pedidos);
+		.factory('Pedidos', Pedidos);
 
 		Pedidos.$inject = ['$resource', 'Services'];
 
 		function Pedidos($resource, Services) {
-
-			var interfaz = {
-
-				serviceCall : $resource(Services.url + 'pedidos', {},
+			return $resource(Services.url + 'pedidos', {},
 				{
 					listarTodosPedidos: {
 						method: 'GET',
@@ -52,10 +49,8 @@
 						}
 
 					}
-				})
-			}
-
-			return interfaz;
+				}
+			);
 		}
 })();
 
