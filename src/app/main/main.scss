@@ -3,7 +3,7 @@
 }
 
 .fabSpeedDialdemoBasicUsage .md-fab:hover, .fabSpeedDialdemoBasicUsage .md-fab.md-focused {
-	background-color: #000; 
+	background-color: #000 !important;  
 }
 
 .fabSpeedDialdemoBasicUsage p.note {
@@ -20,9 +20,10 @@
 }
 
 .md-button.md-fab.md-mini {
-	background-color: rgb(21,171,216);
+	background-color: #FF9933;
 }
 
 .bodyMainPrincipal {
 	height: inherit;
+	width:  170px;
 }

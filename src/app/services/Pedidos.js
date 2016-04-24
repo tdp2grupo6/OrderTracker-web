@@ -1,5 +1,3 @@
-///pedido/buscar-categoria/$id
-
 (function() {
 	'use strict';
 

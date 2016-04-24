@@ -1,0 +1,10 @@
+<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'><svg height="128px" id="Layer_1" style="enable-background:new 0 0 128 128;" version="1.1" viewBox="0 0 128 128" width="128px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style type="text/css">
+	.st0{fill:#F070AA;}
+	.st1{clip-path:url(#SVGID_2_);}
+	.st2{opacity:0.35;fill:#B20073;}
+	.st3{opacity:0.35;fill:#A60575;}
+	.st4{fill:#403A43;}
+	.st5{fill:#6D6168;}
+	.st6{fill:#ABE0F9;}
+	.st7{fill:none;stroke:#FFFFFF;stroke-width:5;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+</style><g><circle class="st0" cx="64" cy="64" r="64"/><g><defs><circle cx="64" cy="64" id="SVGID_1_" r="64"/></defs><clipPath id="SVGID_2_"><use style="overflow:visible;" xlink:href="#SVGID_1_"/></clipPath><g class="st1"><path class="st2" d="M75,32l53,53v43H87.4L33.7,74c0,0,24.7,6.4,37.6-2.6S75,32,75,32z"/><polygon class="st3" points="97.8,85.1 127.9,115.3 128,128 118.7,128 86.9,96.1    "/></g></g><path class="st4" d="M96.8,102.8c-2,0-4-0.8-5.5-2.3L66.8,76.1c-3-3,2.4-2.5,5.4-5.5c3-3,2.5-8.5,5.5-5.4l24.5,24.5c3,3,3,7.9,0,11   C100.8,102.1,98.8,102.8,96.8,102.8z"/><path class="st5" d="M75.9,85.1L68.7,78l11-11l7.1,7.1c0,0-1.5,3.3-4.5,6.3C79.4,83.4,75.9,85.1,75.9,85.1z"/><circle class="st6" cx="54.8" cy="53" r="25.2"/><path class="st7" d="M43.3,53c0-6.3,5.1-11.4,11.4-11.4"/><path class="st4" d="M54.8,82.5c-16.3,0-29.5-13.2-29.5-29.5c0-16.3,13.2-29.5,29.5-29.5C71,23.5,84.3,36.8,84.3,53   C84.3,69.3,71,82.5,54.8,82.5z M54.8,32.1c-11.5,0-20.9,9.4-20.9,20.9c0,11.5,9.4,20.9,20.9,20.9S75.6,64.5,75.6,53   C75.6,41.5,66.3,32.1,54.8,32.1z"/></g></svg>
