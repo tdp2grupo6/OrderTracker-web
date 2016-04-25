@@ -4,7 +4,7 @@
 		angular
 			.module('myApp')
 			.controller('MainController', MainController);
-				
+
 			MainController.$inject = ['$scope', '$mdDialog', '$mdMedia'];
 
 			function MainController($scope, $mdDialog, $mdMedia) {
@@ -22,7 +22,7 @@
 					.then(function(answer) {
 						}, function() {
 					});
-					
+
 					$scope.$watch(function() {
 						return $mdMedia('xs') || $mdMedia('sm');
 					}, function(wantsFullScreen) {

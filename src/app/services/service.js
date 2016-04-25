@@ -3,13 +3,13 @@
 
 	angular
 		.module('myApp')
-		.factory('Services', Services); 
-			
+		.factory('Services', Services);
+
 	Services.$inject = [];
 
 	function Services () {
     	return {
-        	url: 'http://ordertrackerweb-tdp2grupo6.rhcloud.com/',
+        	url: 'http://ordertracker-tdp2grupo6.rhcloud.com/'
     	};
 	}
 })();
