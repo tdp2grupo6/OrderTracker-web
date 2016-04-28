@@ -1,5 +1,63 @@
+
 <md-content layout-fill layout-padding flex md-scroll-y>
 <h2>Listado Pedidos</h2>
-
+<div ng-controller="ListadoPedidosController">
+   <table class="table table-bordered table-hover table-condensed">
+    <tr style="font-weight: bold">
+      <td style="width:20%"><md-checkbox ng-model="pedido.selected"></md-checkbox>&nbsp;&nbsp;&nbsp;Seleccionar</td>
+      <td style="width:10%">Nº</td>
+      <td style="width:10%">Fecha</td>
+      <td style="width:20%">Cliente</td>
+      <td style="width:25%">Estado</td>
+      <td style="width:25%">Vendedor</td>
+      <td style="width:25%">Editar</td>
+    </tr>
+    <tr ng-repeat="pedido in pedidos">
+		<td>
+			<md-checkbox ng-model="pedido.selected"></md-checkbox>
+		</td>
+      <td>
+        <span e-name="id" e-form="rowform">
+          {{ pedido.id || '-' }}
+        </span>
+      </td>
+      <td>
+        <span e-name="fechaRealizado" e-form="rowform">
+          {{ pedido.fechaRealizado | date : 'dd/MM/yyyy' || '-' }}
+        </span>
+      </td>
+      <td>
+        <span e-name="nombreCliente" e-form="rowform">
+          {{ pedido.nombreCliente || '-' }}
+        </span>
+      </td>
+      <td>
+        <!-- editable status (select-local) -->
+        <span editable-select="pedido.estado" e-name="estado" e-form="rowform" onshow="loadEstados()" e-ng-options="s.id as s.nombre for s in estados" e-required>
+          {{ showEstados(pedido) }}
+        </span>
+      </td>
+      <td>
+        <span e-name="vendedor" e-form="rowform">
+          {{ pedido.vendedor || '-' }}
+        </span>
+      </td>
+      <td style="white-space: nowrap">
+        <!-- form -->
+        <form editable-form name="rowform" onbeforesave="saveUser($data, pedido.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == pedido">
+          <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
+            guardar
+          </button>
+          <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
+            cancelar
+          </button>
+        </form>
+        <div class="buttons" ng-show="!rowform.$visible">
+          <button class="btn btn-primary" ng-click="rowform.$show()">editar</button>
+          <button class="btn btn-danger" ng-click="removeProducto($index)">eliminar</button>
+        </div>  
+      </td>
+    </tr>
+  </table>
+</div>
 </md-content>
-

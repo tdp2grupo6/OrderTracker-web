@@ -8,7 +8,8 @@ angular.module('myApp', [
     'ngResource',
     'ngRoute',
     'ngMaterial',
-    'ngMessages'])
+    'ngMessages',
+    'xeditable'])
     
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
