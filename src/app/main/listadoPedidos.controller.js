@@ -9,7 +9,7 @@
 
       function ListadoPedidosController($scope, $mdDialog, Pedidos) {
 
-        Pedidos.listarTodosPedidos(null,
+        Pedidos.listarPedidos(null,
             function(data) {
             },
             function() {

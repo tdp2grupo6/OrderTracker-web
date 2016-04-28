@@ -8,9 +8,9 @@
 		Pedidos.$inject = ['$resource', 'Services'];
 
 		function Pedidos($resource, Services) {
-			return $resource(Services.url + 'pedidos', {},
+			return $resource(Services.url + 'pedido', {},
 				{
-					listarTodosPedidos: {
+					listarPedidos: {
 						method: 'GET',
 						isArray: true,
 						headers : {
@@ -27,7 +27,7 @@
 
 					actualizarPedido: {
 						method: 'PUT',
-						url: Services.url + 'pedidos/:id',
+						url: Services.url + 'pedido/:id',
 						headers: {
 							'Content-Type': 'application/json'	
 						}
@@ -35,7 +35,7 @@
 
 					borrarPedido: {
 						method: 'DELETE',
-						url: Services.url + 'pedidos/:id',
+						url: Services.url + 'pedido/:id',
 						headers: {
 							'Content-Type': 'application/json'	
 						}
@@ -43,7 +43,7 @@
 
 					listarPedido: {
 						method: 'GET',
-						url: Services.url + 'pedidos/:id',
+						url: Services.url + 'pedido/:id',
 						headers : {
 							'Content-Type': 'application/json'
 						}
