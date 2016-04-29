@@ -9,7 +9,8 @@ angular.module('myApp', [
     'ngRoute',
     'ngMaterial',
     'ngMessages',
-    'xeditable'])
+    'xeditable',
+    'md.data.table'])
     
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
         $stateProvider

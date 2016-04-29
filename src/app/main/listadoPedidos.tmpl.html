@@ -5,95 +5,86 @@
 </md-toolbar>
 
 <md-content layout-fill layout-padding flex md-scroll-y>
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-3">
-        <md-datepicker ng-model="fecha" md-placeholder="Fecha">
-        </md-datepicker>
-    </div>
-    <div class="col-md-3">
-      <md-select ng-model="cliente" placeholder="Cliente">
-          <md-option ng-repeat="pedido in pedidos | unique:'nombreCliente'" value="{{pedido.nombreCliente}}">
-            {{pedido.nombreCliente}}
-          </md-option>
-        </md-select>
-    </div>
-    <div class="col-md-2">
-      <md-select ng-model="estado" placeholder="Estado">
-          <md-option ng-repeat="pedido in pedidos | unique:'estado.id'" value="{{pedido.estado.id}}">
-            {{pedido.estado.nombre}}
-          </md-option>
-        </md-select>
-    </div> 
-    <div class="col-md-2">
-      <md-select ng-model="vendedor" placeholder="Vendedor">
-          <md-option ng-repeat="pedido in pedidos | unique:'vendedor.id'" value="{{pedido.vendedor.id}}">
-            {{pedido.vendedor.nombre}}
-          </md-option>
-        </md-select>
-    </div> 
+<md-card>
+<md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
+  <div class="md-toolbar-tools">
+    <h2 class="md-title">Pedidos</h2>
+    <div flex="" class="flex"></div>
+    <md-button class="md-icon-button" ng-click="filter.show = true" aria-label="buscar">
+      <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+    </md-button>
   </div>
-    <hr/>
-    <div class="row">
-      <div class="col-md-12">
-         <table class="table table-bordered table-hover table-condensed table-styled">
-          <tr style="font-weight: bold">
-            <td style="width:5%"><md-checkbox ng-click="toggleAll()" ng-model="isAllSelected" aria-label="seleccionarTodos"></md-checkbox></td>
-            <td style="width:10%">Nº</td>
-            <td style="width:10%">Fecha</td>
-            <td style="width:30%">Cliente</td>
-            <td style="width:20%">Estado</td>
-            <td style="width:30%">Vendedor</td>
-            <td style="width:30%">Editar</td>
-          </tr>
-          <tr ng-repeat="pedido in pedidos | filter:query">
-      		<td>
-      			<md-checkbox ng-model="pedido.selected" aria-label="seleccionar"></md-checkbox>
-      		</td>
-            <td>
-              <span e-name="id" e-form="rowform">
-                {{ pedido.id || '-' }}
-              </span>
-            </td>
-            <td>
-              <span e-name="fechaRealizado" e-form="rowform">
-                {{ pedido.fechaRealizado | date : 'dd/MM/yyyy' || '-' }}
-              </span>
-            </td>
-            <td>
-              <span e-name="nombreCliente" e-form="rowform">
-                {{ pedido.nombreCliente || '-' }}
-              </span>
-            </td>
-            <td>
-              <!-- editable status (select-local) -->
-              <span editable-select="pedido.estado" e-name="estado" e-form="rowform" onshow="loadEstados()" e-ng-options="s.id as s.nombre for s in estados" e-required>
-                {{ showEstados(pedido) }}
-              </span>
-            </td>
-            <td>
-              <span e-name="vendedor" e-form="rowform">
-                {{ pedido.vendedor || '-' }}
-              </span>
-            </td>
-            <td style="white-space: nowrap">
-              <!-- form -->
-              <form editable-form name="rowform" onbeforesave="saveUser($data, pedido.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == pedido">
-                <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
-                  guardar
-                </button>
-                <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-default">
-                  cancelar
-                </button>
-              </form>
-              <div class="buttons" ng-show="!rowform.$visible">
-                <md-button class="btn md-primary md-raised" ng-click="rowform.$show()">editar</md-button>
-                <md-button class="btn md-warn md-raised" ng-click="removeProducto($index)">eliminar</md-button>
-              </div>  
-            </td>
-          </tr>
-        </table>
+</md-toolbar>
+<md-toolbar class="md-table-toolbar md-default" ng-show="filter.show && !selected.length">
+  <div class="md-toolbar-tools">
+    <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+    <form flex name="filter.form">
+      <div class="row">
+        <div class="col-md-3">
+            <md-datepicker ng-model="fecha" md-placeholder="Fecha"></md-datepicker>
+        </div>
+        <div class="col-md-3">
+          <md-select ng-model="cliente" placeholder="Cliente">
+              <md-option ng-repeat="pedido in pedidos | unique:'nombreCliente'" value="{{pedido.nombreCliente}}">
+                {{pedido.nombreCliente}}
+              </md-option>
+            </md-select>
+        </div>
+        <div class="col-md-3">
+          <md-select ng-model="estado" placeholder="Estado">
+              <md-option ng-repeat="pedido in pedidos | unique:'estado.id'" value="{{pedido.estado.id}}">
+                {{pedido.estado.nombre}}
+              </md-option>
+            </md-select>
+        </div> 
+        <div class="col-md-3">
+          <md-select ng-model="vendedor" placeholder="Vendedor">
+              <md-option ng-repeat="pedido in pedidos | unique:'vendedor.id'" value="{{pedido.vendedor.id}}">
+                {{pedido.vendedor.nombre}}
+              </md-option>
+            </md-select>
+        </div> 
       </div>
-    </div>
-</div>
+    </form>
+    <md-button class="md-icon-button" ng-click="removeFilter()" aria-label="cerrar">
+      <i class="fa fa-times" aria-hidden="true"></i>
+    </md-button>
+  </div>
+</md-toolbar>
+
+<md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+  <div class="md-toolbar-tools" layout-align="space-between">
+    <div>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</div>
+    <md-button class="md-icon-button" ng-click="delete($event)" aria-label="borrar">
+      <i class="fa fa-trash" aria-hidden="true"></i>
+    </md-button>
+  </div>
+</md-toolbar>
+
+<md-table-container>
+  <table md-table md-row-select multiple ng-model="selected" md-progress="promise">
+    <thead md-head md-order="query.order" md-on-reorder="getDesserts">
+      <tr md-row>
+        <th md-column md-order-by="nameToLower"><span>Nº</span></th>
+        <th md-column md-order-by="calories.value"><span>Fecha</span></th>
+        <th md-column>Cliente</th>
+        <th md-column>Estado</th>
+        <th md-column>Vendedor</th>
+      </tr>
+    </thead>
+    <tbody md-body>
+      <tr md-row md-select="pedido" md-select-id="id" md-auto-select ng-repeat="pedido in pedidos">
+        <td md-cell>{{pedido.id}}</td>
+        <td md-cell>{{pedido.fechaRealizado | date : 'dd/MM/yyyy'}}</td>
+        <td md-cell>{{pedido.nombreCliente}}</td>
+        <td md-cell>{{pedido.estado.nombre}}</td>
+        <td md-cell>{{pedido.vendedor}}</td>
+      </tr>
+    </tbody>
+  </table>
+</md-table-container>
+
+<md-table-pagination md-limit="query.limit" md-limit-options="[5, 10, 15]" md-page="query.page" md-total="{{pedidos.count}}" md-on-paginate="getDesserts" md-page-select></md-table-pagination>
+
+</md-card>
 </md-content>

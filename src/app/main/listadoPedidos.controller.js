@@ -34,6 +34,23 @@
             }
         );
 
+        $scope.selected = [];
+  
+        $scope.filter = {
+          options: {
+            debounce: 500
+          }
+        };
+
+        $scope.removeFilter = function () {
+          $scope.filter.show = false;
+          $scope.query.filter = '';
+          
+          if($scope.filter.form.$dirty) {
+            $scope.filter.form.$setPristine();
+          }
+        };
+
         $scope.toggleAll = function() {
            var toggleStatus = !$scope.isAllSelected;
            angular.forEach($scope.pedidos, function(itm){ itm.selected = toggleStatus; });

@@ -17,7 +17,8 @@
     "moment": "~2.10.3",
     "bootstrap": "^3.2.0",
     "bootstrap-btn-outline-rounded": "~0.0.4",
-    "angular-xeditable": "0.1.12"
+    "angular-xeditable": "0.1.12",
+    "angular-material-data-table": "~0.10.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.3"
