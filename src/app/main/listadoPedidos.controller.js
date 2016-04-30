@@ -116,5 +116,35 @@
           {id:6,tipo:'ESTADO_RECHAZADO',nombre:'Rechazado'}
         ];
 
-      }
+        $scope.mostrarDetallePedidoModal = function(ev,id) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          
+          $mdDialog.show({
+            templateUrl: 'app/main/detallePedido.tmpl.html',
+            targetEvent: ev,
+            scope: $scope.$new(),
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen
+          })
+          
+          .then(function(answer) {
+            }, function() {
+          });
+
+          $scope.$watch(function() {
+            return $mdMedia('xs') || $mdMedia('sm');
+          }, function(wantsFullScreen) {
+            $scope.customFullscreen = (wantsFullScreen === true);
+          });
+
+          Pedidos.listarPedido({ id: id },
+            function(data) {
+              $scope.unPedido = data;
+              $scope.items = $scope.unPedido.elementos;
+            },
+            function() {
+
+            }
+          );  
+        }
 })();
