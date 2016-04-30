@@ -4,6 +4,9 @@
     angular
     	.module('myApp')
       .controller('ListadoPedidosController', ListadoPedidosController)
+      .run(function(editableOptions) {
+        editableOptions.theme = 'bs3'; // bootstrap3 theme. Can be also 'bs2', 'default'
+      });
       .filter('unique', function() {
         return function(input, key) {
             var unique = {};
@@ -18,7 +21,7 @@
             return uniqueList;
         };
     });
-        
+       
       ListadoPedidosController.$inject = ['$scope', '$mdDialog', 'Pedidos', '$filter'];
 
       function ListadoPedidosController($scope, $mdDialog, Pedidos, $filter) {
