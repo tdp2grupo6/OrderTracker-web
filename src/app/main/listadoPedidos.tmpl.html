@@ -74,7 +74,7 @@
           <td md-cell>{{pedido.vendedor || 'Vendedor'}}</td>
           <td md-cell>$ {{pedido.totalCompra | number : '2'}}</td>
           <td md-cell>
-            <md-button class="md-fab md-warn md-mini" ng-click="removeFilter()" aria-label="ver">
+            <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetallePedidoModal($event,pedido.id)" aria-label="ver">
               <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver Pedido</md-tooltip>
               <i class="fa fa-eye" aria-hidden="true"></i>
             </md-button>

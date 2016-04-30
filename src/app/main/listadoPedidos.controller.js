@@ -13,7 +13,7 @@
             var uniqueList = [];
             var len = (input) ? input.length : 0;
             for(var i = 0; i < len; i++){
-                if(typeof unique[input[i][key]] == "undefined"){
+                if(typeof unique[input[i][key]] === 'undefined'){
                     unique[input[i][key]] = "";
                     uniqueList.push(input[i]);
                 }
@@ -22,9 +22,9 @@
         };
       });
        
-      ListadoPedidosController.$inject = ['$scope', '$mdDialog', 'Pedidos', '$filter'];
+      ListadoPedidosController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Pedidos', '$filter'];
 
-      function ListadoPedidosController($scope, $mdDialog, Pedidos, $filter) {
+      function ListadoPedidosController($scope, $mdDialog, $mdMedia, Pedidos, $filter) {
 
         $scope.query = {
           estado: '',
@@ -68,7 +68,7 @@
 
             }
           );
-        }
+        };
 
 
         $scope.getPedidosFiltrado = function (pagina, limite) {
@@ -146,5 +146,6 @@
 
             }
           );  
-        }
+        };
+      }
 })();
