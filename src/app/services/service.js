@@ -7,9 +7,10 @@
 
 	Services.$inject = [];
 
-	function Services () {
+	function Services() {
     	return {
-        	url: 'http://ordertracker-tdp2grupo6.rhcloud.com/'
+        	url: 'http://ordertracker-tdp2grupo6.rhcloud.com/',
+          dateFormat: 'yyyy-MM-dd"T"HH:mm:ssZ'
     	};
 	}
 })();

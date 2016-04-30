@@ -21,10 +21,11 @@
             return uniqueList;
         };
       });
-       
-      ListadoPedidosController.$inject = ['$scope', '$mdDialog', 'Pedidos', '$filter'];
 
-      function ListadoPedidosController($scope, $mdDialog, Pedidos, $filter) {
+
+      ListadoPedidosController.$inject = ['$scope', '$mdDialog', 'Pedidos', 'Services', '$filter'];
+
+      function ListadoPedidosController($scope, $mdDialog, Pedidos, Services, $filter) {
 
         $scope.query = {
           estado: '',
@@ -39,12 +40,13 @@
             function(data) {
               $scope.pedidos = data.resultados;
               $scope.totalResultados = data.totalResultados;
+              angular.forEach($scope.pedidos, function(pedido) {});
             },
             function() {
 
             }
         );
-  
+
         $scope.filter = {
           options: {
             debounce: 500
@@ -52,12 +54,17 @@
         };
 
         $scope.buscarPedidos = function () {
+          var fechaInicio = ($scope.fechaInicioFilter) ? $filter('date')($scope.fechaInicioFilter, Services.dateFormat) : '';
+          var fechaFin = ($scope.fechaFinFilter) ? $filter('date')(($scope.fechaFinFilter).setDate(($scope.fechaFinFilter).getDate() + 1), Services.dateFormat) : '';
+
+          //console.log($scope.fechaFinFilter);
+
           $scope.query.estado = ($scope.estadoFilter) ? $scope.estadoFilter : '';
           $scope.query.idCliente = ($scope.idClienteFilter) ? $scope.idClienteFilter : '';
-          $scope.query.fechaInicio = ($scope.fechaInicioFilter) ? $scope.fechaInicioFilter : '';
-          $scope.query.fechaFin = ($scope.fechaFinFilter) ? $scope.fechaFinFilter : '';
-          
-          console.log($scope.query);
+          $scope.query.fechaInicio = fechaInicio;
+          $scope.query.fechaFin = fechaFin;
+
+          //console.log($scope.query);
 
           Pedidos.filtrarPedido($scope.query,
             function(data) {
@@ -68,8 +75,11 @@
 
             }
           );
-        }
+        };
 
+        $scope.cambiarEstado = function(id) {
+          console.log(id);
+        }
 
         $scope.getPedidosFiltrado = function (pagina, limite) {
           $scope.query.pagina = pagina;
@@ -92,7 +102,7 @@
           $scope.query.idCliente = '';
           $scope.query.fechaInicio = '';
           $scope.query.fechaFin = '';
-          
+
           if($scope.filter.form.$dirty) {
             $scope.filter.form.$setPristine();
           }
@@ -112,7 +122,7 @@
           {id:2,tipo:'ESTADO_CONFIRMADO',nombre:'Confirmado'},
           {id:3,tipo:'ESTADO_ENVIADO',nombre:'Enviado'},
           {id:4,tipo:'ESTADO_ACEPTADO',nombre:'Aceptado'},
-          {id:5,tipo:'ESTADO_DESPACHADO',nombre:'Despachado'}, 
+          {id:5,tipo:'ESTADO_DESPACHADO',nombre:'Despachado'},
           {id:6,tipo:'ESTADO_RECHAZADO',nombre:'Rechazado'}
         ];
 
