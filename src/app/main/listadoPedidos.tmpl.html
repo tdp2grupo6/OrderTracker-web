@@ -7,7 +7,7 @@
 <md-content layout-fill layout-padding flex md-scroll-y>
 <md-card>
   <md-card-content>
-  <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length || filter.show">
+  <md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
     <div class="md-toolbar-tools">
       <h2 class="md-title">Pedidos</h2>
       <div flex="" class="flex"></div>
@@ -20,49 +20,35 @@
     <div class="md-toolbar-tools">
       <form flex name="filter.form">
         <div class="row">
-          <div class="col-md-3">
-              <md-datepicker ng-model="fechaInicio" md-placeholder="Fecha inicio"></md-datepicker>
+          <div class="col-md-6">
+              <md-datepicker ng-model="fechaInicioFilter" md-placeholder="Fecha inicio"></md-datepicker>
           </div>
-          <div class="col-md-3">
-              <md-datepicker ng-model="fechaFin" md-placeholder="Fecha fin"></md-datepicker>
+          <div class="col-md-6">
+              <md-datepicker ng-model="fechaFinFilter" md-placeholder="Fecha fin"></md-datepicker>
           </div>
-          <div class="col-md-3">
-            <md-select ng-model="cliente" placeholder="Cliente">
-                <md-option ng-repeat="pedido in pedidos | unique:'nombreCliente'" value="{{pedido.nombreCliente}}">
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <md-select ng-model="idClienteFilter" placeholder="Cliente">
+                <md-option ng-repeat="pedido in pedidos | unique:'nombreCliente'" value="{{pedido.codigoCliente}}">
                   {{pedido.nombreCliente}}
                 </md-option>
               </md-select>
           </div>
-          <div class="col-md-3">
-            <md-select ng-model="estado" placeholder="Estado">
-                <md-option ng-repeat="pedido in pedidos | unique:'estado.id'" value="{{pedido.estado.id}}">
-                  {{pedido.estado.nombre}}
-                </md-option>
-              </md-select>
-          </div> 
-          <div class="col-md-3">
-            <md-select ng-model="vendedor" placeholder="Vendedor">
-                <md-option ng-repeat="pedido in pedidos | unique:'vendedor.id'" value="{{pedido.vendedor.id}}">
-                  {{pedido.vendedor.nombre}}
+          <div class="col-md-6">
+            <md-select ng-model="estadoFilter" placeholder="Estado">
+                <md-option ng-repeat="estado in estados" value="{{estado.id}}">
+                  {{estado.nombre}}
                 </md-option>
               </md-select>
           </div> 
         </div>
       </form>
-      <md-button class="md-icon-button" ng-click="getPedidosFiltrados" aria-label="cerrar">
+      <md-button class="md-icon-button" ng-click="buscarPedidos()" aria-label="cerrar">
         <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
       </md-button>
       <md-button class="md-icon-button" ng-click="removeFilter()" aria-label="cerrar">
         <i class="fa fa-times" aria-hidden="true"></i>
-      </md-button>
-    </div>
-  </md-toolbar>
-
-  <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
-    <div class="md-toolbar-tools" layout-align="space-between">
-      <div>{{selected.length}} {{selected.length > 1 ? 'items seleccionados' : 'item seleccionado'}}</div>
-      <md-button class="md-icon-button" ng-click="delete($event)" aria-label="borrar">
-        <i class="fa fa-trash" aria-hidden="true"></i>
       </md-button>
     </div>
   </md-toolbar>
@@ -85,7 +71,7 @@
           <td md-cell>{{pedido.fechaRealizado | date : 'dd/MM/yyyy'}}</td>
           <td md-cell>{{pedido.nombreCliente}}</td>
           <td md-cell>{{pedido.estado.nombre}}</td>
-          <td md-cell>{{pedido.vendedor}}</td>
+          <td md-cell>{{pedido.vendedor || 'Vendedor'}}</td>
           <td md-cell>$ {{pedido.totalCompra | number : '2'}}</td>
         </tr>
       </tbody>
