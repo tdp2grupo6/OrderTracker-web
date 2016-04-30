@@ -23,23 +23,50 @@
 
       function ListadoPedidosController($scope, $mdDialog, Pedidos, $filter) {
 
-        Pedidos.listarPedidos(null,
+        $scope.query = {
+          estado: '',
+          idCliente: '',
+          fechaInicio: '',
+          fechaFin: '',
+          pagina: 1
+        };
+
+
+        Pedidos.filtrarPedido($scope.query,
             function(data) {
-              $scope.pedidos = data;
-              //Se deseleccionan los items
-              angular.forEach($scope.pedidos, function(itm){ itm.selected = false; });
+              $scope.pedidos = data.resultados;
+              $scope.totalResultados = data.totalResultados;
             },
             function() {
 
             }
         );
-
-        $scope.selected = [];
   
         $scope.filter = {
           options: {
             debounce: 500
           }
+        };
+
+      
+
+        $scope.saveFilter = function () {
+          $scope.query.filter = "'estado': 3, 'idCliente': 4, 'fechaInicio': '2016-04-18T00:00:00Z', 'fechaFin': '2016-04-25T23:59:59Z', 'pagina': 1";
+        }
+
+
+        $scope.getPedidosFiltrado = function (pagina, limite) {
+          $scope.query.pagina = pagina;
+
+          Pedidos.filtrarPedido($scope.query,
+            function(data) {
+              $scope.pedidos = data.resultados;
+              $scope.totalResultados = data.totalResultados;
+            },
+            function() {
+
+            }
+          );
         };
 
         $scope.removeFilter = function () {
@@ -51,16 +78,9 @@
           }
         };
 
-        $scope.toggleAll = function() {
-           var toggleStatus = !$scope.isAllSelected;
-           angular.forEach($scope.pedidos, function(itm){ itm.selected = toggleStatus; });
-        }
-        
-        $scope.optionToggled = function(){
-          $scope.isAllSelected = $scope.pedidos.every(function(itm){ return itm.selected; })
-        }
-
-        $scope.estados = [{id:1,tipo:'ESTADO_CONFIRMADO',nombre:'Confirmado'},{id:2,tipo:'ESTADO_ENVIADO',nombre:'Enviado'}];
+        $scope.estados = [{id:1,tipo:'ESTADO_NUEVO',nombre:'Nuevo'},{id:2,tipo:'ESTADO_CONFIRMADO',nombre:'Confirmado'},
+          {id:3,tipo:'ESTADO_ENVIADO',nombre:'Enviado'},{id:4,tipo:'ESTADO_ACEPTADO',nombre:'Aceptado'},
+          {id:5,tipo:'ESTADO_DESPACHADO',nombre:'Despachado'}, {id:6,tipo:'ESTADO_RECHAZADO',nombre:'Rechazado'}];
 
         $scope.showEstados = function(pedido) {
           if(pedido.estado && $scope.estados.length) {
@@ -69,17 +89,6 @@
           } else {
             return pedido.estado.nombre || 'No anda te dije';
           }
-        };
-
-        $scope.removeProducto = function($index) {
-          Pedidos.borrarPedido($index, 
-            function(data) {
-              $scope.pedidos = data;
-            },
-            function() {
-
-            }
-            );
         };
 
       }

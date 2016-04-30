@@ -48,6 +48,14 @@
 							'Content-Type': 'application/json'
 						}
 
+					},
+
+					filtrarPedido: {
+						method: 'POST',
+						url: Services.url + 'pedido/filtro',
+						headers : {
+							'Content-Type': 'application/json'
+						}
 					}
 				}
 			);
