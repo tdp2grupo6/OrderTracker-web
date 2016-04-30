@@ -44,6 +44,7 @@
 					listarPedido: {
 						method: 'GET',
 						url: Services.url + 'pedido/:id',
+						params: {id: '@id'},
 						headers : {
 							'Content-Type': 'application/json'
 						}

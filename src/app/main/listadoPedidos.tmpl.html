@@ -20,22 +20,20 @@
     <div class="md-toolbar-tools">
       <form flex name="filter.form">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-3">
               <md-datepicker ng-model="fechaInicioFilter" md-placeholder="Fecha inicio"></md-datepicker>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-3">
               <md-datepicker ng-model="fechaFinFilter" md-placeholder="Fecha fin"></md-datepicker>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-3">
             <md-select ng-model="idClienteFilter" placeholder="Cliente">
                 <md-option ng-repeat="pedido in pedidos | unique:'nombreCliente'" value="{{pedido.codigoCliente}}">
                   {{pedido.nombreCliente}}
                 </md-option>
               </md-select>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-3">
             <md-select ng-model="estadoFilter" placeholder="Estado">
                 <md-option ng-repeat="estado in estados" value="{{estado.id}}">
                   {{estado.nombre}}
@@ -63,6 +61,8 @@
           <th md-column md-order-by="estado.id">Estado</th>
           <th md-column md-order-by="vendedor">Vendedor</th>
           <th md-column md-order-by="total">Total Compra</th>
+          <th md-column>Ver</th>
+          <th md-column>Acciones</th>
         </tr>
       </thead>
       <tbody md-body>
@@ -73,6 +73,26 @@
           <td md-cell>{{pedido.estado.nombre}}</td>
           <td md-cell>{{pedido.vendedor || 'Vendedor'}}</td>
           <td md-cell>$ {{pedido.totalCompra | number : '2'}}</td>
+          <td md-cell>
+            <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetallePedidoModal($event,pedido.id)" aria-label="ver">
+              <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver Pedido</md-tooltip>
+              <i class="fa fa-eye" aria-hidden="true"></i>
+            </md-button>
+          </td>
+          <td md-cell>
+            <md-button class="md-fab md-accent md-mini" ng-click="removeFilter()" aria-label="confirmar">
+              <md-tooltip md-direction="top" md-visible="tooltipVisible">Confirmar Pedido</md-tooltip>
+              <i class="fa fa-check" aria-hidden="true"></i>
+            </md-button>
+            <md-button class="md-fab md-warn md-mini" ng-click="removeFilter()" aria-label="despachar">
+              <md-tooltip md-direction="top" md-visible="tooltipVisible">Despachar Pedido</md-tooltip>
+              <i class="fa fa-truck" aria-hidden="true"></i>
+            </md-button>
+            <md-button class="md-fab md-primary md-mini" ng-click="removeFilter()" aria-label="cancelar">
+              <md-tooltip md-direction="top" md-visible="tooltipVisible">Cancelar Pedido</md-tooltip>
+              <i class="fa fa-times" aria-hidden="true"></i>
+            </md-button>
+          </td>
         </tr>
       </tbody>
     </table>

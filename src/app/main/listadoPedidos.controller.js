@@ -13,7 +13,7 @@
             var uniqueList = [];
             var len = (input) ? input.length : 0;
             for(var i = 0; i < len; i++){
-                if(typeof unique[input[i][key]] == "undefined"){
+                if(typeof unique[input[i][key]] === 'undefined'){
                     unique[input[i][key]] = "";
                     uniqueList.push(input[i]);
                 }
@@ -22,10 +22,9 @@
         };
       });
 
+      ListadoPedidosController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Pedidos', 'Services', '$filter'];
 
-      ListadoPedidosController.$inject = ['$scope', '$mdDialog', 'Pedidos', 'Services', '$filter'];
-
-      function ListadoPedidosController($scope, $mdDialog, Pedidos, Services, $filter) {
+      function ListadoPedidosController($scope, $mdDialog, $mdMedia, Pedidos, Services, $filter) {
 
         $scope.query = {
           estado: '',
@@ -126,5 +125,36 @@
           {id:6,tipo:'ESTADO_RECHAZADO',nombre:'Rechazado'}
         ];
 
+        $scope.mostrarDetallePedidoModal = function(ev,id) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          
+          $mdDialog.show({
+            templateUrl: 'app/main/detallePedido.tmpl.html',
+            targetEvent: ev,
+            scope: $scope.$new(),
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen
+          })
+          
+          .then(function(answer) {
+            }, function() {
+          });
+
+          $scope.$watch(function() {
+            return $mdMedia('xs') || $mdMedia('sm');
+          }, function(wantsFullScreen) {
+            $scope.customFullscreen = (wantsFullScreen === true);
+          });
+
+          Pedidos.listarPedido({ id: id },
+            function(data) {
+              $scope.unPedido = data;
+              $scope.items = $scope.unPedido.elementos;
+            },
+            function() {
+
+            }
+          );  
+        };
       }
 })();
