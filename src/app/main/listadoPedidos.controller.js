@@ -21,10 +21,10 @@
             return uniqueList;
         };
       });
-       
-      ListadoPedidosController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Pedidos', '$filter'];
 
-      function ListadoPedidosController($scope, $mdDialog, $mdMedia, Pedidos, $filter) {
+      ListadoPedidosController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Pedidos', 'Services', '$filter'];
+
+      function ListadoPedidosController($scope, $mdDialog, $mdMedia, Pedidos, Services, $filter) {
 
         $scope.query = {
           estado: '',
@@ -39,12 +39,13 @@
             function(data) {
               $scope.pedidos = data.resultados;
               $scope.totalResultados = data.totalResultados;
+              angular.forEach($scope.pedidos, function(pedido) {});
             },
             function() {
 
             }
         );
-  
+
         $scope.filter = {
           options: {
             debounce: 500
@@ -52,12 +53,17 @@
         };
 
         $scope.buscarPedidos = function () {
+          var fechaInicio = ($scope.fechaInicioFilter) ? $filter('date')($scope.fechaInicioFilter, Services.dateFormat) : '';
+          var fechaFin = ($scope.fechaFinFilter) ? $filter('date')(($scope.fechaFinFilter).setDate(($scope.fechaFinFilter).getDate() + 1), Services.dateFormat) : '';
+
+          //console.log($scope.fechaFinFilter);
+
           $scope.query.estado = ($scope.estadoFilter) ? $scope.estadoFilter : '';
           $scope.query.idCliente = ($scope.idClienteFilter) ? $scope.idClienteFilter : '';
-          $scope.query.fechaInicio = ($scope.fechaInicioFilter) ? $scope.fechaInicioFilter : '';
-          $scope.query.fechaFin = ($scope.fechaFinFilter) ? $scope.fechaFinFilter : '';
-          
-          console.log($scope.query);
+          $scope.query.fechaInicio = fechaInicio;
+          $scope.query.fechaFin = fechaFin;
+
+          //console.log($scope.query);
 
           Pedidos.filtrarPedido($scope.query,
             function(data) {
@@ -70,6 +76,34 @@
           );
         };
 
+        
+        $scope.cambiarEstado = function(idPedido, accion) {
+
+          if (accion === 'A') {
+            /* Debe ir en este formato el body para que lo acepte como json */
+            $scope.body = '{\'estado\': ESTADO_ACEPTADO}';
+          }
+          else if (accion === 'D') {
+            /* Debe ir en este formato el body para que lo acepte como json */
+            $scope.body = '{\'estado\': ESTADO_DESPACHADO}';
+          }
+          else if (accion === 'C') {
+            /* Debe ir en este formato el body para que lo acepte como json */
+            $scope.body = '{\'estado\': ESTADO_CANCELADO}';
+          }
+        
+          /* Cuando se tiene un servicio con parametros y body, primero se para el parametro,
+            luego el body y luego las funciones de callback. */
+
+          Pedidos.actualizarPedido({id:idPedido}, $scope.body, 
+            function(data) {
+              console.log("OK");
+            },
+            function(error) {
+              console.log("NO");
+            }
+          );
+        }
 
         $scope.getPedidosFiltrado = function (pagina, limite) {
           $scope.query.pagina = pagina;
@@ -92,7 +126,7 @@
           $scope.query.idCliente = '';
           $scope.query.fechaInicio = '';
           $scope.query.fechaFin = '';
-          
+
           if($scope.filter.form.$dirty) {
             $scope.filter.form.$setPristine();
           }
@@ -108,12 +142,13 @@
           );
         };
 
-        $scope.estados = [{id:1,tipo:'ESTADO_NUEVO',nombre:'Nuevo'},
+        $scope.estados = [
+          {id:1,tipo:'ESTADO_NUEVO',nombre:'Nuevo'},
           {id:2,tipo:'ESTADO_CONFIRMADO',nombre:'Confirmado'},
           {id:3,tipo:'ESTADO_ENVIADO',nombre:'Enviado'},
           {id:4,tipo:'ESTADO_ACEPTADO',nombre:'Aceptado'},
           {id:5,tipo:'ESTADO_DESPACHADO',nombre:'Despachado'}, 
-          {id:6,tipo:'ESTADO_RECHAZADO',nombre:'Rechazado'}
+          {id:6,tipo:'ESTADO_CANCELADO',nombre:'Cancelado'}
         ];
 
         $scope.cerrar = function() {

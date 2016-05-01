@@ -28,6 +28,7 @@
 					actualizarPedido: {
 						method: 'PUT',
 						url: Services.url + 'pedido/:id',
+						params: {id: '@id'},
 						headers: {
 							'Content-Type': 'application/json'	
 						}
@@ -36,6 +37,7 @@
 					borrarPedido: {
 						method: 'DELETE',
 						url: Services.url + 'pedido/:id',
+						params: {id: '@id'},
 						headers: {
 							'Content-Type': 'application/json'	
 						}
