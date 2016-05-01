@@ -1,13 +1,22 @@
 <md-content layout-fill layout-padding flex md-scroll-y ng-controller="ListadoPedidosController">
-<h2>Detalle de Pedidos</h2>
-<div>
-   <p>Nombre del Cliente: {{unPedido.nombreCliente}}</p>
-   <p>Estado: {{unPedido.estado.nombre}}</p>
-   <p>Vendedor: {{unPedido.vendedor || 'Vendedor'}}</p>
-   <p>Fecha: {{unPedido.fechaRealizado | date : 'dd/MM/yyyy' || '-'}}</p>
-</div>
-<div>     
-   <table class="table table-bordered table-hover table-condensed">
+<form>
+  <md-toolbar>
+    <!--<div class="md-toolbar-tools">-->
+      <h2>Detalle de Pedidos</h2>
+      <span ></span>
+      <md-button class="md-icon-button" ng-click="cerrar()">
+        Close
+      </md-button>
+    <!--</div>-->
+  </md-toolbar>
+  <div>
+      <p>Nombre del Cliente: {{unPedido.nombreCliente}}</p>
+      <p>Estado: {{unPedido.estado.nombre}}</p>
+      <p>Vendedor: {{unPedido.vendedor || 'Vendedor'}}</p>
+      <p>Fecha: {{unPedido.fechaRealizado | date : 'dd/MM/yyyy' || '-'}}</p>
+  </div>
+  <div>     
+    <table class="table table-bordered table-hover table-condensed">
     <tr style="font-weight: bold">
       <td style="width:10%">Producto</td>
       <td style="width:10%">Precio Unitario</td>
@@ -15,7 +24,7 @@
       <td style="width:25%">Subtotal</td>
     </tr>
     <tr ng-repeat="item in items">
-	    <td>
+      <td>
         <span>{{item.nombreProducto || '-'}}</span>
       </td>
       <td>
@@ -28,9 +37,10 @@
         <span>{{item.subtotalProducto || '-'}}</span>
       </td>
     </tr>
-  </table>
-</div>
-<div>
-    <p>Total Compra: {{unPedido.totalCompra}}</p>
-</div>
+    </table>
+  </div>
+  <div>
+     <p>Total Compra: {{unPedido.totalCompra}}</p>
+  </div>
+</form>
 </md-content>

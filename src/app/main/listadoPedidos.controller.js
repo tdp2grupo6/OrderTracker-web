@@ -116,6 +116,10 @@
           {id:6,tipo:'ESTADO_RECHAZADO',nombre:'Rechazado'}
         ];
 
+        $scope.cerrar = function() {
+          $mdDialog.cancel();
+        };
+
         $scope.mostrarDetallePedidoModal = function(ev,id) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
           
