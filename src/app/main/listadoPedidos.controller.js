@@ -34,7 +34,6 @@
           pagina: 1
         };
 
-
         Pedidos.filtrarPedido($scope.query,
             function(data) {
               $scope.pedidos = data.resultados;
@@ -76,7 +75,7 @@
           );
         };
 
-        
+
         $scope.cambiarEstado = function(idPedido, accion) {
 
           if (accion === 'A') {
@@ -91,19 +90,20 @@
             /* Debe ir en este formato el body para que lo acepte como json */
             $scope.body = '{\'estado\': ESTADO_CANCELADO}';
           }
-        
+
           /* Cuando se tiene un servicio con parametros y body, primero se para el parametro,
             luego el body y luego las funciones de callback. */
 
-          Pedidos.actualizarPedido({id:idPedido}, $scope.body, 
+          Pedidos.actualizarPedido({id:idPedido}, $scope.body,
             function(data) {
-              console.log("OK");
+              console.log("Cambio de Estado OK! Pedido " + idPedido);
+              $scope.getPedidosFiltrado($scope.query.pagina, $scope.query.limite);
             },
             function(error) {
-              console.log("NO");
+              console.log("Cambio de Estado ERROR! Pedido " + idPedido);
             }
           );
-        }
+        };
 
         $scope.getPedidosFiltrado = function (pagina, limite) {
           $scope.query.pagina = pagina;
@@ -147,7 +147,7 @@
           {id:2,tipo:'ESTADO_CONFIRMADO',nombre:'Confirmado'},
           {id:3,tipo:'ESTADO_ENVIADO',nombre:'Enviado'},
           {id:4,tipo:'ESTADO_ACEPTADO',nombre:'Aceptado'},
-          {id:5,tipo:'ESTADO_DESPACHADO',nombre:'Despachado'}, 
+          {id:5,tipo:'ESTADO_DESPACHADO',nombre:'Despachado'},
           {id:6,tipo:'ESTADO_CANCELADO',nombre:'Cancelado'}
         ];
 
@@ -157,7 +157,7 @@
 
         $scope.mostrarDetallePedidoModal = function(ev,id) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-          
+
           $mdDialog.show({
             templateUrl: 'app/main/detallePedido.tmpl.html',
             targetEvent: ev,
@@ -165,7 +165,7 @@
             clickOutsideToClose:true,
             fullscreen: useFullScreen
           })
-          
+
           .then(function(answer) {
             }, function() {
           });
@@ -184,7 +184,7 @@
             function() {
 
             }
-          );  
+          );
         };
       }
 })();

@@ -1,44 +1,51 @@
-<md-content layout-fill layout-padding flex md-scroll-y ng-controller="ListadoPedidosController">
-<form>
-  <md-toolbar>
-    <div class="md-toolbar-tools">
-      <h2>Detalle de Pedidos</h2>
-      <span flex></span>
-      <md-button class="md-icon-button" ng-click="cerrar()">Close</md-button>
-    </div>
-  </md-toolbar>
-  <div>
-      <p>Nombre del Cliente: {{unPedido.nombreCliente}}</p>
-      <p>Estado: {{unPedido.estado.nombre}}</p>
-      <p>Vendedor: {{unPedido.vendedor || 'Vendedor'}}</p>
-      <p>Fecha: {{unPedido.fechaRealizado | date : 'dd/MM/yyyy' || '-'}}</p>
-  </div>
-  <div>     
-    <table class="table table-bordered table-hover table-condensed">
-    <tr style="font-weight: bold">
-      <td style="width:10%">Producto</td>
-      <td style="width:10%">Precio Unitario</td>
-      <td style="width:20%">Cantidad</td>
-      <td style="width:25%">Subtotal</td>
-    </tr>
-    <tr ng-repeat="item in items">
-      <td>
-        <span>{{item.nombreProducto || '-'}}</span>
-      </td>
-      <td>
-        <span>{{item.precioUnitario || '-'}}</span>
-      </td>
-      <td>
-        <span>{{item.cantidad || '-'}}</span>
-      </td>
-      <td>
-        <span>{{item.subtotalProducto || '-'}}</span>
-      </td>
-    </tr>
-    </table>
-  </div>
-  <div>
-     <p>Total Compra: {{unPedido.totalCompra}}</p>
-  </div>
-</form>
-</md-content>
+<md-dialog layout-padding md-scroll-y ng-controller="ListadoPedidosController" ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Detalle del Pedido</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cerrar()">
+          <md-tooltip md-direction="top" md-visible="tooltipVisible">Cerrar</md-tooltip>
+          <md-icon md-font-icon="fa fa-times-circle fa-lg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div>
+            <p><b>Nombre del Cliente:</b> {{unPedido.nombreCliente}}</p>
+            <p><b>Estado:</b> {{unPedido.estado.nombre}}</p>
+            <p><b>Vendedor:</b> {{unPedido.vendedor || 'Vendedor'}}</p>
+            <p><b>Fecha:</b> {{unPedido.fechaRealizado | date : 'dd/MM/yyyy HH:mm' || '-'}}</p>
+        </div>
+        <div>
+          <table class="table table-bordered table-hover table-condensed">
+          <tr style="font-weight: bold" layout-wrap>
+            <td flex="30">Producto</td>
+            <td flex="15">Precio Unitario</td>
+            <td flex="10">Cantidad</td>
+            <td flex="15">Subtotal</td>
+          </tr>
+          <tr ng-repeat="item in items">
+            <td>
+              <span>{{item.nombreProducto || '-'}}</span>
+            </td>
+            <td>
+              <span>${{item.precioUnitario | number: '2' || '-'}}</span>
+            </td>
+            <td>
+              <span>{{item.cantidad || '-'}}</span>
+            </td>
+            <td>
+              <span>${{item.subtotalProducto | number: '2' || '-'}}</span>
+            </td>
+          </tr>
+          </table>
+        </div>
+        <div>
+           <p><b>Total Compra:</b> ${{unPedido.totalCompra | number:'2' || '-'}}</p>
+        </div>
+      </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>

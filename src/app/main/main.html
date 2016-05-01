@@ -1,17 +1,16 @@
 <div layout="column" ng-cloak class="md-default-theme bodyMainPrincipal">
   <div flex layout="row">
     <md-sidenav md-is-locked-open="true" class="md-sidenav-left md-whiteframe-z2">
-    <md-toolbar class="md-tall md-whiteframe-z1">
-      <span flex></span>
-      <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
-        <span class="md-flex">Order Tracker</span>
-      </h2>
-    </md-toolbar>
+      <md-toolbar class="md-whiteframe-z1" layout="column">
+        <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
+          <span class="md-flex">Order Tracker</span>
+        </h2>
+      </md-toolbar>
       <md-content class="md-padding" layout="column">
         <div class="lock-size" layout="row" layout-align="center center">
           <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
             <md-fab-trigger>
-              <md-button aria-label="pacientes" class="md-fab md-accent">
+              <md-button aria-label="Pedidos" class="md-fab md-accent">
                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Pedidos</md-tooltip>
                 <md-icon md-font-icon="fa fa-list-alt fa-lg"></md-icon>
                 <!--<md-icon md-svg-src="/app/assets/icons/orderTracker.svg"></md-icon>-->
@@ -20,7 +19,7 @@
             <md-fab-actions>
               <md-button aria-label="Busqueda Pedidos" class="md-fab md-raised md-mini" ui-sref=".listadoPedidos">
                 <md-tooltip md-direction="top" md-visible="tooltipVisible">Busqueda de Pedidos</md-tooltip>
-                <md-icon md-font-icon="fa fa-search fa-lg"></md-icon
+                <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
               </md-button>
             </md-fab-actions>
           </md-fab-speed-dial>
