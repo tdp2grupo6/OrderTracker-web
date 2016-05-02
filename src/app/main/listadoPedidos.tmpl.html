@@ -75,21 +75,17 @@
             <td md-cell>${{pedido.totalCompra | number : '2'}}</td>
             <td md-cell>
               <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetallePedidoModal($event,pedido.id)" aria-label="ver">
-              <md-tooltip md-direction="top" md-visible="tooltipVisible">Ver Pedido</md-tooltip>
                 <i class="fa fa-eye" aria-hidden="true"></i>
               </md-button>
             </td>
             <td md-cell>
               <md-button class="md-fab md-accent md-mini" ng-click="cambiarEstado(pedido.id, 'A')" aria-label="confirmar" ng-show="pedido.estado.id <= 3">
-                <md-tooltip md-direction="top" md-visible="tooltipVisible">Aceptar Pedido</md-tooltip>
                 <i class="fa fa-check" aria-hidden="true"></i>
               </md-button>
               <md-button class="md-fab md-warn md-mini" ng-click="cambiarEstado(pedido.id, 'D')" aria-label="despachar" ng-show="pedido.estado.id == 4">
-                <md-tooltip md-direction="top" md-visible="tooltipVisible">Despachar Pedido</md-tooltip>
                 <i class="fa fa-truck" aria-hidden="true"></i>
               </md-button>
               <md-button class="md-fab md-primary md-mini" ng-click="cambiarEstado(pedido.id, 'C')" aria-label="cancelar" ng-show="pedido.estado.id == 3 || pedido.estado.id == 4">
-                <md-tooltip md-direction="top" md-visible="tooltipVisible">Cancelar Pedido</md-tooltip>
                 <i class="fa fa-times" aria-hidden="true"></i>
               </md-button>
             </td>
