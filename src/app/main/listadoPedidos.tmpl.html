@@ -20,21 +20,21 @@
       <div class="md-toolbar-tools">
         <form flex name="filter.form">
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3" style="padding-top:12px">
                 <md-datepicker ng-model="fechaInicioFilter" md-placeholder="Fecha inicio"></md-datepicker>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3" style="padding-top:12px">
                 <md-datepicker ng-model="fechaFinFilter" md-placeholder="Fecha fin"></md-datepicker>
             </div>
             <div class="col-md-3">
-              <md-select ng-model="idClienteFilter" placeholder="Cliente">
+              <md-select ng-model="idClienteFilter" placeholder="Cliente" style="font-size:14px">
                   <md-option ng-repeat="pedido in pedidos | unique:'nombreCliente'" value="{{pedido.codigoCliente}}">
                     {{pedido.nombreCliente}}
                   </md-option>
                 </md-select>
             </div>
             <div class="col-md-3">
-              <md-select ng-model="estadoFilter" placeholder="Estado">
+              <md-select ng-model="estadoFilter" placeholder="Estado" style="font-size:14px">
                   <md-option ng-repeat="estado in estados" value="{{estado.id}}">
                     {{estado.nombre}}
                   </md-option>
