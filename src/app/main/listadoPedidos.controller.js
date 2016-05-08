@@ -14,7 +14,7 @@
             var len = (input) ? input.length : 0;
             for(var i = 0; i < len; i++){
                 if(typeof unique[input[i][key]] === 'undefined'){
-                    unique[input[i][key]] = "";
+                    unique[input[i][key]] = '';
                     uniqueList.push(input[i]);
                 }
             }
@@ -22,9 +22,9 @@
         };
       });
 
-      ListadoPedidosController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Pedidos', 'Services', '$filter'];
+      ListadoPedidosController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Pedidos', 'Services', '$filter', '$mdToast'];
 
-      function ListadoPedidosController($scope, $mdDialog, $mdMedia, Pedidos, Services, $filter) {
+      function ListadoPedidosController($scope, $mdDialog, $mdMedia, Pedidos, Services, $filter,$mdToast) {
 
         $scope.query = {
           estado: '',
@@ -75,31 +75,58 @@
           );
         };
 
+        var last = {
+           bottom: true,
+           top: false,
+           left: false,
+           right: true
+        };
+
+        $scope.toastPosition = angular.extend({},last);
+        
+        function sanitizePosition() {
+            var current = $scope.toastPosition;
+            if ( current.bottom && last.top ) current.top = false;
+            if ( current.top && last.bottom ) current.bottom = false;
+            if ( current.right && last.left ) current.left = false;
+            if ( current.left && last.right ) current.right = false;
+            last = angular.extend({},current);
+        };
+
+        $scope.getToastPosition = function() {
+            sanitizePosition();
+            return Object.keys($scope.toastPosition)
+            .filter(function(pos) { return $scope.toastPosition[pos]; })
+            .join(' ');
+        };
 
         $scope.cambiarEstado = function(idPedido, accion) {
 
           if (accion === 'A') {
             /* Debe ir en este formato el body para que lo acepte como json */
-            $scope.body = '{\'estado\': ESTADO_ACEPTADO}';
-          }
+            $scope.body = "{\'estado\': ESTADO_ACEPTADO}";
+            $mdToast.show($mdToast.simple().textContent('El Pedido ha sido Aceptado!').position($scope.getToastPosition()).hideDelay(3000));
+          } 
           else if (accion === 'D') {
             /* Debe ir en este formato el body para que lo acepte como json */
-            $scope.body = '{\'estado\': ESTADO_DESPACHADO}';
+            $scope.body = "{\'estado\': ESTADO_DESPACHADO}";
+            $mdToast.show($mdToast.simple().textContent('El Pedido ha sido Despachado!').position($scope.getToastPosition()).hideDelay(3000));
           }
           else if (accion === 'C') {
             /* Debe ir en este formato el body para que lo acepte como json */
-            $scope.body = '{\'estado\': ESTADO_CANCELADO}';
+            $scope.body = "{\'estado\': ESTADO_CANCELADO}";
+            $mdToast.show($mdToast.simple().textContent('El Pedido ha sido Cancelado!').position($scope.getToastPosition()).hideDelay(3000));
           }
 
           /* Cuando se tiene un servicio con parametros y body, primero se para el parametro,
             luego el body y luego las funciones de callback. */
 
           Pedidos.actualizarPedido({id:idPedido}, $scope.body,
-            function(data) {
-              console.log("Cambio de Estado OK! Pedido " + idPedido);
+            function() {
+              console.log('Cambio de Estado OK! Pedido ' + idPedido);
               $scope.getPedidosFiltrado($scope.query.pagina, $scope.query.limite);
             },
-            function(error) {
+            function() {
               console.log("Cambio de Estado ERROR! Pedido " + idPedido);
             }
           );
