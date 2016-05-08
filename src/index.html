@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width">
     
     <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
-    <link rel="stylesheet" href="/app/vendor.scss"> 
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"> 
     <!-- bower:css -->
     <!-- run `gulp inject` to automatically populate bower styles dependencies -->
@@ -17,12 +16,13 @@
     <!-- build:css({.tmp/serve,src}) styles/app.css -->
     <!-- inject:css -->
     <!-- css files will be automatically insert here -->
+    <link rel="stylesheet" href="/app/vendor.scss"> 
     <!-- endinject -->
     <!-- endbuild -->
   </head>
   <body>
     
-    <div ui-view layout="row" layout-fill></div>
+    <div ui-view layout-fill></div>
 
     <base href="/">
     <!-- build:js(src) scripts/vendor.js -->

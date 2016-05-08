@@ -1,0 +1,104 @@
+<md-toolbar class="md-warn md-whiteframe-z1">
+  <md-button class="md-icon-button" ng-click="openMenu()" hide-gt-sm aria-label="Toggle Menu">
+    <md-icon md-font-icon="fa fa-menu fa-lg"></md-icon>
+  </md-button>
+  <h3 class"md-toolbar-tools">
+    <span>&nbsp;Agenda > Edicion de Agenda</span>
+  </h3>
+</md-toolbar>
+
+<md-content layout-fill layout-padding md-scroll-y>
+    <md-card>
+    	<md-card-content>
+
+	       <md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+		        <div class="md-toolbar-tools">
+		          <h2 class="md-title">Agenda</h2>
+		          <div flex="" class="flex"></div>
+		          <md-button class="md-icon-button" ng-click="filter.show = true" aria-label="buscar">
+		          <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+		        </md-button>
+		      </div>
+		    </md-toolbar>
+		    <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show">
+		      <div class="md-toolbar-tools">
+		        <form flex name="filter.form">
+		          <div class="row">
+		            <div class="col-md-3" style="padding-top:12px">
+		                <md-datepicker ng-model="fechaInicioFilter" md-placeholder="Fecha inicio"></md-datepicker>
+		            </div>
+		            <div class="col-md-3" style="padding-top:12px">
+		                <md-datepicker ng-model="fechaFinFilter" md-placeholder="Fecha fin"></md-datepicker>
+		            </div>
+		            <div class="col-md-3">
+		              <md-select ng-model="idClienteFilter" placeholder="Cliente" style="font-size:14px">
+		                  <md-option ng-repeat="pedido in pedidos | unique:'nombreCliente'" value="{{pedido.codigoCliente}}">
+		                    {{pedido.nombreCliente}}
+		                  </md-option>
+		                </md-select>
+		            </div>
+		            <div class="col-md-3">
+		              <md-select ng-model="estadoFilter" placeholder="Estado" style="font-size:14px">
+		                  <md-option ng-repeat="estado in estados" value="{{estado.id}}">
+		                    {{estado.nombre}}
+		                  </md-option>
+		                </md-select>
+		            </div>
+		          </div>
+		        </form>
+		        <md-button class="md-fab md-warn md-mini" ng-click="buscarVendedor()" aria-label="cerrar">
+		          <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+		        </md-button>
+		        <md-button class="md-fab md-warn md-mini" ng-click="removeFilter()" aria-label="cerrar">
+		          <i class="fa fa-times" aria-hidden="true"></i>
+		        </md-button>
+		      </div>
+		    </md-toolbar>
+
+		    <md-table-container>
+		      <table md-table multiple ng-model="selected" md-progress="promise">
+		        <thead md-head md-order="query.order" md-on-reorder="getPedidosFiltrado">
+		          <tr md-row>
+		            <th md-column>DOM</th>
+		            <th md-column>LUN</th>
+		            <th md-column>MAR</th>
+		            <th md-column>MIE</th>
+		            <th md-column>JUE</th>
+		            <th md-column>VIE</th>
+		            <th md-column>SAB</th>
+		            <th md-column>Acciones</th>
+		          </tr>
+		        </thead>
+		        <tbody md-body>
+		          <tr md-row md-select="pedido" md-select-id="id" md-auto-select ng-repeat="pedido in pedidos | orderBy: query.order">
+		            <td md-cell>{{pedido.id}}</td>
+		            <td md-cell>{{pedido.fechaRealizado | date : 'dd/MM/yyyy'}}</td>
+		            <td md-cell>{{pedido.nombreCliente}}</td>
+		            <td md-cell>{{pedido.estado.nombre}}</td>
+		            <td md-cell>{{pedido.vendedor || 'Vendedor'}}</td>
+		            <td md-cell>${{pedido.totalCompra | number : '2'}}</td>
+		            <td md-cell>
+		              <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetallePedidoModal($event,pedido.id)" aria-label="ver">
+		                <i class="fa fa-eye" aria-hidden="true"></i>
+		              </md-button>
+		            </td>
+		            <td md-cell>
+		              <md-button class="md-fab md-accent md-mini" ng-click="cambiarEstado(pedido.id, 'A')" aria-label="confirmar" ng-show="pedido.estado.id <= 3">
+		                <i class="fa fa-check" aria-hidden="true"></i>
+		              </md-button>
+		              <md-button class="md-fab md-warn md-mini" ng-click="cambiarEstado(pedido.id, 'D')" aria-label="despachar" ng-show="pedido.estado.id == 4">
+		                <i class="fa fa-truck" aria-hidden="true"></i>
+		              </md-button>
+		              <md-button class="md-fab md-primary md-mini" ng-click="cambiarEstado(pedido.id, 'C')" aria-label="cancelar" ng-show="pedido.estado.id == 3 || pedido.estado.id == 4">
+		                <i class="fa fa-times" aria-hidden="true"></i>
+		              </md-button>
+		            </td>
+		          </tr>
+		        </tbody>
+		      </table>
+		    </md-table-container>
+
+		    <md-table-pagination md-limit="20" md-page="query.pagina" md-total="{{totalResultados}}" md-label="{page: 'Página:', of: 'de'}" md-on-paginate="getPedidosFiltrado" md-page-select></md-table-pagination>
+    	</md-card-content>
+    </md-card>
+</md-content>

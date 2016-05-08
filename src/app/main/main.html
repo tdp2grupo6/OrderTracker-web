@@ -1,30 +1,39 @@
 <div layout-xs="column" ng-cloak class="md-default-theme">
-  <div layout="row">
-    <md-sidenav md-is-locked-open="true" class="md-sidenav-left md-whiteframe-z2 bodyMainPrincipal ">
-      <md-toolbar class="md-whiteframe-z1 " layout="column">
+  <div>
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2 bodyMainPrincipal" style="float:left" md-component-id="left" hide-print md-is-locked-open="$mdMedia('gt-sm')">
+    <header class="nav-header">
+        <md-toolbar class="md-whiteframe-z1" layout="column">
         <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
           <span class="md-flex">Order Tracker</span>
         </h2>
       </md-toolbar>
-      <md-content class="md-padding" layout="column">
-        <div class="lock-size" layout="row" layout-align="center center">
+    </header>
+    <md-content class="md-padding" flex>
+        <div class="lock-size" layout-align="center center">
           <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
-            <md-fab-trigger>
-              <md-button aria-label="Pedidos" class="md-fab md-accent">
-                <md-tooltip md-direction="top" md-visible="tooltipVisible">Pedidos</md-tooltip>
-                <md-icon md-font-icon="fa fa-list-alt fa-lg"></md-icon>
-                <!--<md-icon md-svg-src="/app/assets/icons/orderTracker.svg"></md-icon>-->
-              </md-button>
-            </md-fab-trigger>
-            <md-fab-actions>
-              <md-button aria-label="Busqueda Pedidos" class="md-fab md-raised md-mini" ui-sref=".listadoPedidos">
-                <md-tooltip md-direction="top" md-visible="tooltipVisible">Busqueda de Pedidos</md-tooltip>
-                <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
-              </md-button>
-            </md-fab-actions>
+              <md-fab-trigger>
+                <md-button class="md-primary" aria-label="Pedidos">Pedidos <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
+              </md-fab-trigger>
+              <md-fab-actions>
+                <md-button aria-label="Busqueda Pedidos" class="md-fab md-raised md-mini" ui-sref=".listadoPedidos">
+                  <md-tooltip md-direction="top" md-visible="tooltipVisible">Busqueda de Pedidos</md-tooltip>
+                  <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+                </md-button>
+              </md-fab-actions>
+          </md-fab-speed-dial>
+          <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
+              <md-fab-trigger>
+                <md-button class="md-primary" aria-label="Agenda">Agenda <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
+              </md-fab-trigger>
+              <md-fab-actions>
+                <md-button aria-label="Ver Agenda" class="md-fab md-raised md-mini" ui-sref=".agenda">
+                  <md-tooltip md-direction="top" md-visible="tooltipVisible">Agenda de Vendedores</md-tooltip>
+                  <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+                </md-button>
+              </md-fab-actions>
           </md-fab-speed-dial>
         </div>
-      </md-content>
+    </md-content>
     </md-sidenav>
     <md-content>
       <div ui-view></div>

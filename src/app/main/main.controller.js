@@ -10,6 +10,16 @@
 			function MainController($scope, $mdDialog, $mdMedia) {
 				$scope.contentUrl = '';
 
+				$scope.sections = [
+		          {id:1,tipo:'ESTADO_NUEVO',nombre:'Nuevo'},
+		          {id:2,tipo:'ESTADO_CONFIRMADO',nombre:'Confirmado'},
+		          {id:3,tipo:'ESTADO_ENVIADO',nombre:'Enviado'},
+		          {id:4,tipo:'ESTADO_ACEPTADO',nombre:'Aceptado'},
+		          {id:5,tipo:'ESTADO_DESPACHADO',nombre:'Despachado'},
+		          {id:6,tipo:'ESTADO_CANCELADO',nombre:'Cancelado'}
+		        ];
+
+
 	/*    	$scope.showBusquedaPacienteModal = function(ev) {
 					var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 					$mdDialog.show({

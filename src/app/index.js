@@ -23,6 +23,11 @@ angular.module('myApp', [
                 url: '/listadoPedidos',
                 templateUrl: 'app/main/listadoPedidos.tmpl.html',
                 controller: 'ListadoPedidosController'
+            })
+            .state('main.agenda', {
+                url: '/agenda',
+                templateUrl: 'app/main/agenda.tmpl.html',
+                controller: 'AgendaController'
             });
 
         $urlRouterProvider.otherwise('/main');
