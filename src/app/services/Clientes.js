@@ -3,13 +3,13 @@
 
 	angular
 		.module('myApp')
-		.factory('Agenda', Agenda);
+		.factory('Clientes', Clientes);
 
-		Agenda.$inject = ['$resource', 'Services'];
+		Clientes.$inject = ['$resource', 'Services'];
 
-		function Agenda($resource, Services) {
+		function Clientes($resource, Services) {
 
-		  	return $resource(Services.url + 'agenda', {},
+		  	return $resource(Services.url + 'clientes', {},
 	        {
 	          listarPedidos: {
 	            method: 'GET',

@@ -28,6 +28,11 @@ angular.module('myApp', [
                 url: '/agenda',
                 templateUrl: 'app/main/agenda.tmpl.html',
                 controller: 'AgendaController'
+            })
+            .state('main.clientes', {
+                url: '/clientes',
+                templateUrl: 'app/main/clientes.tmpl.html',
+                controller: 'ClientesController'
             });
 
         $urlRouterProvider.otherwise('/main');
@@ -48,9 +53,9 @@ angular.module('myApp', [
 
     // dgacitua: Traducción de DatePickers
     .config(function($mdDateLocaleProvider) {
-      $mdDateLocaleProvider.months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-      $mdDateLocaleProvider.shortMonths = ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
-      $mdDateLocaleProvider.days = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+      $mdDateLocaleProvider.months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      $mdDateLocaleProvider.shortMonths = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+      $mdDateLocaleProvider.days = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
       $mdDateLocaleProvider.shortDays = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'];
       $mdDateLocaleProvider.firstDayOfWeek = 0;
       // In addition to date display, date components also need localized messages

@@ -5,37 +5,9 @@
 		.module('myApp')
 		.factory('Pedidos', Pedidos);
 
-		Pedidos.$inject = ['$resource', 'Services', '$http'];
+		Pedidos.$inject = ['$resource', 'Services'];
 
 		function Pedidos($resource, Services) {
-      /*
-       this.listarPedidos = function() {
-       var path = Services.url + "pedido";
-       var query = $http.get(path);
-
-       return query.then(function(res) {
-       return res;
-       });
-       };
-
-       this.listarPedidos = function(id) {
-       var path = Services.url + "pedido/" + id;
-       var query = $http.get(path);
-
-       return query.then(function(res) {
-       return res;
-       });
-       };
-
-       this.filtrarPedido = function(parms) {
-       var path = Services.url + "pedido/filtro";
-       var query = $http.post(path, parms);
-
-       return query.then(function(res) {
-       return res;
-       });
-       };
-       */
       return $resource(Services.url + 'pedido', {},
         {
           listarPedidos: {

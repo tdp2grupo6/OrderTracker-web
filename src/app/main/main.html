@@ -32,6 +32,18 @@
                 </md-button>
               </md-fab-actions>
           </md-fab-speed-dial>
+
+           <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
+              <md-fab-trigger>
+                <md-button class="md-primary" aria-label="Agenda">Clientes <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
+              </md-fab-trigger>
+              <md-fab-actions>
+                <md-button aria-label="Ver Clientes" class="md-fab md-raised md-mini" ui-sref=".clientes">
+                  <md-tooltip md-direction="top" md-visible="tooltipVisible">Clientes</md-tooltip>
+                  <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+                </md-button>
+              </md-fab-actions>
+          </md-fab-speed-dial>
         </div>
     </md-content>
     </md-sidenav>
