@@ -31,7 +31,7 @@
             </div>
             <div class="col-md-3">
               <md-select ng-model="idClienteFilter" placeholder="Cliente" style="font-size:14px">
-                  <md-option ng-repeat="pedido in pedidos | unique:'nombreCliente'" value="{{pedido.codigoCliente}}">
+                  <md-option ng-repeat="pedido in pedidos | unique:'pedido.id'" value="{{pedido.codigoCliente}}">
                     {{pedido.nombreCliente}}
                   </md-option>
                 </md-select>

@@ -7,7 +7,7 @@
 
 		Pedidos.$inject = ['$resource', 'Services', '$http'];
 
-		function Pedidos($resource, Services, $http) {
+		function Pedidos($resource, Services) {
       /*
        this.listarPedidos = function() {
        var path = Services.url + "pedido";
