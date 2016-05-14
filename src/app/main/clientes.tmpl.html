@@ -59,22 +59,22 @@
 
     <md-table-container>
       <table md-table multiple ng-model="selected" md-progress="promise">
-        <thead md-head md-order="query.order" md-on-reorder="getPedidosFiltrado">
+        <thead md-head md-order="query.order" md-on-reorder="getClientesFiltrado">
           <tr md-row>
-            <th md-column md-numeric md-order-by="id"><span>Nombre</span></th>
-            <th md-column md-order-by="fechaRealizado"><span>Apellido</span></th>
-            <th md-column md-order-by="clienteNombre">Telefono</th>
-            <th md-column md-order-by="estado.id">Direccion</th>
-            <th md-column md-order-by="vendedor">Razon Social</th>
-            <th md-column md-order-by="total">Email</th>
-            <th md-column>Ver</th>
+            <th md-column md-numeric md-order-by="id"><span>Id</span></th>
+            <th md-column md-order-by="nombre"><span>Nombre</span></th>
+            <th md-column md-order-by="apellido"><span>Apellido</span></th>
+            <th md-column md-order-by="telefono">Telefono</th>
+            <th md-column md-order-by="direccion">Direccion</th>
+            <th md-column md-order-by="razonSocial">Razon Social</th>
+            <th md-column md-order-by="email">Email</th>
             <th md-column>Acciones</th>
           </tr>
         </thead>
         <tbody md-body>
           <!-- <tr md-row md-select="cliente" md-select-id="id" md-auto-select ng-repeat="cliente in clientes  | orderBy: query.order"> -->
           <tr md-row md-select="cliente" md-select-id="id" md-auto-select ng-repeat="cliente in clientes">
-         
+            <td md-cell>{{cliente.id}}</td>
             <td md-cell>{{cliente.nombre}}</td>
             <td md-cell>{{cliente.apellido}}</td>
             <td md-cell>{{cliente.telefono}}</td>
@@ -82,24 +82,22 @@
             <td md-cell>{{cliente.razonSocial}}</td>
             <td md-cell>{{cliente.email}}</td>
             <td md-cell>
-              <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetalleClienteModal($event,pedido.id)" aria-label="ver">
+              <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetalleClienteModal($event,cliente.id)" aria-label="ver">
                 <i class="fa fa-eye" aria-hidden="true"></i>
               </md-button>
-            </td>
-            <td md-cell>
-              <md-button class="md-fab md-accent md-mini" ng-click="editarCliente(cliente.id,'A')" aria-label="confirmar" ng-show="pedido.estado.id <= 3">
+              <md-button class="md-fab md-primary md-mini" ng-click="editarCliente(cliente.id)" aria-label="confirmar">
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
               </md-button>
-              <md-button class="md-fab md-warn md-mini" ng-click="borrarCliente(pedido.id, 'D')" aria-label="despachar" ng-show="pedido.estado.id == 4">
+              <md-button class="md-fab md-accent md-mini" ng-click="borrarCliente(cliente.id)" aria-label="eliminar">
                 <i class="fa fa-eraser" aria-hidden="true"></i>
               </md-button>
-              
+
           </tr>
         </tbody>
       </table>
     </md-table-container>
 
-    <md-table-pagination md-limit="20" md-page="query.pagina" md-total="{{totalResultados}}" md-label="{page: 'Página:', of: 'de'}" md-on-paginate="getPedidosFiltrado" md-page-select></md-table-pagination>
+    <md-table-pagination md-limit="20" md-page="query.pagina" md-total="{{totalResultados}}" md-label="{page: 'Página:', of: 'de'}" md-on-paginate="getClientesFiltrado" md-page-select></md-table-pagination>
 
     </md-card-content>
 
