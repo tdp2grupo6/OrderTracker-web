@@ -6,9 +6,9 @@
      	.controller('AgendaController', AgendaController);
 
 
-      AgendaController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Agenda'];
+      AgendaController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Agenda', '$filter'];
 
-      function AgendaController($scope, $mdDialog, $mdMedia, Agenda) {
+      function AgendaController($scope, $mdDialog, $mdMedia, Agenda, $filter) {
 
     	$scope.date = new Date();
       		
@@ -72,15 +72,25 @@
 			var idVendedor = {idVendedor:$scope.vendedorFilter};
       		Agenda.cargarAgendaVendedor(idVendedor,
       			function(data) {
-  					
-  					$scope.semanaVendedor = [data.agenda[0].listaClientes,
-  						data.agenda[1].listaClientes,
-  						data.agenda[2].listaClientes,
-  						data.agenda[3].listaClientes,
-  						data.agenda[4].listaClientes,
-  						data.agenda[5].listaClientes,
-  						data.agenda[6].listaClientes
+  					console.log(data.agenda);
+  					$scope.semanaVendedor = [
+  						{codigoDia: data.agenda[0].codigoDia, clientes : data.agenda[0].listaClientes},
+  						{codigoDia: data.agenda[1].codigoDia, clientes : data.agenda[1].listaClientes},
+  						{codigoDia: data.agenda[2].codigoDia, clientes : data.agenda[2].listaClientes},
+  						{codigoDia: data.agenda[3].codigoDia, clientes : data.agenda[3].listaClientes},
+  						{codigoDia: data.agenda[4].codigoDia, clientes : data.agenda[4].listaClientes},
+  						{codigoDia: data.agenda[5].codigoDia, clientes : data.agenda[5].listaClientes},
+  						{codigoDia: data.agenda[6].codigoDia, clientes : data.agenda[6].listaClientes}
 					];
+
+					$scope.agendaDomingo = $filter('filter')($scope.semanaVendedor, { codigoDia: 0})[0].clientes;
+					$scope.agendaLunes = $filter('filter')($scope.semanaVendedor, { codigoDia: 1})[0].clientes;
+					$scope.agendaMartes = $filter('filter')($scope.semanaVendedor, { codigoDia: 2})[0].clientes;
+					$scope.agendaMiercoles = $filter('filter')($scope.semanaVendedor, { codigoDia: 3})[0].clientes;
+					$scope.agendaJueves = $filter('filter')($scope.semanaVendedor, { codigoDia: 4})[0].clientes;
+					$scope.agendaViernes = $filter('filter')($scope.semanaVendedor, { codigoDia: 5})[0].clientes;
+					$scope.agendaSabado = $filter('filter')($scope.semanaVendedor, { codigoDia: 6})[0].clientes;
+
 					//Variable tramposa para tener una fila en la grilla
 					$scope.contador = [1];
       			},
