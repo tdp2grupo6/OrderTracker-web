@@ -40,43 +40,47 @@
 		        </md-button>
 		      </div>
 		    </md-toolbar>
-	    	<div class="col-md-4" ng-show="vendedorSeleccionado">
+	    	<div ng-show="vendedorSeleccionado">
 			    <md-card>
 			    	<md-card-content>
-			    		<div layout="column">
-			    			<div flex>
-					    		<h4>Agregar a la agenda</h4>
-				    		</div>
+		    			<div flex>
+				    		<h4>Agregar a la agenda</h4>
+			    		</div>
+			    		<div layout="row">
 				    		<div flex>
-				            	<md-select ng-model="idClienteFilter" placeholder="Cliente" style="font-size:14px" ng-change="seleccionarCliente()">
-				                	<md-option ng-repeat="cliente in clientes | unique:'id'" value="{{cliente.id}}">
-				                		{{cliente.nombreCompleto}}
-				                	</md-option>
-				                </md-select>
-				    		</div>
-				    		<div flex>
-				            	<label>Horario Preferido: {{disponibilidadCliente}}</label>
-				    		</div>
-				    		<div flex>
-				            	<label>Dirección: {{direccionCliente}}</label>
-				    		</div>
-				    		<div flex>
-				            	<md-select ng-model="diaSemana" placeholder="Dia" style="font-size:14px">
-				                	<md-option ng-repeat="dia in semana" value="{{dia.id}}">
-				                		{{dia.nombre}}
-				                	</md-option>
-				                </md-select>
-				    		</div>
-				    		<div flex>
-						        <md-button class="md-fab md-accent md-mini" ng-click="agregarCliente()" aria-label="agregar">
-						        	<md-icon md-font-icon="fa fa-plus fa-lg"></md-icon>
-						        </md-button>  
+					    		<div flex>
+					            	<md-select ng-model="idClienteFilter" placeholder="Cliente" style="font-size:14px" ng-change="seleccionarCliente()">
+					                	<md-option ng-repeat="cliente in clientes | unique:'id'" value="{{cliente.id}}">
+					                		{{cliente.nombreCompleto}}
+					                	</md-option>
+					                </md-select>
+					    		</div>
+					    		<div flex>
+					            	<md-select ng-model="diaSemana" placeholder="Dia" style="font-size:14px">
+					                	<md-option ng-repeat="dia in semana" value="{{dia.id}}">
+					                		{{dia.nombre}}
+					                	</md-option>
+					                </md-select>
+					    		</div>
+					    		<div flex ng-show="idClienteFilter && diaSemana">
+							        <md-button class="md-fab md-accent md-mini" ng-click="agregarCliente()" aria-label="agregar">
+							        	<md-icon md-font-icon="fa fa-plus fa-lg"></md-icon>
+							        </md-button>  
+						        </div>
+					        </div>
+					        <div flex>
+					    		<div flex ng-show="idClienteFilter">
+					            	<h5 style="padding:20px">Horario Preferido: {{disponibilidadCliente}}</h5>
+					    		</div>
+					    		<div flex ng-show="idClienteFilter">
+					            	<h5 style="padding:20px">Dirección: {{direccionCliente}}</h5>
+					    		</div>
 					        </div>
 				        </div>
 			        <md-card-content>
 		        <md-card>              
 	    	</div>
-	    	<div class="col-md-8" ng-show="vendedorSeleccionado">
+	    	<div ng-show="vendedorSeleccionado">
 			    <md-table-container>
 			    	<table md-table multiple ng-model="selected" md-progress="promise">
 			        	<thead md-head md-order="query.order" md-on-reorder="getPedidosFiltrado">
