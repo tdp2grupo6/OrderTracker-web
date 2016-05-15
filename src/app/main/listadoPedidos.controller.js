@@ -53,7 +53,7 @@
 
         $scope.buscarPedidos = function () {
           var fechaInicio = ($scope.fechaInicioFilter) ? $filter('date')($scope.fechaInicioFilter, Services.dateFormat) : '';
-          var fechaFin = ($scope.fechaFinFilter) ? $filter('date')(($scope.fechaFinFilter).setDate(($scope.fechaFinFilter).getDate() + 1), Services.dateFormat) : '';
+          var fechaFin = ($scope.fechaFinFilter) ? $filter('date')($scope.fechaFinFilter, Services.dateFormat) : '';
 
           //console.log($scope.fechaFinFilter);
 
@@ -83,7 +83,7 @@
         };
 
         $scope.toastPosition = angular.extend({},last);
-        
+
         function sanitizePosition() {
             var current = $scope.toastPosition;
             if ( current.bottom && last.top ) current.top = false;
@@ -106,7 +106,7 @@
             /* Debe ir en este formato el body para que lo acepte como json */
             $scope.body = "{\'estado\': ESTADO_ACEPTADO}";
             $mdToast.show($mdToast.simple().textContent('El Pedido ha sido Aceptado!').position($scope.getToastPosition()).hideDelay(3000));
-          } 
+          }
           else if (accion === 'D') {
             /* Debe ir en este formato el body para que lo acepte como json */
             $scope.body = "{\'estado\': ESTADO_DESPACHADO}";

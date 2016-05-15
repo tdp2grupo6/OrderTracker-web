@@ -9,7 +9,7 @@
 
 		function Clientes($resource, Services) {
 
-		  	return $resource(Services.url + 'clientes', {},
+		  	return $resource(Services.url + 'cliente', {},
 	        {
 	          listarClientes: {
 	            method: 'GET',
@@ -28,7 +28,7 @@
 
           	  actualizarCliente: {
             	method: 'PUT',
-            	url: Services.url + 'clientes/:id',
+            	url: Services.url + 'cliente/:id',
             	params: {id: '@id'},
             	headers: {
               		'Content-Type': 'application/json'
@@ -37,7 +37,7 @@
 
           	  borrarCliente: {
             	method: 'DELETE',
-            	url: Services.url + 'clientes/:id',
+            	url: Services.url + 'cliente/:id',
 				params: {id: '@id'},
             	headers: {
               		'Content-Type': 'application/json'
@@ -46,7 +46,7 @@
 
           	  listarCliente: {
             	method: 'GET',
-            	url: Services.url + 'clientes/:id',
+            	url: Services.url + 'cliente/:id',
             	params: {id: '@id'},
             	headers: {
               		'Content-Type': 'application/json'
@@ -55,11 +55,11 @@
 
               filtrarCliente: {
             	method: 'POST',
-            	url: Services.url + 'clientes/filtro',
+            	url: Services.url + 'cliente/filtro',
             	headers: {
               		'Content-Type': 'application/json'
             	}
-          	  }         	
+          	  }
           	}
           );
         }
