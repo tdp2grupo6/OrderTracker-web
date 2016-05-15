@@ -10,7 +10,8 @@ angular.module('myApp', [
     'ngMaterial',
     'ngMessages',
     'xeditable',
-    'md.data.table'])
+    'md.data.table',
+    'ja.qr'])
 
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
         $stateProvider

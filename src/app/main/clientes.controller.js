@@ -44,14 +44,47 @@
           }
         );
 
+        // dgacitua: Ver Cliente Modal
+        $scope.mostrarDetalleCliente = function(ev, id) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+
+          Clientes.listarCliente({ id: id },
+            function(data) {
+              $scope.cliente = data;
+              $scope.validador = data.validador;
+
+              // Mostrar Modal
+              $mdDialog.show({
+                  templateUrl: 'app/main/clienteDetalle.tmpl.html',
+                  targetEvent: ev,
+                  scope: $scope.$new(),
+                  clickOutsideToClose:true,
+                  fullscreen: useFullScreen
+                })
+                .then(function(answer) {
+                }, function() {
+                });
+
+              $scope.$watch(function() {
+                return $mdMedia('xs') || $mdMedia('sm');
+              }, function(wantsFullScreen) {
+                $scope.customFullscreen = (wantsFullScreen === true);
+              });
+            },
+            function(error) {
+              console.log("ERROR! No se puede mostrar el Cliente" + error);
+            }
+          );
+        };
+
         // TODO Funcion para editar cliente
         $scope.editarCliente = function(id) {
-          console.log("TODO editar cliente " + id)
+          console.log("TODO editar cliente " + id);
         };
 
         // TODO Funcion para borrar cliente
         $scope.borrarCliente = function(id) {
-          console.log("TODO borrar cliente " + id)
+          console.log("TODO borrar cliente " + id);
         };
 
         $scope.agregarClienteModal = function(ev) {
