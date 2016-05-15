@@ -19,6 +19,7 @@
 		          {id:6,tipo:'ESTADO_CANCELADO',nombre:'Cancelado'}
 		        ];
 
+	      		$scope.sidenavOpen = true;
 
 		      	$scope.openMenu = function() {
 		      		$scope.sidenavOpen = true;
