@@ -3,7 +3,21 @@
 
     angular
 		.module('myApp')
-     	.controller('ClientesController', ClientesController);
+    .controller('ClientesController', ClientesController)
+    .filter('unique', function() {
+      return function(input, key) {
+        var unique = {};
+        var uniqueList = [];
+        var len = (input) ? input.length : 0;
+        for(var i = 0; i < len; i++){
+          if(typeof unique[input[i][key]] === 'undefined'){
+            unique[input[i][key]] = '';
+            uniqueList.push(input[i]);
+          }
+        }
+        return uniqueList;
+      };
+    });
 
 
       ClientesController.$inject = ['$scope', '$mdDialog', '$mdMedia','$filter', 'Services', 'Clientes'];
@@ -31,13 +45,17 @@
         );
 
         $scope.editarCliente = function(id) {
-          console.log("TODO editar cliente")
+          console.log("TODO editar cliente " + id)
         };
 
         $scope.borrarCliente = function(id) {
-          console.log("TODO borrar cliente")
+          console.log("TODO borrar cliente " + id)
         };
 
+        // dgacitua: Codigo de md-autocomplete
+        Clientes.listarClientes(function(data) {
+          $scope.listaClientes = data;
+        });
 
           $scope.agregarClienteModal = function(ev) {
             var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -98,6 +116,29 @@
 
           Clientes.filtrarCliente($scope.query,
             function(data) {
+              $scope.clientes = data.resultados;
+              $scope.totalResultados = data.totalResultados;
+            },
+            function() {
+
+            }
+          );
+        };
+
+        $scope.buscarClientes = function () {
+          $scope.query = {
+            idCliente: $scope.filtroId? $scope.filtroId : '',
+            nombre: $scope.selectedItem1? $scope.selectedItem1.nombre : '',
+            apellido: $scope.selectedItem2? $scope.selectedItem2.apellido : '',
+            email: $scope.selectedItem3? $scope.selectedItem3.email : '',
+            direccion: $scope.selectedItem4? $scope.selectedItem4.direccion : '',
+            pagina: 1
+          }
+
+          Clientes.filtrarCliente($scope.query,
+            function(data) {
+              console.log($scope.query)
+              console.log(data)
               $scope.clientes = data.resultados;
               $scope.totalResultados = data.totalResultados;
             },
