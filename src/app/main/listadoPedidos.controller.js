@@ -22,9 +22,9 @@
         };
       });
 
-      ListadoPedidosController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Pedidos', 'Services', '$filter', '$mdToast'];
+      ListadoPedidosController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Pedidos', 'Clientes', 'Services', '$filter', '$mdToast'];
 
-      function ListadoPedidosController($scope, $mdDialog, $mdMedia, Pedidos, Services, $filter,$mdToast) {
+      function ListadoPedidosController($scope, $mdDialog, $mdMedia, Pedidos, Clientes, Services, $filter, $mdToast) {
 
         $scope.query = {
           estado: '',
@@ -39,6 +39,7 @@
               $scope.pedidos = data.resultados;
               $scope.totalResultados = data.totalResultados;
               angular.forEach($scope.pedidos, function(pedido) {});
+              //console.log($scope.pedidos);
             },
             function() {
 
@@ -58,7 +59,7 @@
           //console.log($scope.fechaFinFilter);
 
           $scope.query.estado = ($scope.estadoFilter) ? $scope.estadoFilter : '';
-          $scope.query.idCliente = ($scope.idClienteFilter) ? $scope.idClienteFilter : '';
+          $scope.query.idCliente = ($scope.selectedItem1) ? $scope.selectedItem1.id : '';  //($scope.idClienteFilter) ? $scope.idClienteFilter : '';
           $scope.query.fechaInicio = fechaInicio;
           $scope.query.fechaFin = fechaFin;
 
@@ -130,6 +131,18 @@
               console.log("Cambio de Estado ERROR! Pedido " + idPedido);
             }
           );
+        };
+
+        $scope.showFiltro = function () {
+          $scope.filter.show = true;
+
+          Clientes.listaCortaClientes(function(data) {
+            $scope.listaClientes = data;
+            angular.forEach($scope.listaClientes, function(cliente) {
+              cliente.nombreCompleto = cliente.apellido + ", " + cliente.nombre;
+            });
+            console.log($scope.listaClientes);
+          });
         };
 
         $scope.getPedidosFiltrado = function (pagina, limite) {
