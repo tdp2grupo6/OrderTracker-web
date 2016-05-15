@@ -1,0 +1,37 @@
+<md-dialog layout-padding md-scroll-y ng-controller="ListadoPedidosController" ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Agregar Cliente</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cerrar()">
+          <md-tooltip md-direction="top" md-visible="tooltipVisible">Cerrar</md-tooltip>
+          <md-icon md-font-icon="fa fa-times-circle fa-lg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content layout="column">
+       <form name="projectForm" layout="column" method="POST">
+          <md-input-container class="md-block">
+            <label>Nombre</label>
+            <input md-maxlength="20" required name="nombre" ng-model="form.nombre" />
+            <div class="hint" ng-if="!showHints">Ingresá el Nombre del Cliente</div>
+            <div ng-messages="projectForm.nombre.$error" ng-if="!showHints">
+              <div ng-message="required" ng-if="projectForm.razonSocial.$touched">El Campo Nombre es requerido.</div>
+              <div ng-message="md-maxlength">El Nombre debe tener como máximo 20 caracteres de longitud</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Apellido</label> 
+            <input md-maxlength="20" required name="apellido" ng-value="" ng-model="form.apellido" />
+            <div class="hint" ng-if="!showHints">Ingresá el Apellido del Cliente</div>
+            <div ng-messages="projectForm.apellido.$error" ng-if="!showHints"> 
+              <div ng-message="required" ng-if="projectForm.apellido.$touched">El Campo Apellido es requerido.</div>
+              <div ng-message="md-maxlength">El Apellido debe tener como máximo 20 caracteres de longitud.</div>
+            </div>
+          </md-input-container>
+      </form>
+    </md-dialog-content>
+  </form>
+</md-dialog>
