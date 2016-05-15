@@ -44,71 +44,67 @@
           }
         );
 
+        // TODO Funcion para editar cliente
         $scope.editarCliente = function(id) {
           console.log("TODO editar cliente " + id)
         };
 
+        // TODO Funcion para borrar cliente
         $scope.borrarCliente = function(id) {
           console.log("TODO borrar cliente " + id)
         };
 
-        // dgacitua: Codigo de md-autocomplete
-        Clientes.listarClientes(function(data) {
-          $scope.listaClientes = data;
-        });
+        $scope.agregarClienteModal = function(ev) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
-          $scope.agregarClienteModal = function(ev) {
-            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-
-			$mdDialog.show({
+          $mdDialog.show({
 		        templateUrl: 'app/main/agregarCliente.tmpl.html',
 		        targetEvent: ev,
 		        scope: $scope.$new(),
 		        clickOutsideToClose:true,
 		         fullscreen: useFullScreen
-		    })
-
-		    .then(function(answer) {
+		      })
+		      .then(function(answer) {
 		    	}, function() {
-		    });
+          });
 
-		    $scope.$watch(function() {
+		      $scope.$watch(function() {
 		        return $mdMedia('xs') || $mdMedia('sm');
-		    }, function(wantsFullScreen) {
+		      }, function(wantsFullScreen) {
 	         $scope.customFullscreen = (wantsFullScreen === true);
-	        });
-          };
+          });
+        };
 
-      	  $scope.mostrarDetalleClienteModal = function(ev,id) {
-	          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+        $scope.mostrarDetalleClienteModal = function(ev,id) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
-	          $mdDialog.show({
-		            templateUrl: 'app/main/detalleCliente.tmpl.html',
-		            targetEvent: ev,
-		            scope: $scope.$new(),
-		            clickOutsideToClose:true,
-		            fullscreen: useFullScreen
-		          })
+          $mdDialog.show({
+            templateUrl: 'app/main/detalleCliente.tmpl.html',
+            targetEvent: ev,
+            scope: $scope.$new(),
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen
+          })
 
-		          .then(function(answer) {
-		            }, function() {
-		          });
+          .then(function(answer) {
+            }, function() {
+          });
 
-		          $scope.$watch(function() {
-		            return $mdMedia('xs') || $mdMedia('sm');
-		          }, function(wantsFullScreen) {
-		            $scope.customFullscreen = (wantsFullScreen === true);
-		          });
+          $scope.$watch(function() {
+            return $mdMedia('xs') || $mdMedia('sm');
+          }, function(wantsFullScreen) {
+            $scope.customFullscreen = (wantsFullScreen === true);
+          });
 
-		          Clientes.listarCliente({ id: id },
-		            function(data) {
-		              $scope.unCliente = data;
-		              $scope.items = $scope.unPedido.elementos;
-		            },
-		            function() {
+          Clientes.listarCliente({ id: id },
+            function(data) {
+              $scope.unCliente = data;
+              $scope.items = $scope.unPedido.elementos;
+            },
+            function() {
 
-		            }
-          	  );
+            }
+          );
         };
 
         $scope.getClientesFiltrado = function (pagina, limite) {
@@ -125,6 +121,12 @@
           );
         };
 
+        // dgacitua: Codigo de md-autocomplete
+        Clientes.listarClientes(function(data) {
+          $scope.listaClientes = data;
+        });
+
+        // dgacitua: funcion para filtrar clentes
         $scope.buscarClientes = function () {
           $scope.query = {
             idCliente: $scope.filtroId? $scope.filtroId : '',
@@ -148,6 +150,7 @@
           );
         };
 
+        // dgacitua: Remover filtro clientes
         $scope.removeFilter = function () {
           $scope.filter.show = false;
           $scope.query.pagina = 1;
