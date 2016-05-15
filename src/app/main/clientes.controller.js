@@ -154,7 +154,7 @@
 		        targetEvent: ev,
 		        scope: $scope.$new(),
 		        clickOutsideToClose:true,
-		      
+            fullscreen: useFullScreen           
           })
 		      .then(function(answer) {
 		    	}, function() {
@@ -165,6 +165,16 @@
 		      }, function(wantsFullScreen) {
 	         $scope.customFullscreen = (wantsFullScreen === true);
           });
+
+          Clientes.filtrarCliente($scope.query,
+            function(data) {
+              $scope.clientes = data.resultados;
+              $scope.totalResultados = data.totalResultados;
+            },
+            function() {
+
+            }
+          );
         };
 
         $scope.mostrarDetalleClienteModal = function(ev,id) {
