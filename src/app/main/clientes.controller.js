@@ -20,9 +20,9 @@
     });
 
 
-      ClientesController.$inject = ['$scope', '$mdDialog', '$mdMedia','$filter', 'Services', 'Clientes'];
+      ClientesController.$inject = ['$scope', '$mdDialog', '$mdMedia','$filter', 'Services', 'Clientes', '$mdToast'];
 
-      function ClientesController($scope, $mdDialog, $mdMedia, $filter, Services, Clientes) {
+      function ClientesController($scope, $mdDialog, $mdMedia, $filter, Services, Clientes, $mdToast) {
 
         $scope.query = {
           idCliente: '',
@@ -43,6 +43,35 @@
 
           }
         );
+
+        $scope.cerrar = function() {
+          $mdDialog.cancel();
+        };
+
+        var last = {
+           bottom: true,
+           top: false,
+           left: false,
+           right: true
+        };
+
+        $scope.toastPosition = angular.extend({},last);
+
+        function sanitizePosition() {
+            var current = $scope.toastPosition;
+            if ( current.bottom && last.top ) current.top = false;
+            if ( current.top && last.bottom ) current.bottom = false;
+            if ( current.right && last.left ) current.left = false;
+            if ( current.left && last.right ) current.right = false;
+            last = angular.extend({},current);
+        };
+
+        $scope.getToastPosition = function() {
+            sanitizePosition();
+            return Object.keys($scope.toastPosition)
+            .filter(function(pos) { return $scope.toastPosition[pos]; })
+            .join(' ');
+        };
 
         // dgacitua: Ver Cliente Modal
         $scope.mostrarDetalleCliente = function(ev, id) {
@@ -82,13 +111,20 @@
           console.log("TODO editar cliente " + id);
         };
 
-        // TODO Funcion para borrar cliente
+        
         $scope.borrarCliente = function(id) {
-          console.log("TODO borrar cliente " + id);
+           Clientes.borrarCliente({ id: id },
+            function() {
+             $mdToast.show($mdToast.simple().textContent('El Cliente ha sido borrado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+            },
+            function() {
+              $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser borrado').position($scope.getToastPosition()).hideDelay(3000));
+            }
+          );
         };
 
         $scope.agregarClienteModal = function(ev) {
-          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          var useFullScreen = ($mdMedia('lg') || $mdMedia('xl'))  && $scope.customFullscreen;
 
           $mdDialog.show({
 		        templateUrl: 'app/main/agregarCliente.tmpl.html',
@@ -102,7 +138,7 @@
           });
 
 		      $scope.$watch(function() {
-		        return $mdMedia('xs') || $mdMedia('sm');
+		        return $mdMedia('lg') || $mdMedia('xl');
 		      }, function(wantsFullScreen) {
 	         $scope.customFullscreen = (wantsFullScreen === true);
           });
