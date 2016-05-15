@@ -16,6 +16,7 @@
           <p><b>Nombre(s):</b> {{cliente.nombre}}</p>
           <p><b>Apellido:</b> {{cliente.apellido}}</p>
           <p><b>Razon Social:</b> {{cliente.razonSocial}}</p>
+          <br>
           <p><b>Dirección:</b> {{cliente.direccion}}</p>
           <p><b>Teléfono:</b> {{cliente.telefono}}</p>
           <p><b>Email:</b> {{cliente.email}}</p>
@@ -24,36 +25,7 @@
           <br>
           <p><b>Código QR:</b></p>
           <qr text="validador" image="true" size="250"></qr>
-
-
         </div>
-        <!--<div>
-          <table class="table table-bordered table-hover table-condensed">
-            <tr style="font-weight: bold" layout-wrap>
-              <td flex="30">Producto</td>
-              <td flex="15">Precio Unitario</td>
-              <td flex="10">Cantidad</td>
-              <td flex="15">Subtotal</td>
-            </tr>
-            <tr ng-repeat="item in items">
-              <td>
-                <span>{{item.nombreProducto || '-'}}</span>
-              </td>
-              <td>
-                <span>${{item.precioUnitario | number: '2' || '-'}}</span>
-              </td>
-              <td>
-                <span>{{item.cantidad || '-'}}</span>
-              </td>
-              <td>
-                <span>${{item.subtotalProducto | number: '2' || '-'}}</span>
-              </td>
-            </tr>
-          </table>
-        </div>
-        <div>
-          <p><b>Total Compra:</b> ${{unPedido.totalCompra | number:'2' || '-'}}</p>
-        </div>-->
       </div>
     </md-dialog-content>
   </form>
