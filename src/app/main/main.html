@@ -15,7 +15,7 @@
                 <md-button class="md-primary" aria-label="Pedidos">Pedidos <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
               </md-fab-trigger>
               <md-fab-actions>
-                <md-button aria-label="Busqueda Pedidos" class="md-fab md-raised md-mini" ui-sref=".listadoPedidos">
+                <md-button aria-label="Busqueda Pedidos" class="md-fab md-raised md-mini" ui-sref=".listadoPedidos" ng-click="closeMenu()">
                   <md-tooltip md-direction="top" md-visible="tooltipVisible">Busqueda de Pedidos</md-tooltip>
                   <md-icon md-font-icon="fa fa-shopping-cart fa-lg"></md-icon>
                 </md-button>
@@ -26,7 +26,7 @@
                 <md-button class="md-primary" aria-label="Agenda">Agenda <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
               </md-fab-trigger>
               <md-fab-actions>
-                <md-button aria-label="Ver Agenda" class="md-fab md-raised md-mini" ui-sref=".agenda">
+                <md-button aria-label="Ver Agenda" class="md-fab md-raised md-mini" ui-sref=".agenda" ng-click="closeMenu()">
                   <md-tooltip md-direction="top" md-visible="tooltipVisible">Agenda de Vendedores</md-tooltip>
                   <md-icon md-font-icon="fa fa-calendar fa-lg"></md-icon>
                 </md-button>
@@ -38,7 +38,7 @@
                 <md-button class="md-primary" aria-label="Agenda">Clientes <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
               </md-fab-trigger>
               <md-fab-actions>
-                <md-button aria-label="Ver Clientes" class="md-fab md-raised md-mini" ui-sref=".clientes">
+                <md-button aria-label="Ver Clientes" class="md-fab md-raised md-mini" ui-sref=".clientes" ng-click="closeMenu()">
                   <md-tooltip md-direction="top" md-visible="tooltipVisible">Clientes</md-tooltip>
                   <md-icon md-font-icon="fa fa-user fa-lg"></md-icon>
                 </md-button>

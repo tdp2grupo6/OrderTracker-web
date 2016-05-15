@@ -24,6 +24,11 @@
 		      	$scope.openMenu = function() {
 		      		$scope.sidenavOpen = true;
 		      	}
+
+		      	$scope.closeMenu = function() {
+		      		$scope.sidenavOpen = false;
+		      	}
+
 	/*    	$scope.showBusquedaPacienteModal = function(ev) {
 					var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 					$mdDialog.show({
