@@ -64,6 +64,10 @@
 	      	Agenda.listarClientes(
 	      		function(data) {
 	      			$scope.clientes = data;
+	      			$scope.clientesNombres = [];
+	      			angular.forEach(data, function(cliente) {
+	      				$scope.clientesNombres.push({id: cliente.id, nombre: cliente.nombreCompleto});
+	      			});
 	      		}
 	  		);
 
@@ -72,7 +76,7 @@
 			var idVendedor = {idVendedor:$scope.vendedorFilter};
       		Agenda.cargarAgendaVendedor(idVendedor,
       			function(data) {
-  					
+  					//Se arma la semana del vendedor con el codigo de dia y los id de clientes asociados
   					$scope.semanaVendedor = [
   						{codigoDia: data.agenda[0].codigoDia, clientes : data.agenda[0].listaClientes},
   						{codigoDia: data.agenda[1].codigoDia, clientes : data.agenda[1].listaClientes},
@@ -83,13 +87,64 @@
   						{codigoDia: data.agenda[6].codigoDia, clientes : data.agenda[6].listaClientes}
 					];
 
-					$scope.agendaDomingo = $filter('filter')($scope.semanaVendedor, { codigoDia: 0})[0].clientes;
-					$scope.agendaLunes = $filter('filter')($scope.semanaVendedor, { codigoDia: 1})[0].clientes;
-					$scope.agendaMartes = $filter('filter')($scope.semanaVendedor, { codigoDia: 2})[0].clientes;
-					$scope.agendaMiercoles = $filter('filter')($scope.semanaVendedor, { codigoDia: 3})[0].clientes;
-					$scope.agendaJueves = $filter('filter')($scope.semanaVendedor, { codigoDia: 4})[0].clientes;
-					$scope.agendaViernes = $filter('filter')($scope.semanaVendedor, { codigoDia: 5})[0].clientes;
-					$scope.agendaSabado = $filter('filter')($scope.semanaVendedor, { codigoDia: 6})[0].clientes;
+					//Para cada dia, se trae el nombre del cliente para mostrarlo en la grilla
+					var i = 0;
+
+					//Domingo
+					var agendaDomingo = $filter('filter')($scope.semanaVendedor, { codigoDia: 0})[0].clientes;
+					$scope.agendaDomingo = [];
+					for (i = 0; i < agendaDomingo.length; i++) {
+						var cliente = $filter('filter')($scope.clientesNombres, { id: agendaDomingo[i]})[0].nombre;
+						$scope.agendaDomingo.push(cliente);
+					}
+
+					//Lunes
+					var agendaLunes = $filter('filter')($scope.semanaVendedor, { codigoDia: 1})[0].clientes;
+					$scope.agendaLunes = [];
+					for (i = 0; i < agendaLunes.length; i++) {
+						var cliente = $filter('filter')($scope.clientesNombres, { id: agendaLunes[i]})[0].nombre;
+						$scope.agendaLunes.push(cliente);
+					}
+
+					//Martes
+					var agendaMartes = $filter('filter')($scope.semanaVendedor, { codigoDia: 2})[0].clientes;
+					$scope.agendaMartes = [];
+					for (i = 0; i < agendaMartes.length; i++) {
+						var cliente = $filter('filter')($scope.clientesNombres, { id: agendaMartes[i]})[0].nombre;
+						$scope.agendaMartes.push(cliente);
+					}
+
+					//Miercoles
+					var agendaMiercoles = $filter('filter')($scope.semanaVendedor, { codigoDia: 3})[0].clientes;
+					$scope.agendaMiercoles = [];
+					for (i = 0; i < agendaMiercoles.length; i++) {
+						var cliente = $filter('filter')($scope.clientesNombres, { id: agendaMiercoles[i]})[0].nombre;
+						$scope.agendaMiercoles.push(cliente);
+					}
+
+					//Jueves
+					var agendaJueves = $filter('filter')($scope.semanaVendedor, { codigoDia: 4})[0].clientes;
+					$scope.agendaJueves = [];
+					for (i = 0; i < agendaJueves.length; i++) {
+						var cliente = $filter('filter')($scope.clientesNombres, { id: agendaJueves[i]})[0].nombre;
+						$scope.agendaJueves.push(cliente);
+					}
+
+					//Viernes
+					var agendaViernes = $filter('filter')($scope.semanaVendedor, { codigoDia: 5})[0].clientes;
+					$scope.agendaViernes = [];
+					for (i = 0; i < agendaViernes.length; i++) {
+						var cliente = $filter('filter')($scope.clientesNombres, { id: agendaViernes[i]})[0].nombre;
+						$scope.agendaViernes.push(cliente);
+					}
+
+					//Sabado
+					var agendaSabado = $filter('filter')($scope.semanaVendedor, { codigoDia: 6})[0].clientes;
+					$scope.agendaSabado = [];
+					for (i = 0; i < agendaSabado.length; i++) {
+						var cliente = $filter('filter')($scope.clientesNombres, { id: agendaSabado[i]})[0].nombre;
+						$scope.agendaSabado.push(cliente);
+					}
 
 					//Variable tramposa para tener una fila en la grilla
 					$scope.contador = [1];
@@ -105,12 +160,17 @@
       		var cliente = parseInt($scope.idClienteFilter);
       		var listaPorDia = $filter('filter')($scope.semanaVendedor, { codigoDia: dia})[0].clientes;
       		listaPorDia.push(cliente);
-      		
+      		console.log(listaPorDia);
 
       		var clientesUnicos = $scope.agendaDomingo;
       		clientesUnicos.concat($scope.agendaLunes, $scope.agendaMartes, $scope.agendaMiercoles, 
       			$scope.agendaJueves, $scope.agendaViernes, $scope.agendaSabado);
       		console.log(clientesUnicos);
+      	}
+
+      	$scope.eliminarCliente = function(chip) {
+      		console.log(chip);
+
       	}
 
       }

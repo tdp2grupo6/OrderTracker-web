@@ -1,8 +1,8 @@
 <md-toolbar class="md-warn md-whiteframe-z1">
-  	<md-button class="md-icon-button" ng-click="openMenu()" hide-gt-sm aria-label="Toggle Menu">
-    	<md-icon md-font-icon="fa fa-menu fa-lg"></md-icon>
-  	</md-button>
   	<h3 class"md-toolbar-tools">
+		<md-button class="md-icon-button md-warn md-hue-1" ng-click="openMenu()" aria-label="Toggle Menu">
+			<md-icon md-font-icon="fa fa-bars fa-lg"></md-icon>
+		</md-button>
     	<span>&nbsp;Agenda > Edici&oacute;n de Agenda</span>
   	</h3>
 </md-toolbar>
@@ -10,73 +10,80 @@
 <md-content layout-fill layout-padding md-scroll-y>
     <md-card>
     	<md-card-content>
-	        <md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+	        <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show">
 		        <div class="md-toolbar-tools">
-					<h2>{{date | date:'EEEE dd'}}</h2>
+					<!-- <h2>{{date | date:'EEEE dd'}}</h2> -->
+					<h2>Lunes 16</h2>
 					<div flex="" class="flex"></div>
 					<md-button class="md-icon-button" ng-click="filter.show = true" aria-label="buscar">
 		          		<md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
 		        	</md-button>
 		        </div>
 			</md-toolbar>
-			<md-toolbar class="md-table-toolbar md-default" ng-show="filter.show">
+			<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
 		    	<div class="md-toolbar-tools">
 		        	<form flex name="filter.form">
-		          	<div class="row">
-		            	<div class="col-md-3">
-			            	<md-select ng-model="vendedorFilter" placeholder="Vendedor" style="font-size:14px">
-			                	<md-option ng-repeat="vendedor in vendedores | unique:'id'" value="{{vendedor.id}}">
-			                		{{vendedor.nombreCompleto}}
-			                	</md-option>
-			                </md-select>
-		            	</div>
-	        		</div>
-		        </form>
-		        <md-button class="md-fab md-warn md-mini" ng-click="buscarVendedor()" aria-label="buscar">
-		        	<md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
-		        </md-button>
-		        <md-button class="md-fab md-warn md-mini" ng-click="removeFilter()" aria-label="cerrar">
-		        	<i class="fa fa-times" aria-hidden="true"></i>
-		        </md-button>
-		      </div>
+			          	<div class="row">
+			            	<div class="col-md-6">
+				            	<md-select ng-model="vendedorFilter" placeholder="Vendedor" style="font-size:14px">
+				                	<md-option ng-repeat="vendedor in vendedores | unique:'id'" value="{{vendedor.id}}">
+				                		{{vendedor.nombreCompleto}}
+				                	</md-option>
+				                </md-select>
+			            	</div>
+		        		</div>
+			        </form>
+					<h2>Lunes 16</h2>
+					<div flex="" class="flex"></div>
+			        <md-button class="md-fab md-warn md-mini" ng-click="buscarVendedor()" aria-label="buscar">
+			        	<md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+			        </md-button>
+			        <md-button class="md-fab md-warn md-mini" ng-click="removeFilter()" aria-label="cerrar">
+			        	<i class="fa fa-times" aria-hidden="true"></i>
+			        </md-button>
+		        </div>
 		    </md-toolbar>
-	    	<div class="col-md-4" ng-show="vendedorSeleccionado">
+	    	<div ng-show="vendedorSeleccionado">
 			    <md-card>
 			    	<md-card-content>
-			    		<div layout="column">
-			    			<div flex>
-					    		<h4>Agregar a la agenda</h4>
-				    		</div>
+		    			<div flex>
+				    		<h4>Agregar a la agenda</h4>
+			    		</div>
+			    		<div layout="row">
 				    		<div flex>
-				            	<md-select ng-model="idClienteFilter" placeholder="Cliente" style="font-size:14px" ng-change="seleccionarCliente()">
-				                	<md-option ng-repeat="cliente in clientes | unique:'id'" value="{{cliente.id}}">
-				                		{{cliente.nombreCompleto}}
-				                	</md-option>
-				                </md-select>
-				    		</div>
-				    		<div flex>
-				            	<label>Horario Preferido: {{disponibilidadCliente}}</label>
-				    		</div>
-				    		<div flex>
-				            	<label>Dirección: {{direccionCliente}}</label>
-				    		</div>
-				    		<div flex>
-				            	<md-select ng-model="diaSemana" placeholder="Dia" style="font-size:14px">
-				                	<md-option ng-repeat="dia in semana" value="{{dia.id}}">
-				                		{{dia.nombre}}
-				                	</md-option>
-				                </md-select>
-				    		</div>
-				    		<div flex>
-						        <md-button class="md-fab md-accent md-mini" ng-click="agregarCliente()" aria-label="agregar">
-						        	<md-icon md-font-icon="fa fa-plus fa-lg"></md-icon>
-						        </md-button>  
+					    		<div flex>
+					            	<md-select ng-model="idClienteFilter" placeholder="Cliente" style="font-size:14px" ng-change="seleccionarCliente()">
+					                	<md-option ng-repeat="cliente in clientes | unique:'id'" value="{{cliente.id}}">
+					                		{{cliente.nombreCompleto}}
+					                	</md-option>
+					                </md-select>
+					    		</div>
+					    		<div flex>
+					            	<md-select ng-model="diaSemana" placeholder="Dia" style="font-size:14px">
+					                	<md-option ng-repeat="dia in semana" value="{{dia.id}}">
+					                		{{dia.nombre}}
+					                	</md-option>
+					                </md-select>
+					    		</div>
+					    		<div flex ng-show="idClienteFilter && diaSemana">
+							        <md-button class="md-fab md-accent md-mini" ng-click="agregarCliente()" aria-label="agregar">
+							        	<md-icon md-font-icon="fa fa-plus fa-lg"></md-icon>
+							        </md-button>  
+						        </div>
+					        </div>
+					        <div flex>
+					    		<div flex ng-show="idClienteFilter">
+					            	<h5 style="padding:20px">Horario Preferido: {{disponibilidadCliente}}</h5>
+					    		</div>
+					    		<div flex ng-show="idClienteFilter">
+					            	<h5 style="padding:20px">Dirección: {{direccionCliente}}</h5>
+					    		</div>
 					        </div>
 				        </div>
 			        <md-card-content>
 		        <md-card>              
 	    	</div>
-	    	<div class="col-md-8" ng-show="vendedorSeleccionado">
+	    	<div ng-show="vendedorSeleccionado">
 			    <md-table-container>
 			    	<table md-table multiple ng-model="selected" md-progress="promise">
 			        	<thead md-head md-order="query.order" md-on-reorder="getPedidosFiltrado">
@@ -92,13 +99,13 @@
 			        	</thead>
 			        	<tbody md-body>
 			          		<tr md-row md-select="pedido" md-select-id="id" md-auto-select ng-repeat="x in contador">
-					            <td md-cell><md-chips ng-model="agendaDomingo"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaLunes"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaMartes"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaMiercoles"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaJueves"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaViernes"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaSabado"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaDomingo" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaLunes" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaMartes" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaMiercoles" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaJueves" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaViernes" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaSabado" md-on-remove="eliminarCliente($chip)"></md-chips></td>
 			          		</tr>
 			        	</tbody>
 			    	</table>
