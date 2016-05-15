@@ -10,7 +10,7 @@
 <md-content layout-fill layout-padding md-scroll-y>
     <md-card>
     	<md-card-content>
-	        <md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+	        <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show">
 		        <div class="md-toolbar-tools">
 					<h2>{{date | date:'EEEE dd'}}</h2>
 					<div flex="" class="flex"></div>
@@ -19,7 +19,7 @@
 		        	</md-button>
 		        </div>
 			</md-toolbar>
-			<md-toolbar class="md-table-toolbar md-default" ng-show="filter.show">
+			<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
 		    	<div class="md-toolbar-tools">
 		        	<form flex name="filter.form">
 		          	<div class="row">
