@@ -44,6 +44,14 @@
 	            headers: {
 	              'Content-Type': 'application/json'
 	            }
+	          },
+
+	          enviarAgenda: {
+	            method: 'POST',
+            	url: Services.url + 'agenda/admin-editar',
+	            headers: {
+	              'Content-Type': 'application/json'
+	            }
 	          }
           }
           );
