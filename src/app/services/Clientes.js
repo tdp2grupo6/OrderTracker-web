@@ -19,48 +19,56 @@
 	            }
 	          },
 
-	          guardarCliente: {
+            guardarCliente: {
             	method: 'POST',
             	headers: {
               		'Content-Type': 'application/json'
             	}
-          	  },
+            },
 
-          	  actualizarCliente: {
+            actualizarCliente: {
             	method: 'PUT',
             	url: Services.url + 'cliente/:id',
             	params: {id: '@id'},
             	headers: {
               		'Content-Type': 'application/json'
             	}
-          	  },
+            },
 
-          	  borrarCliente: {
+            borrarCliente: {
             	method: 'DELETE',
             	url: Services.url + 'cliente/:id',
-				params: {id: '@id'},
+				      params: {id: '@id'},
             	headers: {
               		'Content-Type': 'application/json'
             	}
-          	  },
+            },
 
-          	  listarCliente: {
+            listarCliente: {
             	method: 'GET',
             	url: Services.url + 'cliente/:id',
             	params: {id: '@id'},
             	headers: {
               		'Content-Type': 'application/json'
             	}
-			  },
+			      },
 
-              filtrarCliente: {
+            filtrarCliente: {
             	method: 'POST',
             	url: Services.url + 'cliente/filtro',
             	headers: {
               		'Content-Type': 'application/json'
             	}
-          	  }
-          	}
-          );
+            },
+
+            listaCortaClientes: {
+              method: 'GET',
+              url: Services.url + 'cliente/lista-corta',
+              isArray: true,
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }
+          });
         }
 })();

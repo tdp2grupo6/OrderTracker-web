@@ -122,7 +122,7 @@
         };
 
         // dgacitua: Codigo de md-autocomplete
-        Clientes.listarClientes(function(data) {
+        Clientes.listaCortaClientes(function(data) {
           $scope.listaClientes = data;
         });
 
@@ -135,12 +135,12 @@
             email: $scope.selectedItem3? $scope.selectedItem3.email : '',
             direccion: $scope.selectedItem4? $scope.selectedItem4.direccion : '',
             pagina: 1
-          }
+          };
 
           Clientes.filtrarCliente($scope.query,
             function(data) {
-              console.log($scope.query)
-              console.log(data)
+              //console.log($scope.query);
+              //console.log(data);
               $scope.clientes = data.resultados;
               $scope.totalResultados = data.totalResultados;
             },
