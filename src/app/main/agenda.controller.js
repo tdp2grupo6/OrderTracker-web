@@ -72,7 +72,7 @@
 			var idVendedor = {idVendedor:$scope.vendedorFilter};
       		Agenda.cargarAgendaVendedor(idVendedor,
       			function(data) {
-  					console.log(data.agenda);
+  					
   					$scope.semanaVendedor = [
   						{codigoDia: data.agenda[0].codigoDia, clientes : data.agenda[0].listaClientes},
   						{codigoDia: data.agenda[1].codigoDia, clientes : data.agenda[1].listaClientes},
@@ -102,8 +102,15 @@
 
       	$scope.agregarCliente = function() {
       		var dia = $scope.diaSemana;
-      		var cliente = $scope.idClienteFilter;
-      		$scope.semanaVendedor[dia].push(cliente);
+      		var cliente = parseInt($scope.idClienteFilter);
+      		var listaPorDia = $filter('filter')($scope.semanaVendedor, { codigoDia: dia})[0].clientes;
+      		listaPorDia.push(cliente);
+      		
+
+      		var clientesUnicos = $scope.agendaDomingo;
+      		clientesUnicos.concat($scope.agendaLunes, $scope.agendaMartes, $scope.agendaMiercoles, 
+      			$scope.agendaJueves, $scope.agendaViernes, $scope.agendaSabado);
+      		console.log(clientesUnicos);
       	}
 
       }
