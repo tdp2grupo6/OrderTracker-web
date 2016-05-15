@@ -160,12 +160,17 @@
       		var cliente = parseInt($scope.idClienteFilter);
       		var listaPorDia = $filter('filter')($scope.semanaVendedor, { codigoDia: dia})[0].clientes;
       		listaPorDia.push(cliente);
-      		
+      		console.log(listaPorDia);
 
       		var clientesUnicos = $scope.agendaDomingo;
       		clientesUnicos.concat($scope.agendaLunes, $scope.agendaMartes, $scope.agendaMiercoles, 
       			$scope.agendaJueves, $scope.agendaViernes, $scope.agendaSabado);
       		console.log(clientesUnicos);
+      	}
+
+      	$scope.eliminarCliente = function(chip) {
+      		console.log(chip);
+
       	}
 
       }

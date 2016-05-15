@@ -1,8 +1,8 @@
 <md-toolbar class="md-warn md-whiteframe-z1">
-  	<md-button class="md-icon-button" ng-click="openMenu()" hide-gt-sm aria-label="Toggle Menu">
-    	<md-icon md-font-icon="fa fa-menu fa-lg"></md-icon>
-  	</md-button>
   	<h3 class"md-toolbar-tools">
+		<md-button class="md-icon-button md-warn md-hue-1" ng-click="openMenu()" aria-label="Toggle Menu">
+			<md-icon md-font-icon="fa fa-bars fa-lg"></md-icon>
+		</md-button>
     	<span>&nbsp;Agenda > Edici&oacute;n de Agenda</span>
   	</h3>
 </md-toolbar>
@@ -12,7 +12,8 @@
     	<md-card-content>
 	        <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show">
 		        <div class="md-toolbar-tools">
-					<h2>{{date | date:'EEEE dd'}}</h2>
+					<!-- <h2>{{date | date:'EEEE dd'}}</h2> -->
+					<h2>Lunes 16</h2>
 					<div flex="" class="flex"></div>
 					<md-button class="md-icon-button" ng-click="filter.show = true" aria-label="buscar">
 		          		<md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
@@ -22,23 +23,25 @@
 			<md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
 		    	<div class="md-toolbar-tools">
 		        	<form flex name="filter.form">
-		          	<div class="row">
-		            	<div class="col-md-3">
-			            	<md-select ng-model="vendedorFilter" placeholder="Vendedor" style="font-size:14px">
-			                	<md-option ng-repeat="vendedor in vendedores | unique:'id'" value="{{vendedor.id}}">
-			                		{{vendedor.nombreCompleto}}
-			                	</md-option>
-			                </md-select>
-		            	</div>
-	        		</div>
-		        </form>
-		        <md-button class="md-fab md-warn md-mini" ng-click="buscarVendedor()" aria-label="buscar">
-		        	<md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
-		        </md-button>
-		        <md-button class="md-fab md-warn md-mini" ng-click="removeFilter()" aria-label="cerrar">
-		        	<i class="fa fa-times" aria-hidden="true"></i>
-		        </md-button>
-		      </div>
+			          	<div class="row">
+			            	<div class="col-md-6">
+				            	<md-select ng-model="vendedorFilter" placeholder="Vendedor" style="font-size:14px">
+				                	<md-option ng-repeat="vendedor in vendedores | unique:'id'" value="{{vendedor.id}}">
+				                		{{vendedor.nombreCompleto}}
+				                	</md-option>
+				                </md-select>
+			            	</div>
+		        		</div>
+			        </form>
+					<h2>Lunes 16</h2>
+					<div flex="" class="flex"></div>
+			        <md-button class="md-fab md-warn md-mini" ng-click="buscarVendedor()" aria-label="buscar">
+			        	<md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+			        </md-button>
+			        <md-button class="md-fab md-warn md-mini" ng-click="removeFilter()" aria-label="cerrar">
+			        	<i class="fa fa-times" aria-hidden="true"></i>
+			        </md-button>
+		        </div>
 		    </md-toolbar>
 	    	<div ng-show="vendedorSeleccionado">
 			    <md-card>
@@ -96,13 +99,13 @@
 			        	</thead>
 			        	<tbody md-body>
 			          		<tr md-row md-select="pedido" md-select-id="id" md-auto-select ng-repeat="x in contador">
-					            <td md-cell><md-chips ng-model="agendaDomingo"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaLunes"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaMartes"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaMiercoles"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaJueves"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaViernes"></md-chips></td>
-					            <td md-cell><md-chips ng-model="agendaSabado"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaDomingo" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaLunes" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaMartes" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaMiercoles" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaJueves" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaViernes" md-on-remove="eliminarCliente($chip)"></md-chips></td>
+					            <td md-cell><md-chips ng-model="agendaSabado" md-on-remove="eliminarCliente($chip)"></md-chips></td>
 			          		</tr>
 			        	</tbody>
 			    	</table>
