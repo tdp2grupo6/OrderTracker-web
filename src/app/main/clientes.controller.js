@@ -59,12 +59,12 @@
 
         function sanitizePosition() {
             var current = $scope.toastPosition;
-            if ( current.bottom && last.top ) current.top = false;
-            if ( current.top && last.bottom ) current.bottom = false;
-            if ( current.right && last.left ) current.left = false;
-            if ( current.left && last.right ) current.right = false;
+            if ( current.bottom && last.top ) { current.top = false; }
+            if ( current.top && last.bottom ) { current.bottom = false; }
+            if ( current.right && last.left ) { current.left = false; }
+            if ( current.left && last.right ) { current.right = false; }
             last = angular.extend({},current);
-        };
+        }
 
         $scope.getToastPosition = function() {
             sanitizePosition();
@@ -82,36 +82,46 @@
               $scope.cliente = data;
               $scope.validador = data.validador;
 
-              // Mostrar Modal
-              $mdDialog.show({
-                  templateUrl: 'app/main/clienteDetalle.tmpl.html',
-                  targetEvent: ev,
-                  scope: $scope.$new(),
-                  clickOutsideToClose:true,
-                  fullscreen: useFullScreen
-                })
-                .then(function(answer) {
-                }, function() {
+              var geocoder = new google.maps.Geocoder();
+              geocoder.geocode( { "address": $scope.cliente.direccion }, function(results, status) {
+                if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
+                  var location = results[0].geometry.location;
+                  $scope.latitud      = location.lat();
+                  $scope.longitud     = location.lng();
+                }
+
+                // Mostrar Modal
+                $mdDialog.show({
+                    templateUrl: 'app/main/clienteDetalle.tmpl.html',
+                    targetEvent: ev,
+                    scope: $scope.$new(),
+                    clickOutsideToClose:true,
+                    fullscreen: useFullScreen
+                  })
+                  .then(function(answer) {
+                  }, function() {
+                  });
+
+                $scope.$watch(function() {
+                  return $mdMedia('xs') || $mdMedia('sm');
+                }, function(wantsFullScreen) {
+                  $scope.customFullscreen = (wantsFullScreen === true);
                 });
 
-              $scope.$watch(function() {
-                return $mdMedia('xs') || $mdMedia('sm');
-              }, function(wantsFullScreen) {
-                $scope.customFullscreen = (wantsFullScreen === true);
               });
             },
             function(error) {
-              console.log("ERROR! No se puede mostrar el Cliente" + error);
+              console.log('ERROR! No se puede mostrar el Cliente' + error);
             }
           );
         };
 
         // TODO Funcion para editar cliente
         $scope.editarCliente = function(id) {
-          console.log("TODO editar cliente " + id);
+          console.log('TODO editar cliente ' + id);
         };
 
-        
+
         $scope.borrarCliente = function(id) {
            Clientes.borrarCliente({ id: id },
             function() {

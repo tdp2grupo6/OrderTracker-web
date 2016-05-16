@@ -23,14 +23,15 @@
           </md-input-container>
 
           <md-input-container>
-            <label>Apellido</label> 
+            <label>Apellido</label>
             <input md-maxlength="20" required name="apellido" ng-value="" ng-model="form.apellido" />
             <div class="hint" ng-if="!showHints">Ingresá el Apellido del Cliente</div>
-            <div ng-messages="projectForm.apellido.$error" ng-if="!showHints"> 
+            <div ng-messages="projectForm.apellido.$error" ng-if="!showHints">
               <div ng-message="required" ng-if="projectForm.apellido.$touched">El Campo Apellido es requerido.</div>
               <div ng-message="md-maxlength">El Apellido debe tener como máximo 20 caracteres de longitud.</div>
             </div>
           </md-input-container>
+         
       </form>
     </md-dialog-content>
   </form>

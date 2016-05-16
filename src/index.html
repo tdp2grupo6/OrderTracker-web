@@ -5,9 +5,9 @@
     <title>Order Tracker</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
-    
+
     <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
-    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css"> 
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
     <!-- bower:css -->
     <!-- run `gulp inject` to automatically populate bower styles dependencies -->
     <!-- endbower -->
@@ -16,21 +16,23 @@
     <!-- build:css({.tmp/serve,src}) styles/app.css -->
     <!-- inject:css -->
     <!-- css files will be automatically insert here -->
-    <link rel="stylesheet" href="/app/vendor.scss"> 
+    <!--<link rel="stylesheet" href="/app/vendor.scss">-->
     <!-- endinject -->
     <!-- endbuild -->
   </head>
   <body>
-    
+
     <div ui-view layout-fill></div>
 
     <base href="/">
+
+
     <!-- build:js(src) scripts/vendor.js -->
     <!-- bower:js -->
     <!-- run `gulp inject` to automatically populate bower script dependencies -->
     <!-- endbower -->
     <!-- endbuild -->
-   
+
     <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
     <!-- inject:js -->
     <!-- js files will be automatically insert here -->
@@ -41,5 +43,6 @@
     <!-- endinject -->
     <!-- endbuild -->
 
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
   </body>
 </html>
