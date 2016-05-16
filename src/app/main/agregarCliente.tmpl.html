@@ -16,70 +16,37 @@
           <md-input-container>
             <label>Nombre</label>
             <input md-maxlength="20" required name="nombre" ng-value="" ng-model="form.nombre" />
-            <div class="hint" ng-if="!showHints && !projectForm.nombre.$touched">Ingresá el Nombre del Cliente</div>
-            <div ng-messages="projectForm.nombre.$error" ng-if="!showHints">
-              <div ng-message="required" ng-if="projectForm.nombre.$touched">El campo Nombre es requerido.</div>
-              <div ng-message="md-maxlength">El Nombre debe tener como máximo 20 caracteres de longitud</div>
-            </div>
           </md-input-container>
 
           <md-input-container>
             <label>Apellido</label> 
             <input md-maxlength="20" required name="apellido" ng-value="" ng-model="form.apellido" />
-            <div class="hint" ng-if="!showHints && !projectForm.apellido.$touched">Ingresá el Apellido del Cliente</div>
-            <div ng-messages="projectForm.apellido.$error" ng-if="!showHints"> 
-              <div ng-message="required" ng-if="projectForm.apellido.$touched">El campo Apellido es requerido.</div>
-              <div ng-message="md-maxlength">El Apellido debe tener como máximo 20 caracteres de longitud.</div>
-            </div>
           </md-input-container>
 
           <md-input-container>
             <label>Direccion</label> 
             <input md-maxlength="50" required name="direccion" ng-value="" ng-model="form.direccion" />
-            <div class="hint" ng-if="!showHints && !projectForm.direccion.$touched"">Ingresá la Direccion del Cliente</div>
-            <div ng-messages="projectForm.direccion.$error" ng-if="!showHints"> 
-              <div ng-message="required" ng-if="!showHints && projectForm.direccion.$touched">El campo Direccion es requerido.</div>
-              <div ng-message="md-maxlength">La Direccion debe tener como máximo 50 caracteres de longitud.</div>
-            </div>
           </md-input-container>
 
           <md-input-container>
             <label>Teléfono</label>
-            <input required name="telefono" ng-value="" ng-model="form.telefono" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/"/>
-            <div class="hint" ng-if="!showHints && !projectForm.telefono.$touched">Ingresá un teléfono de contacto - (###)-###-####</div>
-            <div ng-messages="projectForm.telefono.$error" ng-if="!showHints && projectForm.telefono.$touched">
-               <div ng-message-exp="['required','pattern']">Por favor ingresá un teléfono válido.</div>             
-            </div>
+            <input required name="telefono" ng-value="" ng-model="form.telefono" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/"/> 
           </md-input-container>
 
           <md-input-container>
             <label>Email</label>
             <input required name="email" ng-value="" ng-model="form.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"/>
-            <div class="hint" ng-if="!showHints && !projectForm.email.$touched">Ingresá un E-mail de contacto - mimail@gmail.com</div>
-              <div ng-messages="projectForm.email.$error" ng-if="!showHints && projectForm.email.$touched">
-              <div ng-message-exp="['required','minlength','maxlength', 'pattern']">Por favor ingresá un E-mail válido entre 10 y 100 caracteres.</div>             
-            </div>
           </md-input-container>
 
           <md-input-container>
             <label>Razon Social</label>
-            <input md-maxlength="50" required name="razonSocial" ng-model="form.razonSocial">
-            <div class="hint" ng-if="!showHints">Ingresá la Razon Social del Cliente</div>
-            <div ng-messages="projectForm.razonSocial.$error" ng-if="!showHints">
-              <div ng-message="required" ng-if="!showHints && projectForm.razonSocial.$touched">El campo Razon Social es requerido.</div>
-              <div ng-message="md-maxlength">La Razon Social debe tener como máximo 50 caracteres de longitud.</div>
-            </div>
+            <input md-maxlength="50" required name="razonSocial" ng-model="form.razonSocial"> 
           </md-input-container>
       
           <md-input-container>
             <label>Horario de Preferencia</label>
-            <input md-maxlength="50" required name="horario" ng-model="form.horario">
-            <div class="hint" ng-if="!showHints">Ingresá el horario de preferencia del Cliente</div>
-            <div ng-messages="projectForm.horario.$error" ng-if="!showHints">
-              <div ng-message="required" ng-if="!showHints && projectForm.horario.$touched">El campo Horario de Preferencia es requerido.</div>
-              <div ng-message="md-maxlength">El horario de preferencia debe tener como máximo 50 caracteres de longitud.</div>
-            </div>
-          </md-input-container>
+            <input md-maxlength="50" required name="disponibilidad" ng-model="form.disponibilidad">
+           </md-input-container>
 
           <md-button class="md-raised md-primary" ng-click="submit()" ng-disabled="disabled" ng-show="isAvailable">Submit</md-button>
 

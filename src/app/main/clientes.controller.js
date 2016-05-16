@@ -40,7 +40,7 @@
           email: '',
           telefono: '',
           razonSocial: '',
-          horario: ''
+          disponibilidad: ''
         }
 
         Clientes.filtrarCliente($scope.query,
@@ -128,6 +128,16 @@
            Clientes.borrarCliente({ id: id },
             function() {
              $mdToast.show($mdToast.simple().textContent('El Cliente ha sido borrado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+               Clientes.filtrarCliente($scope.query,
+          function(data) {
+            $scope.clientes = data.resultados;
+            $scope.totalResultados = data.totalResultados;
+            angular.forEach($scope.clientes, function(cliente) {});
+          },
+          function() {
+
+          }
+        );
             },
             function() {
               $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser borrado').position($scope.getToastPosition()).hideDelay(3000));
@@ -138,10 +148,10 @@
         $scope.submit = function() {
           Clientes.guardarCliente($scope.form,
             function() {
-                  $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+               $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000))   
             },
             function() {
-                 $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
+               $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
             }
           );
         }
@@ -166,15 +176,6 @@
 	         $scope.customFullscreen = (wantsFullScreen === true);
           });
 
-          Clientes.filtrarCliente($scope.query,
-            function(data) {
-              $scope.clientes = data.resultados;
-              $scope.totalResultados = data.totalResultados;
-            },
-            function() {
-
-            }
-          );
         };
 
         $scope.mostrarDetalleClienteModal = function(ev,id) {
@@ -241,8 +242,6 @@
 
           Clientes.filtrarCliente($scope.query,
             function(data) {
-              //console.log($scope.query);
-              //console.log(data);
               $scope.clientes = data.resultados;
               $scope.totalResultados = data.totalResultados;
             },
