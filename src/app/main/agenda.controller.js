@@ -6,9 +6,9 @@
      	.controller('AgendaController', AgendaController);
 
 
-      AgendaController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Agenda', '$filter', '$mdToast'];
+      AgendaController.$inject = ['$scope', '$filter', '$mdDialog', '$mdMedia', '$mdToast', 'Agenda'];
 
-      function AgendaController($scope, $mdDialog, $mdMedia, Agenda, $filter, $mdToast) {
+      function AgendaController($scope, $filter, $mdDialog, $mdMedia, $mdToast, Agenda) {
 
     	$scope.date = new Date();
 
@@ -40,7 +40,7 @@
             if ( current.right && last.left ) current.left = false;
             if ( current.left && last.right ) current.right = false;
             last = angular.extend({},current);
-        };
+        }
 
         $scope.getToastPosition = function() {
             sanitizePosition();
@@ -228,12 +228,12 @@
 
 					//Variable tramposa para tener una fila en la grilla
 					$scope.contador = [1];
-      			}, 
+      			},
       			function(error) {
       				avisar('No se puede obtener la agenda del vendedor en este momento.');
       			}
 			);
-      	}
+      	};
 
       	function enviarAgenda(agendaEditada) {
       		Agenda.enviarAgenda(agendaEditada,
@@ -257,14 +257,14 @@
 			var agendaJueves = ($filter('filter')($scope.semanaVendedor, { codigoDia: 4}))[0].clientes;
 			var agendaViernes = ($filter('filter')($scope.semanaVendedor, { codigoDia: 5}))[0].clientes;
 			var agendaSabado = ($filter('filter')($scope.semanaVendedor, { codigoDia: 6}))[0].clientes;
-			
-      		if (nombreClienteChip !== '' && diaChip !== '') {
+
+      		if (nombreClienteChip && diaChip) {
       			dia = parseInt(diaChip);
       			idCliente = ($filter('filter')($scope.clientesNombres, { nombre: nombreClienteChip}))[0].id;
 
 	      		var listaPorDia = ($filter('filter')($scope.semanaVendedor, { codigoDia: dia}))[0].clientes;
 
-	      		//Se busca si el cliente no esta en el dia que se quiere agregar
+ 	      		//Se busca si el cliente no esta en el dia que se quiere agregar
 	      		if (listaPorDia.indexOf(idCliente) === -1) {
 		      		if (dia === 0) {
 		      			agendaDomingo.push(idCliente);
