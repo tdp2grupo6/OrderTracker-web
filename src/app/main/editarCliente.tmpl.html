@@ -1,0 +1,31 @@
+<md-dialog layout-padding md-scroll-y ng-controller="ClientesController" ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Detalle del Cliente: <span>{{cliente.nombreCompleto}}</span></h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cerrar()">
+          <md-tooltip md-direction="top" md-visible="tooltipVisible">Cerrar</md-tooltip>
+          <md-icon md-font-icon="fa fa-times-circle fa-lg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+             <div>
+          <p><b>Nombre(s):</b> {{cliente.nombre}}</p>
+          <p><b>Apellido:</b> {{cliente.apellido}}</p>
+          <p><b>Razon Social:</b> {{cliente.razonSocial}}</p>
+          <p><b>Dirección:</b> {{cliente.direccion}}</p>
+          <p><b>Teléfono:</b> {{cliente.telefono}}</p>
+          <p><b>Email:</b> {{cliente.email}}</p>
+          <p><b>Disponibilidad:</b> {{cliente.disponibilidad}}</p>
+          <p><b>Estado:</b> {{cliente.estado.nombre}}</p>
+          <br>
+          <p><b>Código QR:</b></p>
+          <qr text="validador" image="true" size="250"></qr>
+        </div>
+      </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>

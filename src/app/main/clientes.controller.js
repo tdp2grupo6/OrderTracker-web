@@ -119,8 +119,36 @@
         };
 
         // TODO Funcion para editar cliente
-        $scope.editarCliente = function(id) {
-          console.log("TODO editar cliente " + id);
+        $scope.editarClienteModal = function(ev,id) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+          
+          Clientes.listarCliente({ id: id },
+            function(data) {
+              $scope.cliente = data;
+              $scope.validador = data.validador;
+
+              // Mostrar Modal
+              $mdDialog.show({
+                  templateUrl: 'app/main/editarCliente.tmpl.html',
+                  targetEvent: ev,
+                  scope: $scope.$new(),
+                  clickOutsideToClose:true,
+                  fullscreen: useFullScreen
+                })
+                .then(function(answer) {
+                }, function() {
+                });
+
+              $scope.$watch(function() {
+                return $mdMedia('xs') || $mdMedia('sm');
+              }, function(wantsFullScreen) {
+                $scope.customFullscreen = (wantsFullScreen === true);
+              });
+            },
+            function(error) {
+              console.log("ERROR! No se puede mostrar el Cliente" + error);
+            }
+          );
         };
 
         
@@ -176,38 +204,6 @@
 	         $scope.customFullscreen = (wantsFullScreen === true);
           });
 
-        };
-
-        $scope.mostrarDetalleClienteModal = function(ev,id) {
-          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-
-          $mdDialog.show({
-            templateUrl: 'app/main/detalleCliente.tmpl.html',
-            targetEvent: ev,
-            scope: $scope.$new(),
-            clickOutsideToClose:true,
-            fullscreen: useFullScreen
-          })
-
-          .then(function(answer) {
-            }, function() {
-          });
-
-          $scope.$watch(function() {
-            return $mdMedia('xs') || $mdMedia('sm');
-          }, function(wantsFullScreen) {
-            $scope.customFullscreen = (wantsFullScreen === true);
-          });
-
-          Clientes.listarCliente({ id: id },
-            function(data) {
-              $scope.unCliente = data;
-              $scope.items = $scope.unPedido.elementos;
-            },
-            function() {
-
-            }
-          );
         };
 
         $scope.getClientesFiltrado = function (pagina, limite) {
