@@ -71,12 +71,12 @@
 
         function sanitizePosition() {
             var current = $scope.toastPosition;
-            if ( current.bottom && last.top ) current.top = false;
-            if ( current.top && last.bottom ) current.bottom = false;
-            if ( current.right && last.left ) current.left = false;
-            if ( current.left && last.right ) current.right = false;
+            if ( current.bottom && last.top ) { current.top = false; }
+            if ( current.top && last.bottom ) { current.bottom = false; }
+            if ( current.right && last.left ) { current.left = false; }
+            if ( current.left && last.right ) { current.right = false; }
             last = angular.extend({},current);
-        };
+        }
 
         $scope.getToastPosition = function() {
             sanitizePosition();
@@ -113,12 +113,11 @@
               });
             },
             function(error) {
-              console.log("ERROR! No se puede mostrar el Cliente" + error);
+              console.log('ERROR! No se puede mostrar el Cliente' + error);
             }
           );
         };
 
-        // TODO Funcion para editar cliente
         $scope.editarClienteModal = function(ev,id) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
           
@@ -151,7 +150,7 @@
           );
         };
 
-        
+
         $scope.borrarCliente = function(id) {
            Clientes.borrarCliente({ id: id },
             function() {
@@ -174,15 +173,24 @@
         };
 
         $scope.submit = function() {
-          Clientes.guardarCliente($scope.form,
-            function() {
-               $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000))   
-            },
-            function() {
-               $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
+          var geocoder = new google.maps.Geocoder();
+          geocoder.geocode( { "address": $scope.form.direccion }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
+              var location = results[0].geometry.location;
+              $scope.form.latitud = location.lat();
+              $scope.form.longitud = location.lng();
             }
-          );
-        }
+
+            Clientes.guardarCliente($scope.form,
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000))
+              },
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
+              }
+            );
+          });
+        };
 
         $scope.agregarClienteModal = function(ev) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -192,7 +200,7 @@
 		        targetEvent: ev,
 		        scope: $scope.$new(),
 		        clickOutsideToClose:true,
-            fullscreen: useFullScreen           
+            fullscreen: useFullScreen
           })
 		      .then(function(answer) {
 		    	}, function() {

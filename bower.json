@@ -10,6 +10,8 @@
     "angular-route": "~1.5.3",
     "angular-material": "~1.0.7",
     "angular-messages": "~1.5.3",
+    "angular-ui-event": "latest",
+    "angular-ui-map": "latest",
     "angular-ui-router": "^0.2.18",
     "angular-qr": "latest",
     "angular": "~1.5.3",

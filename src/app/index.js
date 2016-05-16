@@ -11,7 +11,8 @@ angular.module('myApp', [
     'ngMessages',
     'xeditable',
     'md.data.table',
-    'ja.qr'])
+    'ja.qr',
+    'ui.map'])
 
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
         $stateProvider

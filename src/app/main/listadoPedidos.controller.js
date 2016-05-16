@@ -87,12 +87,12 @@
 
         function sanitizePosition() {
             var current = $scope.toastPosition;
-            if ( current.bottom && last.top ) current.top = false;
-            if ( current.top && last.bottom ) current.bottom = false;
-            if ( current.right && last.left ) current.left = false;
-            if ( current.left && last.right ) current.right = false;
+            if ( current.bottom && last.top ) { current.top = false; }
+            if ( current.top && last.bottom ) { current.bottom = false; }
+            if ( current.right && last.left ) { current.left = false; }
+            if ( current.left && last.right ) { current.right = false; }
             last = angular.extend({},current);
-        };
+        }
 
         $scope.getToastPosition = function() {
             sanitizePosition();
@@ -105,17 +105,17 @@
 
           if (accion === 'A') {
             /* Debe ir en este formato el body para que lo acepte como json */
-            $scope.body = "{\'estado\': ESTADO_ACEPTADO}";
+            $scope.body = '{\'estado\': ESTADO_ACEPTADO}';
             $mdToast.show($mdToast.simple().textContent('El Pedido ha sido Aceptado!').position($scope.getToastPosition()).hideDelay(3000));
           }
           else if (accion === 'D') {
             /* Debe ir en este formato el body para que lo acepte como json */
-            $scope.body = "{\'estado\': ESTADO_DESPACHADO}";
+            $scope.body = '{\'estado\': ESTADO_DESPACHADO}';
             $mdToast.show($mdToast.simple().textContent('El Pedido ha sido Despachado!').position($scope.getToastPosition()).hideDelay(3000));
           }
           else if (accion === 'C') {
             /* Debe ir en este formato el body para que lo acepte como json */
-            $scope.body = "{\'estado\': ESTADO_CANCELADO}";
+            $scope.body = '{\'estado\': ESTADO_CANCELADO}';
             $mdToast.show($mdToast.simple().textContent('El Pedido ha sido Cancelado!').position($scope.getToastPosition()).hideDelay(3000));
           }
 
@@ -128,7 +128,7 @@
               $scope.getPedidosFiltrado($scope.query.pagina, $scope.query.limite);
             },
             function() {
-              console.log("Cambio de Estado ERROR! Pedido " + idPedido);
+              console.log('Cambio de Estado ERROR! Pedido ' + idPedido);
             }
           );
         };
@@ -139,7 +139,7 @@
           Clientes.listaCortaClientes(function(data) {
             $scope.listaClientes = data;
             angular.forEach($scope.listaClientes, function(cliente) {
-              cliente.nombreCompleto = cliente.apellido + ", " + cliente.nombre;
+              cliente.nombreCompleto = cliente.apellido + ', ' + cliente.nombre;
             });
             console.log($scope.listaClientes);
           });

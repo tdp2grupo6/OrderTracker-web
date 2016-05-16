@@ -13,7 +13,7 @@
     	$scope.date = new Date();
 
     	$scope.requireMatch = true;
-      		
+
   		$scope.vendedorSeleccionado = false;
 
     	$scope.semana = [{id:0, nombre:'DOMINGO'},
@@ -56,17 +56,17 @@
   		);
 
       	$scope.clienteFiltro = {
-      		idCliente: 0, 
-      		nombre: '', 
-      		apellido: '', 
-      		email: '', 
-      		direccion: '', 
+      		idCliente: 0,
+      		nombre: '',
+      		apellido: '',
+      		email: '',
+      		direccion: '',
       		pagina: 1
       	};
 
   		$scope.seleccionarCliente = function() {
 			$scope.clienteFiltro.idCliente = $scope.idClienteFilter;
-			
+
 	      	Agenda.filtrarClientes($scope.clienteFiltro,
 	      		function(data) {
 	      			$scope.disponibilidadCliente = (data.resultados[0].disponibilidad === '') ? 'Sin especificar' : data.resultados[0].disponibilidad;
@@ -76,34 +76,35 @@
 	      			avisar('No se puede obtener los clientes en este momento.');
 	      		}
 	  		);
-  		}
+  		};
 
   		$scope.removeFilter = function () {
-          	
+
           	$scope.filter.show = false;
 
-			if($scope.filter.form.$dirty) {
-				$scope.filter.form.$setPristine();
-			}
+          if($scope.filter.form.$dirty) {
+            $scope.filter.form.$setPristine();
+          }
 
       		$scope.vendedorSeleccionado = false;
-  		}
+  		};
 
   		function agregarClienteUnico(clienteId) {
-
-			//Se guardan los clientes unicos
-			if ($scope.clientesUnicos.length === 0)
-				$scope.clientesUnicos.push(clienteId);
-			else if ($scope.clientesUnicos.indexOf(clienteId) === -1)
-				$scope.clientesUnicos.push(clienteId);
+        //Se guardan los clientes unicos
+        if ($scope.clientesUnicos.length === 0) {
+          $scope.clientesUnicos.push(clienteId);
+        }
+        else if ($scope.clientesUnicos.indexOf(clienteId) === -1) {
+          $scope.clientesUnicos.push(clienteId);
+        }
   		}
 
   		$scope.buscarCliente = function(text) {
   			var clientes = ($filter('filter')($scope.clientesNombres, { nombre: text}));
   			var r = [];
-  			angular.forEach(clientes, function(cliente) {r.push(cliente.nombre)})
+  			angular.forEach(clientes, function(cliente) {r.push(cliente.nombre);});
   			return r;
-  		}
+  		};
 
       	$scope.buscarVendedor = function() {
 
@@ -121,7 +122,7 @@
 	  		);
 
       		$scope.vendedorSeleccionado = true;
-			
+
 			var idVendedor = {idVendedor:$scope.vendedorFilter};
       		Agenda.cargarAgendaVendedor(idVendedor,
       			function(data) {
@@ -257,32 +258,41 @@
 			var agendaViernes = ($filter('filter')($scope.semanaVendedor, { codigoDia: 5}))[0].clientes;
 			var agendaSabado = ($filter('filter')($scope.semanaVendedor, { codigoDia: 6}))[0].clientes;
 			
-      		if (nombreClienteChip && diaChip) {
+      		if (nombreClienteChip !== '' && diaChip !== '') {
       			dia = parseInt(diaChip);
       			idCliente = ($filter('filter')($scope.clientesNombres, { nombre: nombreClienteChip}))[0].id;
-      			
+
 	      		var listaPorDia = ($filter('filter')($scope.semanaVendedor, { codigoDia: dia}))[0].clientes;
 
 	      		//Se busca si el cliente no esta en el dia que se quiere agregar
 	      		if (listaPorDia.indexOf(idCliente) === -1) {
-		      		if (dia === 0)
+		      		if (dia === 0) {
 		      			agendaDomingo.push(idCliente);
-		      		else if (dia === 1)
-		      			agendaLunes.push(idCliente);
-		      		else if (dia === 2)
-		      			agendaMartes.push(idCliente);
-		      		else if (dia === 3)
-		      			agendaMiercoles.push(idCliente);
-		      		else if (dia === 4)
-		      			agendaJueves.push(idCliente);
-		      		else if (dia === 5)
-		      			agendaViernes.push(idCliente);
-		      		else if (dia === 6)
-		      			agendaSabado.push(idCliente);
+		      		}
 
-		      		if ($scope.clientesUnicos.indexOf(idCliente) === -1)
-		      			$scope.clientesUnicos.push(idCliente);
-	      		}
+	      		else if (dia === 1) {
+		      			agendaLunes.push(idCliente);
+            }
+	      		else if (dia === 2) {
+		      			agendaMartes.push(idCliente);
+            }
+	      		else if (dia === 3) {
+		      			agendaMiercoles.push(idCliente);
+            }
+	      		else if (dia === 4) {
+		      			agendaJueves.push(idCliente);
+            }
+	      		else if (dia === 5) {
+		      			agendaViernes.push(idCliente);
+            }
+	      		else if (dia === 6){
+		      			agendaSabado.push(idCliente);
+            }
+
+	      		if ($scope.clientesUnicos.indexOf(idCliente) === -1) {
+              $scope.clientesUnicos.push(idCliente);
+            }
+      		}
 	      		else {
 	      			avisar('El cliente ya se encuentra en la agenda del vendedor para el día seleccionado.');
 	      		}
@@ -298,35 +308,42 @@
 		      		listaPorDia.push(idCliente);
 
 		      		var nombreCliente = ($filter('filter')($scope.clientesNombres, { id: idCliente}))[0].nombre;
-		      		if (dia === 0)
-		      			$scope.agendaDomingo.push(nombreCliente);
-		      		else if (dia === 1)
+		      		if (dia === 0) {
+                $scope.agendaDomingo.push(nombreCliente);
+              }
+		      		else if (dia === 1) {
 		      			$scope.agendaLunes.push(nombreCliente);
-		      		else if (dia === 2)
+              }
+		      		else if (dia === 2) {
 		      			$scope.agendaMartes.push(nombreCliente);
-		      		else if (dia === 3)
+              }
+		      		else if (dia === 3) {
 		      			$scope.agendaMiercoles.push(nombreCliente);
-		      		else if (dia === 4)
+              }
+		      		else if (dia === 4) {
 		      			$scope.agendaJueves.push(nombreCliente);
-		      		else if (dia === 5)
+              }
+		      		else if (dia === 5) {
 		      			$scope.agendaViernes.push(nombreCliente);
-		      		else if (dia === 6)
-		      			$scope.agendaSabado.push(nombreCliente);
+              }
+              else if (dia === 6) {
+                $scope.agendaSabado.push(nombreCliente);
+              }
 
-				}
+				    }
 	      		else {
 	      			avisar('El cliente ya se encuentra en la agenda del vendedor para el día seleccionado.');
 	      		}
   			}
 
-      		var agendaPorDia = [{codigoDia: 0, listaClientes: agendaDomingo},
-				{codigoDia: 1, listaClientes: agendaLunes},
-				{codigoDia: 2, listaClientes: agendaMartes},
-				{codigoDia: 3, listaClientes: agendaMiercoles},
-				{codigoDia: 4, listaClientes: agendaJueves},
-				{codigoDia: 5, listaClientes: agendaViernes},
-				{codigoDia: 6, listaClientes: agendaSabado}
-      		]
+        var agendaPorDia = [{codigoDia: 0, listaClientes: agendaDomingo},
+          {codigoDia: 1, listaClientes: agendaLunes},
+          {codigoDia: 2, listaClientes: agendaMartes},
+          {codigoDia: 3, listaClientes: agendaMiercoles},
+          {codigoDia: 4, listaClientes: agendaJueves},
+          {codigoDia: 5, listaClientes: agendaViernes},
+          {codigoDia: 6, listaClientes: agendaSabado}
+        ];
 
       		var agendaEditada = {idVendedor: $scope.vendedorFilter,
       			clientes: $scope.clientesUnicos,
@@ -334,7 +351,7 @@
       		};
       		console.log(agendaEditada);
       		enviarAgenda(agendaEditada);
-      	}
+      	};
 
       	$scope.eliminarCliente = function(clienteNombre, dia) {
 
@@ -386,7 +403,7 @@
 				{codigoDia: 4, listaClientes: agendaJueves},
 				{codigoDia: 5, listaClientes: agendaViernes},
 				{codigoDia: 6, listaClientes: agendaSabado}
-      		]
+      		];
 
       		if (idxDom + idxLun + idxMar + idxMie + idxJue + idxVie + idxSab === -6) {
       			var idx = $scope.clientesUnicos.indexOf(idCliente);
@@ -397,7 +414,7 @@
       			clientes: $scope.clientesUnicos,
       			agenda: agendaPorDia
       		};
-      		
+
       		enviarAgenda(agendaEditada);
 
       	}
