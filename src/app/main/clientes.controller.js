@@ -33,6 +33,16 @@
           pagina: 1
         };
 
+        $scope.form = {
+          nombre: '',
+          apellido: '',
+          direccion: '',
+          email: '',
+          telefono: '',
+          razonSocial: '',
+          horario: ''
+        }
+
         Clientes.filtrarCliente($scope.query,
           function(data) {
             $scope.clientes = data.resultados;
@@ -43,6 +53,8 @@
 
           }
         );
+
+        $scope.isAvailable = true;
 
         $scope.cerrar = function() {
           $mdDialog.cancel();
@@ -133,25 +145,46 @@
           );
         };
 
+        $scope.submit = function() {
+          Clientes.guardarCliente($scope.form,
+            function() {
+                  $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+            },
+            function() {
+                 $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
+            }
+          );
+        }
+
         $scope.agregarClienteModal = function(ev) {
-          var useFullScreen = ($mdMedia('lg') || $mdMedia('xl'))  && $scope.customFullscreen;
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
           $mdDialog.show({
 		        templateUrl: 'app/main/agregarCliente.tmpl.html',
 		        targetEvent: ev,
 		        scope: $scope.$new(),
 		        clickOutsideToClose:true,
-		         fullscreen: useFullScreen
-		      })
+            fullscreen: useFullScreen           
+          })
 		      .then(function(answer) {
 		    	}, function() {
           });
 
 		      $scope.$watch(function() {
-		        return $mdMedia('lg') || $mdMedia('xl');
+		        return $mdMedia('sm') || $mdMedia('xs');
 		      }, function(wantsFullScreen) {
 	         $scope.customFullscreen = (wantsFullScreen === true);
           });
+
+          Clientes.filtrarCliente($scope.query,
+            function(data) {
+              $scope.clientes = data.resultados;
+              $scope.totalResultados = data.totalResultados;
+            },
+            function() {
+
+            }
+          );
         };
 
         $scope.mostrarDetalleClienteModal = function(ev,id) {
