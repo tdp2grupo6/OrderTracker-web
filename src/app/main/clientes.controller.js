@@ -44,13 +44,7 @@
         }
 
         $scope.body = {
-          nombre: '',
-          apellido: '',
-          direccion: '',
-          email: '',
-          telefono: '',
-          razonSocial: '',
-          disponibilidad: ''
+
         }
 
         Clientes.filtrarCliente($scope.query,
@@ -136,14 +130,6 @@
               $scope.cliente = data;
               $scope.validador = data.validador;
 
-              $scope.body.nombre = 'Nombre';
-              $scope.body.apellido = $scope.cliente.apellido;
-              $scope.body.direccion = $scope.cliente.direccion;
-              $scope.body.email = $scope.cliente.email;
-              $scope.body.telefono = $scope.cliente.telefono;
-              $scope.body.razonSocial = $scope.cliente.razonSocial;
-              $scope.body.disponibilidad = $scope.cliente.disponibilidad;
-              
               // Mostrar Modal
               $mdDialog.show({
                   templateUrl: 'app/main/editarCliente.tmpl.html',
@@ -211,7 +197,14 @@
         };
 
         $scope.update = function(id) {
-          Clientes.actualizarCliente({id: id},$scope.form,
+          var geocoder = new google.maps.Geocoder();
+          geocoder.geocode( { "address": $scope.body.direccion }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
+              var location = results[0].geometry.location;
+              $scope.body.latitud = location.lat();
+              $scope.body.longitud = location.lng();
+            }
+          Clientes.actualizarCliente({id: id},$scope.body,
               function() {
                 $mdToast.show($mdToast.simple().textContent('El Cliente ha sido actualizado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000))
               },
@@ -219,7 +212,7 @@
                 $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser actualizado').position($scope.getToastPosition()).hideDelay(3000));
               }
             );
-
+          });
         };
 
         $scope.agregarClienteModal = function(ev) {

@@ -15,7 +15,7 @@
        <form name="projectForm" layout="column" method="POST">
           <md-input-container>
             <label>Nombre</label>
-            <input md-maxlength="20" required name="nombre" ng-value="" ng-model="form.nombre" />
+            <input type="text" md-maxlength="20" required name="nombre" ng-value="form.nombre" ng-model="form.nombre" />
           </md-input-container>
 
           <md-input-container>
@@ -30,12 +30,12 @@
 
           <md-input-container>
             <label>Teléfono</label>
-            <input required name="telefono" ng-value="" ng-model="form.telefono" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/"/>
+            <input required name="telefono" ng-value="" ng-model="form.telefono" />
           </md-input-container>
 
           <md-input-container>
             <label>Email</label>
-            <input required name="email" ng-value="" ng-model="form.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"/>
+            <input required name="email" ng-value="" ng-model="form.email" />
           </md-input-container>
 
           <md-input-container>

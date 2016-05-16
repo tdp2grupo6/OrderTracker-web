@@ -28,7 +28,7 @@
 
             actualizarCliente: {
             	method: 'PUT',
-            	url: Services.url + 'cliente/:id',
+              url: Services.url + 'cliente/:id',
             	params: {id: '@id'},
             	headers: {
               		'Content-Type': 'application/json'
