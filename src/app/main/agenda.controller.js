@@ -6,9 +6,9 @@
      	.controller('AgendaController', AgendaController);
 
 
-      AgendaController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Agenda', '$filter'];
+      AgendaController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Agenda', '$filter', '$mdToast'];
 
-      function AgendaController($scope, $mdDialog, $mdMedia, Agenda, $filter) {
+      function AgendaController($scope, $mdDialog, $mdMedia, Agenda, $filter, $mdToast) {
 
     	$scope.date = new Date();
 
@@ -23,6 +23,31 @@
     	{id:4, nombre:'JUEVES'},
     	{id:5, nombre:'VIERNES'},
     	{id:6, nombre:'SÁBADO'}];
+
+        var last = {
+           bottom: true,
+           top: false,
+           left: false,
+           right: true
+        };
+
+        $scope.toastPosition = angular.extend({},last);
+
+        function sanitizePosition() {
+            var current = $scope.toastPosition;
+            if ( current.bottom && last.top ) current.top = false;
+            if ( current.top && last.bottom ) current.bottom = false;
+            if ( current.right && last.left ) current.left = false;
+            if ( current.left && last.right ) current.right = false;
+            last = angular.extend({},current);
+        };
+
+        $scope.getToastPosition = function() {
+            sanitizePosition();
+            return Object.keys($scope.toastPosition)
+            .filter(function(pos) { return $scope.toastPosition[pos]; })
+            .join(' ');
+        };
 
       	Agenda.listarVendedores(
       		function(data) {
@@ -46,6 +71,9 @@
 	      		function(data) {
 	      			$scope.disponibilidadCliente = (data.resultados[0].disponibilidad === '') ? 'Sin especificar' : data.resultados[0].disponibilidad;
 	      			$scope.direccionCliente = data.resultados[0].direccion;
+	      		},
+	      		function(error) {
+	      			avisar('No se puede obtener los clientes en este momento.');
 	      		}
 	  		);
   		}
@@ -84,8 +112,11 @@
 	      			$scope.clientes = data;
 	      			$scope.clientesNombres = [];
 	      			angular.forEach(data, function(cliente) {
-	      				$scope.clientesNombres.push({id: cliente.id, nombre: cliente.nombreCompleto});
+	      				$scope.clientesNombres.push({id: cliente.id, nombre: cliente.nombreCompleto, estado: cliente.estado});
 	      			});
+	      		},
+	      		function(error) {
+	      			avisar('No se puede obtener los clientes en este momento.');
 	      		}
 	  		);
 
@@ -196,15 +227,22 @@
 
 					//Variable tramposa para tener una fila en la grilla
 					$scope.contador = [1];
-      			},
-	            function(error) {
-	            	console.log(error);
-	            }
+      			}, 
+      			function(error) {
+      				avisar('No se puede obtener la agenda del vendedor en este momento.');
+      			}
 			);
       	}
 
       	function enviarAgenda(agendaEditada) {
-      		Agenda.enviarAgenda(agendaEditada);
+      		Agenda.enviarAgenda(agendaEditada,
+      			function(ok) {
+      				avisar('Agenda editada con éxito');
+      			},
+      			function(error) {
+      				avisar('Error editando agenda');
+      			}
+  			);
       	}
 
       	$scope.agregarCliente = function(nombreClienteChip, diaChip) {
@@ -218,28 +256,36 @@
 			var agendaJueves = ($filter('filter')($scope.semanaVendedor, { codigoDia: 4}))[0].clientes;
 			var agendaViernes = ($filter('filter')($scope.semanaVendedor, { codigoDia: 5}))[0].clientes;
 			var agendaSabado = ($filter('filter')($scope.semanaVendedor, { codigoDia: 6}))[0].clientes;
-
-      		if (nombreClienteChip != '' && diaChip != '') {
+			
+      		if (nombreClienteChip && diaChip) {
       			dia = parseInt(diaChip);
       			idCliente = ($filter('filter')($scope.clientesNombres, { nombre: nombreClienteChip}))[0].id;
       			
-	      		if (dia === 0)
-	      			agendaDomingo.push(idCliente);
-	      		else if (dia === 1)
-	      			agendaLunes.push(idCliente);
-	      		else if (dia === 2)
-	      			agendaMartes.push(idCliente);
-	      		else if (dia === 3)
-	      			agendaMiercoles.push(idCliente);
-	      		else if (dia === 4)
-	      			agendaJueves.push(idCliente);
-	      		else if (dia === 5)
-	      			agendaViernes.push(idCliente);
-	      		else if (dia === 6)
-	      			agendaSabado.push(idCliente);
+	      		var listaPorDia = ($filter('filter')($scope.semanaVendedor, { codigoDia: dia}))[0].clientes;
 
-	      		if ($scope.clientesUnicos.indexOf(idCliente) === -1)
-	      			$scope.clientesUnicos.push(idCliente);
+	      		//Se busca si el cliente no esta en el dia que se quiere agregar
+	      		if (listaPorDia.indexOf(idCliente) === -1) {
+		      		if (dia === 0)
+		      			agendaDomingo.push(idCliente);
+		      		else if (dia === 1)
+		      			agendaLunes.push(idCliente);
+		      		else if (dia === 2)
+		      			agendaMartes.push(idCliente);
+		      		else if (dia === 3)
+		      			agendaMiercoles.push(idCliente);
+		      		else if (dia === 4)
+		      			agendaJueves.push(idCliente);
+		      		else if (dia === 5)
+		      			agendaViernes.push(idCliente);
+		      		else if (dia === 6)
+		      			agendaSabado.push(idCliente);
+
+		      		if ($scope.clientesUnicos.indexOf(idCliente) === -1)
+		      			$scope.clientesUnicos.push(idCliente);
+	      		}
+	      		else {
+	      			avisar('El cliente ya se encuentra en la agenda del vendedor para el día seleccionado.');
+	      		}
       		}
   			else {
 				dia = parseInt($scope.diaSemana);
@@ -268,6 +314,9 @@
 		      			$scope.agendaSabado.push(nombreCliente);
 
 				}
+	      		else {
+	      			avisar('El cliente ya se encuentra en la agenda del vendedor para el día seleccionado.');
+	      		}
   			}
 
       		var agendaPorDia = [{codigoDia: 0, listaClientes: agendaDomingo},
@@ -283,7 +332,7 @@
       			clientes: $scope.clientesUnicos,
       			agenda: agendaPorDia
       		};
-      		
+      		console.log(agendaEditada);
       		enviarAgenda(agendaEditada);
       	}
 
@@ -344,13 +393,23 @@
       			$scope.clientesUnicos.splice(idx, 1);
       		}
 
-      		var agendaEditada = {idVendedor: $scope.vendedorFilter,
+      		var agendaEditada = {idVendedor: parseInt($scope.vendedorFilter),
       			clientes: $scope.clientesUnicos,
       			agenda: agendaPorDia
       		};
       		
       		enviarAgenda(agendaEditada);
 
+      	}
+
+      	$scope.seleccionarChip = function(clienteNombre, dia) {
+      		var estado = ($filter('filter')($scope.clientesNombres, { nombre: clienteNombre}))[0].estado.nombre;
+      		console.log(estado);
+            avisar('El cliente ' + clienteNombre + ' tiene el estado ' + estado);
+      	}
+
+      	function avisar(msj) {
+            $mdToast.show($mdToast.simple().textContent(msj).position($scope.getToastPosition()).hideDelay(3000));
       	}
 
       }
