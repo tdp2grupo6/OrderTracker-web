@@ -43,6 +43,16 @@
           disponibilidad: ''
         }
 
+        $scope.body = {
+          nombre: '',
+          apellido: '',
+          direccion: '',
+          email: '',
+          telefono: '',
+          razonSocial: '',
+          disponibilidad: ''
+        }
+
         Clientes.filtrarCliente($scope.query,
           function(data) {
             $scope.clientes = data.resultados;
@@ -126,6 +136,14 @@
               $scope.cliente = data;
               $scope.validador = data.validador;
 
+              $scope.body.nombre = 'Nombre';
+              $scope.body.apellido = $scope.cliente.apellido;
+              $scope.body.direccion = $scope.cliente.direccion;
+              $scope.body.email = $scope.cliente.email;
+              $scope.body.telefono = $scope.cliente.telefono;
+              $scope.body.razonSocial = $scope.cliente.razonSocial;
+              $scope.body.disponibilidad = $scope.cliente.disponibilidad;
+              
               // Mostrar Modal
               $mdDialog.show({
                   templateUrl: 'app/main/editarCliente.tmpl.html',
@@ -190,6 +208,18 @@
               }
             );
           });
+        };
+
+        $scope.update = function(id) {
+          Clientes.actualizarCliente({id: id},$scope.form,
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Cliente ha sido actualizado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000))
+              },
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser actualizado').position($scope.getToastPosition()).hideDelay(3000));
+              }
+            );
+
         };
 
         $scope.agregarClienteModal = function(ev) {
