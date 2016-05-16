@@ -94,32 +94,22 @@
               $scope.cliente = data;
               $scope.validador = data.validador;
 
-              var geocoder = new google.maps.Geocoder();
-              geocoder.geocode( { "address": $scope.cliente.direccion }, function(results, status) {
-                if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
-                  var location = results[0].geometry.location;
-                  $scope.latitud      = location.lat();
-                  $scope.longitud     = location.lng();
-                }
-
-                // Mostrar Modal
-                $mdDialog.show({
-                    templateUrl: 'app/main/clienteDetalle.tmpl.html',
-                    targetEvent: ev,
-                    scope: $scope.$new(),
-                    clickOutsideToClose:true,
-                    fullscreen: useFullScreen
-                  })
-                  .then(function(answer) {
-                  }, function() {
-                  });
-
-                $scope.$watch(function() {
-                  return $mdMedia('xs') || $mdMedia('sm');
-                }, function(wantsFullScreen) {
-                  $scope.customFullscreen = (wantsFullScreen === true);
+              // Mostrar Modal
+              $mdDialog.show({
+                  templateUrl: 'app/main/clienteDetalle.tmpl.html',
+                  targetEvent: ev,
+                  scope: $scope.$new(),
+                  clickOutsideToClose:true,
+                  fullscreen: useFullScreen
+                })
+                .then(function(answer) {
+                }, function() {
                 });
 
+              $scope.$watch(function() {
+                return $mdMedia('xs') || $mdMedia('sm');
+              }, function(wantsFullScreen) {
+                $scope.customFullscreen = (wantsFullScreen === true);
               });
             },
             function(error) {
@@ -156,15 +146,24 @@
         };
 
         $scope.submit = function() {
-          Clientes.guardarCliente($scope.form,
-            function() {
-               $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000))   
-            },
-            function() {
-               $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
+          var geocoder = new google.maps.Geocoder();
+          geocoder.geocode( { "address": $scope.form.direccion }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
+              var location = results[0].geometry.location;
+              $scope.form.latitud = location.lat();
+              $scope.form.longitud = location.lng();
             }
-          );
-        }
+
+            Clientes.guardarCliente($scope.form,
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000))
+              },
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
+              }
+            );
+          });
+        };
 
         $scope.agregarClienteModal = function(ev) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -174,7 +173,7 @@
 		        targetEvent: ev,
 		        scope: $scope.$new(),
 		        clickOutsideToClose:true,
-            fullscreen: useFullScreen           
+            fullscreen: useFullScreen
           })
 		      .then(function(answer) {
 		    	}, function() {
