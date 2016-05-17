@@ -14,7 +14,7 @@ angular.module('myApp', [
     'ja.qr',
     'ui.map'])
 
-    .config(function ($stateProvider, $urlRouterProvider, $locationProvider, $mdThemingProvider) {
+    .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('main', {
                 url: '/main',
@@ -39,16 +39,6 @@ angular.module('myApp', [
 
         $urlRouterProvider.otherwise('/main');
         $locationProvider.html5Mode(true).hashPrefix('#');
-
-        /*
-        $mdThemingProvider.theme('default')
-            .primaryPalette('blue')
-            .accentPalette('pink')
-            .warnPalette('grey', {
-              'default': '200', // by default use shade 400 from the light-blue palette for primary intentions
-              'hue-1': '800', // use shade 100 for the <code>md-hue-1</code> class
-            });
-        */
     })
 
     .run(function($rootElement) {
@@ -69,6 +59,16 @@ angular.module('myApp', [
       };
       $mdDateLocaleProvider.msgCalendar = 'Calendario';
       $mdDateLocaleProvider.msgOpenCalendar = 'Abrir el calendario';
+    })
+
+    .config(function($mdThemingProvider) {
+      $mdThemingProvider.theme('default')
+        .primaryPalette('blue')
+        .accentPalette('pink')
+        .warnPalette('grey', {
+          'default': '200', // by default use shade 400 from the light-blue palette for primary intentions
+          'hue-1': '800', // use shade 100 for the <code>md-hue-1</code> class
+        });
     })
 ;
 
