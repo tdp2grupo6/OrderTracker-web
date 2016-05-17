@@ -23,8 +23,12 @@
           <p><b>Disponibilidad:</b> {{cliente.disponibilidad}}</p>
           <p><b>Estado:</b> {{cliente.estado.nombre}}</p>
           <br>
-          <p><b>Código QR:</b></p>
-          <qr text="validador" image="true" size="250"></qr>
+          <p><b>Coordenadas:</b> [ {{cliente.latitud}} , {{cliente.longitud}} ]</p>
+          <br>
+          <div>
+            <div class="centradoTexto"><b>Código QR Cliente</b></div>
+            <div class="centradoBloque"><qr text="validador" image="true" size="250"></qr></div>
+          </div>
         </div>
       </div>
     </md-dialog-content>

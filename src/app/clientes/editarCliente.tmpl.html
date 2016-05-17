@@ -11,7 +11,7 @@
       </div>
     </md-toolbar>
     <md-dialog-content layout="column">
-      <div class="md-dialog-content" layout="column">
+      <div class="md-dialog-content" layout="column" class="inputdemoErrorsAdvanced">
           <md-input-container>
             <label>Nombre</label>
             <input type="text" md-maxlength="20" required name="nombre"  ng-value="cliente.nombre" ng-model="body.nombre" />
@@ -45,12 +45,14 @@
           <md-input-container>
             <label>Horario de Preferencia</label>
             <input md-maxlength="50" required name="disponibilidad" ng-value="cliente.disponibilidad" ng-model="body.disponibilidad">
-           </md-input-container>
+          </md-input-container>
 
           <md-button class="md-raised md-primary" ng-click="update(cliente.id)" ng-disabled="disabled" ng-show="isAvailable">Update</md-button>
-          <br>
-          <p><b>Código QR:</b></p>
-          <qr text="validador" image="true" size="250"></qr>
+      </div>
+      <br>
+      <div>
+        <div class="centradoTexto"><b>Código QR Cliente</b></div>
+        <div class="centradoBloque"><qr text="validador" image="true" size="250"></qr></div>
       </div>
     </md-dialog-content>
   </form>

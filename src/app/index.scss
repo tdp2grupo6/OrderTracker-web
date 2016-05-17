@@ -27,6 +27,15 @@ header {
   background-color: rgba(158, 158, 158, 0.2);
 }
 
+.md-cell.ng-binding {
+  padding-right: 25px !important;
+}
+
+.label.ng-binding {
+  font-family: 'Helvetica Neue', 'Helvetica', serif;
+  font-size: 12px !important;
+  color: rgba(0, 0, 0, 0.54) !important;
+}
 
 /* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
    all your sass files automatically */

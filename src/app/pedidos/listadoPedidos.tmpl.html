@@ -70,10 +70,10 @@
           <tr md-row>
             <th md-column md-numeric md-order-by="id"><span>Nº</span></th>
             <th md-column md-order-by="fechaRealizado"><span>Fecha</span></th>
-            <th md-column md-order-by="clienteNombre">Cliente</th>
+            <th md-column md-order-by="nombreCliente">Cliente</th>
             <th md-column md-order-by="estado.id">Estado</th>
-            <th md-column md-order-by="vendedor">Vendedor</th>
-            <th md-column md-order-by="total">Total Compra</th>
+            <th md-column md-order-by="nombreVendedor">Vendedor</th>
+            <th md-column md-order-by="totalCompra">Total Compra</th>
             <th md-column>Ver</th>
             <th md-column>Acciones</th>
           </tr>
@@ -84,7 +84,7 @@
             <td md-cell>{{pedido.fechaRealizado | date : 'dd/MM/yyyy'}}</td>
             <td md-cell>{{pedido.nombreCliente}}</td>
             <td md-cell>{{pedido.estado.nombre}}</td>
-            <td md-cell>{{pedido.vendedor || 'Vendedor'}}</td>
+            <td md-cell>{{pedido.nombreVendedor || 'Vendedor'}}</td>
             <td md-cell>${{pedido.totalCompra | number : '2'}}</td>
             <td md-cell>
               <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetallePedidoModal($event,pedido.id)" aria-label="ver">
