@@ -23,23 +23,24 @@ angular.module('myApp', [
             })
             .state('main.listadoPedidos', {
                 url: '/listadoPedidos',
-                templateUrl: 'app/main/listadoPedidos.tmpl.html',
+                templateUrl: 'app/pedidos/listadoPedidos.tmpl.html',
                 controller: 'ListadoPedidosController'
             })
             .state('main.agenda', {
                 url: '/agenda',
-                templateUrl: 'app/main/agenda.tmpl.html',
+                templateUrl: 'app/agenda/agenda.tmpl.html',
                 controller: 'AgendaController'
             })
             .state('main.clientes', {
                 url: '/clientes',
-                templateUrl: 'app/main/clientes.tmpl.html',
+                templateUrl: 'app/clientes/clientes.tmpl.html',
                 controller: 'ClientesController'
             });
 
         $urlRouterProvider.otherwise('/main');
         $locationProvider.html5Mode(true).hashPrefix('#');
 
+        /*
         $mdThemingProvider.theme('default')
             .primaryPalette('blue')
             .accentPalette('pink')
@@ -47,6 +48,7 @@ angular.module('myApp', [
               'default': '200', // by default use shade 400 from the light-blue palette for primary intentions
               'hue-1': '800', // use shade 100 for the <code>md-hue-1</code> class
             });
+        */
     })
 
     .run(function($rootElement) {

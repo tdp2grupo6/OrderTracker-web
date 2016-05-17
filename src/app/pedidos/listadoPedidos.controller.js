@@ -199,7 +199,7 @@
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
           $mdDialog.show({
-            templateUrl: 'app/main/detallePedido.tmpl.html',
+            templateUrl: 'app/pedidos/detallePedido.tmpl.html',
             targetEvent: ev,
             scope: $scope.$new(),
             clickOutsideToClose:true,

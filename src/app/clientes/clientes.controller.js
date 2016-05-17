@@ -100,7 +100,7 @@
 
               // Mostrar Modal
               $mdDialog.show({
-                  templateUrl: 'app/main/clienteDetalle.tmpl.html',
+                  templateUrl: 'app/clientes/clienteDetalle.tmpl.html',
                   targetEvent: ev,
                   scope: $scope.$new(),
                   clickOutsideToClose:true,
@@ -124,7 +124,7 @@
 
         $scope.editarClienteModal = function(ev,id) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-          
+
           Clientes.listarCliente({ id: id },
             function(data) {
               $scope.cliente = data;
@@ -132,7 +132,7 @@
 
               // Mostrar Modal
               $mdDialog.show({
-                  templateUrl: 'app/main/editarCliente.tmpl.html',
+                  templateUrl: 'app/clientes/editarCliente.tmpl.html',
                   targetEvent: ev,
                   scope: $scope.$new(),
                   clickOutsideToClose:true,
@@ -219,7 +219,7 @@
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
           $mdDialog.show({
-		        templateUrl: 'app/main/agregarCliente.tmpl.html',
+		        templateUrl: 'app/clientes/agregarCliente.tmpl.html',
 		        targetEvent: ev,
 		        scope: $scope.$new(),
 		        clickOutsideToClose:true,
