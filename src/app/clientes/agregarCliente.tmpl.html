@@ -13,21 +13,22 @@
     <md-dialog-content>
       <div class="md-dialog-content" layout="column">
        <form name="projectForm" layout="column" method="POST">
+         <div ng-init="setForm(projectForm)"></div>
          <md-input-container>
            <label>Nombre</label>
            <input md-maxlength="50" required name="nombre" ng-model="form.nombre" />
-           <div class="hint" ng-if="!showHints && !projectForm.nombre.$touched">Ingresá el Nombre</div>
-           <div ng-messages="projectForm.nombre.$error" ng-if="!showHints">
-             <div ng-message="required" ng-if="projectForm.nombre.$touched">Nombre es requerido</div>
-             <div ng-message="md-maxlength">El Nombre debe tener como máximo 50 caracteres de longitud</div>
+           <div class="hint" ng-if="!projectForm.nombre.$touched">Ingresá el Nombre</div>
+           <div ng-messages="projectForm.nombre.$error" md-auto-hide="false" ng-if="projectForm.nombre.$touched">
+             <div ng-message="required" ng-if="projectForm.nombre.$touched" md-auto-hide="false">Nombre es requerido</div>
+             <div ng-message="md-maxlength" md-auto-hide="false">El Nombre debe tener como máximo 50 caracteres de longitud</div>
            </div>
          </md-input-container>
 
          <md-input-container>
            <label>Apellido</label>
            <input md-maxlength="50" required name="apellido" ng-model="form.apellido" />
-           <div class="hint" ng-if="!showHints && !projectForm.apellido.$touched">Ingresá el Apellido</div>
-           <div ng-messages="projectForm.apellido.$error" ng-if="!showHints">
+           <div class="hint" ng-if="!projectForm.apellido.$touched">Ingresá el Apellido</div>
+           <div ng-messages="projectForm.apellido.$error" md-auto-hide="false" ng-if="projectForm.apellido.$touched">
              <div ng-message="required" ng-if="projectForm.apellido.$touched">Apellido es requerido</div>
              <div ng-message="md-maxlength">El Apellido debe tener como máximo 50 caracteres de longitud</div>
            </div>
@@ -115,8 +116,17 @@
             <label>Horario de Preferencia</label>
             <input md-maxlength="50" required name="disponibilidad" ng-model="form.disponibilidad">
            </md-input-container>
+
+          <pre>pF: {{ projectForm? projectForm : "hi" }}</pre>
+          <pre>invalid1: {{ projectForm.$invalid }}</pre>
+          <pre>invalid2: {{ form.projectForm.$invalid }}</pre>
+          <pre>invalid3: {{ $scope.form.$invalid }}</pre>
+          <pre>invalid4: {{ $scope.form.projectForm.$invalid }}</pre>
+          <pre>invalid5: {{ form.$invalid }}</pre>
+          <pre>{{ test }}</pre>
           -->
-          <md-button class="md-raised md-primary" ng-click="submit()" ng-disabled="disabled" ng-show="isAvailable">Submit</md-button>
+
+          <md-button class="md-raised md-primary" ng-click="submit()" ng-disabled="projectForm.$invalid">Submit</md-button>
        </form>
       </div>
     </md-dialog-content>

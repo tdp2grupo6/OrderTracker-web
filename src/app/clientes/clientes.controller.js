@@ -43,6 +43,18 @@
           disponibilidad: ''
         };
 
+        $scope.test = "hola";
+        $scope.form = {};
+
+        $scope.setForm = function (form) {
+          $scope.form = form;
+          console.log("Form Set!");
+        };
+
+        $scope.$watch('form', function() {
+          console.log($scope.form);
+        });
+
         Clientes.filtrarCliente($scope.query,
           function(data) {
             $scope.clientes = data.resultados;
@@ -234,8 +246,8 @@
 
           $mdDialog.show({
 		        templateUrl: 'app/clientes/agregarCliente.tmpl.html',
-		        targetEvent: ev,
-		        scope: $scope.$new(),
+            targetEvent: ev,
+            scope: $scope.$new(),
 		        clickOutsideToClose:true,
             fullscreen: useFullScreen,
             onRemoving: function() { $scope.cerrarModal() }
