@@ -39,12 +39,12 @@
 
           <md-input-container>
             <label>Razon Social</label>
-            <input type="text"<input type="text" ng-value="cliente.razonSocial" ng-model="cliente.razonSocial">
+            <input type="text" ng-model="cliente.razonSocial">
           </md-input-container>
 
           <md-input-container>
             <label>Horario de Preferencia</label>
-            <input type="text" ng-value="cliente.disponibilidad" ng-model="cliente.disponibilidad">
+            <input type="text"  ng-model="cliente.disponibilidad">
           </md-input-container>
 
           <md-button class="md-raised md-primary" ng-click="update(cliente.id)" ng-disabled="disabled" ng-show="isAvailable">Update</md-button>
