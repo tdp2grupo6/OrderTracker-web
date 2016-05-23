@@ -44,8 +44,8 @@
 
          <md-input-container>
            <label>Teléfono</label>
-           <input required name="telefono" ng-model="form.telefono" ng-pattern="/^[0-9]{2}-[0-9]{4}-[0-9]{4}$/" />
-           <div class="hint" ng-if="!showHints && !projectForm.telefono.$touched">Ingresá un Teléfono de Contacto (##-####-####)</div>
+           <input required name="telefono" ng-model="form.telefono" ng-pattern="/^[0-9]{2} [0-9]{4}-[0-9]{4}$/" />
+           <div class="hint" ng-if="!showHints && !projectForm.telefono.$touched">Ingresá un Teléfono de Contacto (## ####-####)</div>
            <div ng-messages="projectForm.telefono.$error" md-auto-hide="false" ng-if="projectForm.telefono.$touched">
              <div ng-message="required" ng-if="projectForm.telefono.$touched">Teléfono es requerido</div>
              <div ng-message-exp="['required','pattern']">Por favor ingresá un teléfono válido</div>
