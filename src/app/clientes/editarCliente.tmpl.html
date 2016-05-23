@@ -1,5 +1,4 @@
 <md-dialog layout-padding md-scroll-y ng-cloak ng-controller="ClientesController" class="modalAncho">
-  <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Detalle del Cliente: <span>{{cliente.nombreCompleto}}</span></h2>
@@ -118,17 +117,13 @@
           </md-input-container>
           -->
 
-          <md-button class="md-raised md-primary" ng-click="update(cliente.id)" ng-disabled="disabled" ng-show="isAvailable">Update</md-button>
+          <md-button class="md-raised md-primary" ng-click="update(cliente.id)" ng-disabled="projectForm.$invalid" ng-show="isAvailable">Update</md-button>
 
         </form>
       <div>
         <div class="centradoTexto"><b>Código QR Cliente</b></div>
         <div class="centradoBloque"><qr text="validador" image="true" size="250"></qr></div>
       </div>
-      
       </div>
-      
-
     </md-dialog-content>
-  </form>
 </md-dialog>

@@ -43,17 +43,6 @@
           disponibilidad: ''
         };
 
-        $scope.test = "hola";
-        $scope.form = {};
-        $scope.setForm = function (form) {
-          $scope.form = form;
-          console.log("Form Set!");
-        };
-
-        $scope.$watch('form', function() {
-          console.log($scope.form);
-        });
-
         Clientes.filtrarCliente($scope.query,
           function(data) {
             $scope.clientes = data.resultados;
@@ -138,7 +127,7 @@
             function(data) {
               $scope.cliente = data;
               $scope.validador = data.validador;
-              
+
               // Mostrar Modal
               $mdDialog.show({
                   templateUrl: 'app/clientes/editarCliente.tmpl.html',
