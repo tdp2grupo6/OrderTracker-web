@@ -37,6 +37,10 @@ header {
   color: rgba(0, 0, 0, 0.54) !important;
 }
 
+.container {
+  overflow-y: auto !important;
+}
+
 /* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
    all your sass files automatically */
 // injector

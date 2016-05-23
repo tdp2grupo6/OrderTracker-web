@@ -1,5 +1,5 @@
-<div layout-xs="column" ng-cloak class="md-default-theme">
-  <div>
+<div layout-xs="column" ng-cloak class="md-default-theme" layout-fill>
+  <div layout-fill>
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" style="float:left" md-component-id="left" hide-print md-is-open="sidenavOpen">
     <header class="nav-header">
         <md-toolbar class="md-whiteframe-z1 md-tall" layout="column">
@@ -32,8 +32,7 @@
                 </md-button>
               </md-fab-actions>
           </md-fab-speed-dial>
-
-           <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
+          <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
               <md-fab-trigger>
                 <md-button class="md-primary" aria-label="Agenda">Clientes <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
               </md-fab-trigger>

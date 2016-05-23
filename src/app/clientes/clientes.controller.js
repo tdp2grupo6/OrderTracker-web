@@ -20,7 +20,7 @@
     });
 
 
-      ClientesController.$inject = ['$scope', '$mdDialog', '$mdMedia','$filter', 'Services', 'Clientes', '$mdToast'];
+      ClientesController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$filter', 'Services', 'Clientes', '$mdToast'];
 
       function ClientesController($scope, $mdDialog, $mdMedia, $filter, Services, Clientes, $mdToast) {
 
@@ -41,10 +41,7 @@
           telefono: '',
           razonSocial: '',
           disponibilidad: ''
-        }
-
-        $scope.body = {
-        }
+        };
 
         Clientes.filtrarCliente($scope.query,
           function(data) {
@@ -103,7 +100,8 @@
                   targetEvent: ev,
                   scope: $scope.$new(),
                   clickOutsideToClose:true,
-                  fullscreen: useFullScreen
+                  fullscreen: useFullScreen,
+                  onRemoving: function() { $scope.cerrarModal() }
                 })
                 .then(function(answer) {
                 }, function() {
@@ -116,7 +114,8 @@
               });
             },
             function(error) {
-              console.log('ERROR! No se puede mostrar el Cliente' + error);
+              console.log("ERROR! No se puede mostrar el Cliente " + error);
+              $mdToast.show($mdToast.simple().textContent('ERROR! No se puede mostrar el Cliente').position($scope.getToastPosition()).hideDelay(3000))
             }
           );
         };
@@ -128,16 +127,18 @@
             function(data) {
               $scope.cliente = data;
               $scope.validador = data.validador;
-              
+
               // Mostrar Modal
               $mdDialog.show({
                   templateUrl: 'app/clientes/editarCliente.tmpl.html',
                   targetEvent: ev,
                   scope: $scope.$new(),
                   clickOutsideToClose:true,
-                  fullscreen: useFullScreen
+                  fullscreen: useFullScreen,
+                  onRemoving: function() { $scope.cerrarModal() }
                 })
                 .then(function(answer) {
+
                 }, function() {
                 });
 
@@ -148,7 +149,8 @@
               });
             },
             function(error) {
-              console.log("ERROR! No se puede mostrar el Cliente" + error);
+              console.log("ERROR! No se puede mostrar el Cliente " + error);
+              $mdToast.show($mdToast.simple().textContent('ERROR! No se puede mostrar el Cliente').position($scope.getToastPosition()).hideDelay(3000))
             }
           );
         };
@@ -159,15 +161,15 @@
             function() {
              $mdToast.show($mdToast.simple().textContent('El Cliente ha sido borrado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
                Clientes.filtrarCliente($scope.query,
-          function(data) {
-            $scope.clientes = data.resultados;
-            $scope.totalResultados = data.totalResultados;
-            angular.forEach($scope.clientes, function(cliente) {});
-          },
-          function() {
+                function(data) {
+                  $scope.clientes = data.resultados;
+                  $scope.totalResultados = data.totalResultados;
+                  angular.forEach($scope.clientes, function(cliente) {});
+                },
+                function() {
 
-          }
-        );
+                }
+              );
             },
             function() {
               $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser borrado').position($scope.getToastPosition()).hideDelay(3000));
@@ -186,7 +188,8 @@
 
             Clientes.guardarCliente($scope.form,
               function() {
-                $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000))
+                $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+                $scope.cerrarModal();
               },
               function() {
                 $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
@@ -198,21 +201,27 @@
 
         $scope.update = function(id) {
           var geocoder = new google.maps.Geocoder();
-          $scope.body.nombre = $scope.cliente.nombre;
-          $scope.body.apellido = $scope.cliente.apellido;
-          $scope.body.email = $scope.cliente.email;
-          $scope.body.telefono = $scope.cliente.telefono;
-          $scope.body.razonSocial = $scope.cliente.razonSocial;
-          $scope.body.disponibilidad = $scope.cliente.disponibilidad;
-          geocoder.geocode( { "address": $scope.body.direccion }, function(results, status) {
+          geocoder.geocode( { "address": $scope.cliente.direccion }, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
               var location = results[0].geometry.location;
-              $scope.body.latitud = location.lat();
-              $scope.body.longitud = location.lng();
+              $scope.cliente.latitud = location.lat();
+              $scope.cliente.longitud = location.lng();
             }
-          Clientes.actualizarCliente({id: id},$scope.body,
+
+            $scope.request = angular.copy($scope.cliente);
+
+            delete $scope.request.id;
+            delete $scope.request.nombreCompleto;
+            delete $scope.request.estado;
+            delete $scope.request.validador;
+            delete $scope.request.agendaCliente;
+
+            console.log($scope.request);
+
+          Clientes.actualizarCliente({id: id},$scope.request,
               function() {
-                $mdToast.show($mdToast.simple().textContent('El Cliente ha sido actualizado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000))
+                $mdToast.show($mdToast.simple().textContent('El Cliente ha sido actualizado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+                $scope.cerrarModal();
               },
               function() {
                 $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser actualizado').position($scope.getToastPosition()).hideDelay(3000));
@@ -226,10 +235,11 @@
 
           $mdDialog.show({
 		        templateUrl: 'app/clientes/agregarCliente.tmpl.html',
-		        targetEvent: ev,
-		        scope: $scope.$new(),
+            targetEvent: ev,
+            scope: $scope.$new(),
 		        clickOutsideToClose:true,
-            fullscreen: useFullScreen
+            fullscreen: useFullScreen,
+            onRemoving: function() { $scope.cerrarModal() }
           })
 		      .then(function(answer) {
 		    	}, function() {
@@ -255,6 +265,22 @@
 
             }
           );
+        };
+
+        // dgacitua: Cerrar modal
+        $scope.cerrarModal = function() {
+          $mdDialog.cancel().then(function() {
+            // dgacitua: Actualizar Lista
+            Clientes.filtrarCliente($scope.query,
+              function(data) {
+                $scope.clientes = data.resultados;
+                $scope.totalResultados = data.totalResultados;
+              },
+              function() {
+
+              }
+            );
+          });
         };
 
         // dgacitua: Codigo de md-autocomplete

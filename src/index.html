@@ -8,8 +8,9 @@
 
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css">
 
+    <link rel="stylesheet" href="app/vendor.css">
+
     <!-- build:css({.tmp/serve,src}) styles/vendor.css -->
-    <link rel="stylesheet" href="app/vendor.scss">
     <!-- bower:css -->
     <!-- run `gulp inject` to automatically populate bower styles dependencies -->
     <!-- endbower -->
@@ -23,7 +24,7 @@
   </head>
   <body>
 
-    <div ui-view layout-fill style="overflow-y:auto"></div>
+    <div ui-view layout-fill layout="row"></div>
 
     <base href="/">
 

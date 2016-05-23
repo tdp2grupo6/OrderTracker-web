@@ -1,5 +1,4 @@
-<md-dialog layout-padding md-scroll-y ng-controller="ClientesController" ng-cloak>
-  <form>
+<md-dialog layout-padding md-scroll-y ng-cloak ng-controller="ClientesController" class="modalAncho">
     <md-toolbar>
       <div class="md-toolbar-tools">
         <h2>Detalle del Cliente: <span>{{cliente.nombreCompleto}}</span></h2>
@@ -10,8 +9,79 @@
         </md-button>
       </div>
     </md-toolbar>
-    <md-dialog-content layout="column">
-      <div class="md-dialog-content" layout="column" class="inputdemoErrorsAdvanced">
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+        <form name="projectForm" layout="column">
+          <md-input-container>
+            <label>Nombre</label>
+            <input md-maxlength="50" required name="nombre" ng-model="cliente.nombre" />
+            <div class="hint" ng-if="!projectForm.nombre.$touched">Ingresá el Nombre</div>
+            <div ng-messages="projectForm.nombre.$error" md-auto-hide="false" ng-if="projectForm.nombre.$touched">
+              <div ng-message="required" ng-if="projectForm.nombre.$touched" md-auto-hide="false">Nombre es requerido</div>
+              <div ng-message="md-maxlength" md-auto-hide="false">El Nombre debe tener como máximo 50 caracteres de longitud</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Apellido</label>
+            <input md-maxlength="50" required name="apellido" ng-model="cliente.apellido" />
+            <div class="hint" ng-if="!projectForm.apellido.$touched">Ingresá el Apellido</div>
+            <div ng-messages="projectForm.apellido.$error" md-auto-hide="false" ng-if="projectForm.apellido.$touched">
+              <div ng-message="required" ng-if="projectForm.apellido.$touched">Apellido es requerido</div>
+              <div ng-message="md-maxlength">El Apellido debe tener como máximo 50 caracteres de longitud</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Dirección</label>
+            <input md-maxlength="100" required name="direccion" ng-model="cliente.direccion" />
+            <div class="hint" ng-if="!showHints && !projectForm.direccion.$touched">Ingresá la Dirección</div>
+            <div ng-messages="projectForm.direccion.$error" md-auto-hide="false" ng-if="projectForm.direccion.$touched">
+              <div ng-message="required" ng-if="projectForm.direccion.$touched">Dirección es requerida</div>
+              <div ng-message="md-maxlength">La Dirección debe tener como máximo 100 caracteres de longitud</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Teléfono</label>
+            <input required name="telefono" ng-model="cliente.telefono" ng-pattern="/^[0-9]{2} [0-9]{4}-[0-9]{4}$/" />
+            <div class="hint" ng-if="!showHints && !projectForm.telefono.$touched">Ingresá un Teléfono de Contacto (## ####-####)</div>
+            <div ng-messages="projectForm.telefono.$error" md-auto-hide="false" ng-if="projectForm.telefono.$touched">
+              <div ng-message="required" ng-if="projectForm.telefono.$touched">Teléfono es requerido</div>
+              <div ng-message-exp="['required','pattern']">Por favor ingresá un teléfono válido (## ####-####)</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container >
+            <label>Email</label>
+            <input required name="email" ng-model="cliente.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"/>
+            <div class="hint" ng-if="!showHints && !projectForm.email.$touched">Ingresá un Email de Contacto (micorreo@mail.com)</div>
+            <div ng-messages="projectForm.email.$error" md-auto-hide="false" ng-if="projectForm.email.$touched">
+              <div ng-message="required" ng-if="projectForm.email.$touched">Email es requerido</div>
+              <div ng-message-exp="['required','minlength','maxlength', 'pattern']">Por favor ingresá un E-mail válido entre 10 y 100 caracteres</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Razón Social</label>
+            <input md-maxlength="50" required name="razonSocial" ng-model="cliente.razonSocial" />
+            <div class="hint" ng-if="!showHints && !projectForm.razonSocial.$touched">Ingresá la Razón Social</div>
+            <div ng-messages="projectForm.razonSocial.$error" md-auto-hide="false" ng-if="projectForm.razonSocial.$touched">
+              <div ng-message="required" ng-if="projectForm.razonSocial.$touched">Razón Social es requerido</div>
+              <div ng-message="md-maxlength">La Razón Social debe tener como máximo 50 caracteres de longitud</div>
+            </div>
+          </md-input-container>
+
+          <md-input-container>
+            <label>Horario de Preferencia</label>
+            <input md-maxlength="50" name="disponibilidad" ng-model="cliente.disponibilidad" />
+            <div class="hint" ng-if="!showHints && !projectForm.disponibilidad.$touched">Ingresá el Horario de Preferencia</div>
+            <div ng-messages="projectForm.disponibilidad.$error" md-auto-hide="false" ng-if="projectForm.disponibilidad.$touched">
+              <div ng-message="md-maxlength">El Horario de Preferencia debe tener como máximo 50 caracteres de longitud</div>
+            </div>
+          </md-input-container>
+
+          <!--
           <md-input-container>
             <label>Nombre</label>
             <input type="text" ng-model="cliente.nombre">
@@ -19,7 +89,7 @@
 
           <md-input-container>
             <label>Apellido</label>
-            <input type="text" ng-value="cliente.apellido" ng-model="cliente.apellido" />
+            <input md-maxlength="20" required name="apellido" ng-value="cliente.apellido" ng-model="form.apellido" />
           </md-input-container>
 
           <md-input-container>
@@ -46,16 +116,14 @@
             <label>Horario de Preferencia</label>
             <input type="text"  ng-model="cliente.disponibilidad">
           </md-input-container>
+          -->
 
-          <md-button class="md-raised md-primary" ng-click="update(cliente.id)" ng-disabled="disabled" ng-show="isAvailable">Update</md-button>
+          <md-button class="md-raised md-primary" ng-click="update(cliente.id)" ng-disabled="projectForm.$invalid" ng-show="isAvailable">Update</md-button>
+        </form>
+      </div>
       <div>
         <div class="centradoTexto"><b>Código QR Cliente</b></div>
         <div class="centradoBloque"><qr text="validador" image="true" size="250"></qr></div>
       </div>
-      
-      </div>
-      
-
     </md-dialog-content>
-  </form>
 </md-dialog>

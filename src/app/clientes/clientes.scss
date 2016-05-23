@@ -6,11 +6,70 @@
   background-color: #FF0000;
 }
 
-.centradoTexto {
+div.centradoTexto {
   text-align: center;
 }
 
-.centradoBloque {
+div.centradoBloque {
   display: table;
   margin: 0 auto;
+}
+
+md-input-container {
+  margin-right: 10px;
+  font-size: 12px;
+}
+
+section {
+  background: #f7f7f7;
+  border-radius: 3px;
+  text-align: center;
+  margin: 1em;
+  position: relative !important;
+  padding-bottom: 10px;
+}
+
+section .md-button {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+md-option.selectFontSize .md-text {
+  font-size: 12px;
+}
+
+.hint {
+  /* Position the hint */
+  position: absolute;
+  left: 2px;
+  right: auto;
+  bottom: 7px;
+  /* Copy styles from ng-messages */
+  font-size: 12px;
+  line-height: 14px;
+  transition: all 0.3s cubic-bezier(0.55, 0, 0.55, 0.2);
+  /* Set our own color */
+  color: grey;
+}
+
+.hint.ng-hide,
+.hint.ng-enter,
+.hint.ng-leave.ng-leave-active {
+  bottom: 26px;
+  opacity: 0;
+}
+.hint.ng-leave,
+.hint.ng-enter.ng-enter-active {
+  bottom: 7px;
+  opacity: 1;
+}
+
+md-dialog.modalAncho {
+  min-width: 30%;
+  max-width: 70%;
+  width: 450px;
+}
+
+md-input-container.md-input-invalid .md-input {
+  border-color: #FF0000 !important;
 }
