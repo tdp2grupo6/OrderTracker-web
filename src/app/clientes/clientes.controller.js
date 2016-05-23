@@ -45,7 +45,6 @@
 
         $scope.test = "hola";
         $scope.form = {};
-
         $scope.setForm = function (form) {
           $scope.form = form;
           console.log("Form Set!");
@@ -139,7 +138,7 @@
             function(data) {
               $scope.cliente = data;
               $scope.validador = data.validador;
-
+              
               // Mostrar Modal
               $mdDialog.show({
                   templateUrl: 'app/clientes/editarCliente.tmpl.html',
@@ -209,6 +208,7 @@
             );
           });
         };
+
 
         $scope.update = function(id) {
           var geocoder = new google.maps.Geocoder();
