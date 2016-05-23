@@ -44,7 +44,6 @@
         }
 
         $scope.body = {
-
         }
 
         Clientes.filtrarCliente($scope.query,
@@ -129,7 +128,7 @@
             function(data) {
               $scope.cliente = data;
               $scope.validador = data.validador;
-
+              
               // Mostrar Modal
               $mdDialog.show({
                   templateUrl: 'app/clientes/editarCliente.tmpl.html',
@@ -196,8 +195,15 @@
           });
         };
 
+
         $scope.update = function(id) {
           var geocoder = new google.maps.Geocoder();
+          $scope.body.nombre = $scope.cliente.nombre;
+          $scope.body.apellido = $scope.cliente.apellido;
+          $scope.body.email = $scope.cliente.email;
+          $scope.body.telefono = $scope.cliente.telefono;
+          $scope.body.razonSocial = $scope.cliente.razonSocial;
+          $scope.body.disponibilidad = $scope.cliente.disponibilidad;
           geocoder.geocode( { "address": $scope.body.direccion }, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK && results.length > 0) {
               var location = results[0].geometry.location;
