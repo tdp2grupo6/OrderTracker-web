@@ -283,6 +283,18 @@
           });
         };
 
+        // dgacitua: Reenviar código QR
+        $scope.reenviarQR = function(id) {
+          Clientes.reenviarQR({ id: id },
+            function() {
+              $mdToast.show($mdToast.simple().textContent('Se ha enviado un correo al Cliente con su Código QR').position($scope.getToastPosition()).hideDelay(3000));
+            },
+            function() {
+              $mdToast.show($mdToast.simple().textContent('No se ha podido reenviar el Código QR').position($scope.getToastPosition()).hideDelay(3000));
+            }
+          );
+        };
+
         // dgacitua: Codigo de md-autocomplete
         Clientes.listaCortaClientes(function(data) {
           $scope.listaClientes = data;

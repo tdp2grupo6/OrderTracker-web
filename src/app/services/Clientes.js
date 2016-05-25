@@ -68,6 +68,15 @@
               headers: {
                 'Content-Type': 'application/json'
               }
+            },
+
+            reenviarQR: {
+              method: 'GET',
+              url: Services.url + 'cliente/reenviar/:id',
+              params: {id: '@id'},
+              headers: {
+                'Content-Type': 'application/json'
+              }
             }
           });
         }

@@ -25,6 +25,10 @@
           <br>
           <p><b>Coordenadas:</b> [ {{cliente.latitud}} , {{cliente.longitud}} ]</p>
           <br>
+          <div class="centradoBloque">
+            <md-button class="md-raised md-primary" ng-click="reenviarQR(cliente.id)">Reenviar Código QR</md-button>
+          </div>
+          <br>
           <div>
             <div class="centradoTexto"><b>Código QR Cliente</b></div>
             <div class="centradoBloque"><qr text="validador" image="true" size="250"></qr></div>
