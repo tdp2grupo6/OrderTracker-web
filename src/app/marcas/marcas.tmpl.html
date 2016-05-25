@@ -27,6 +27,7 @@
         <thead md-head md-order="query.order" md-on-reorder="getMarcasFiltrado">
           <tr md-row>
             <th md-column md-numeric md-order-by="id">Id</th>
+            <th md-column></th>
             <th md-column md-order-by="nombre">Nombre</th>
             <th md-column md-order-by="logo">Logo</th>
             <th md-column>Acciones</th>
@@ -36,12 +37,10 @@
           <!-- <tr md-row md-select="cliente" md-select-id="id" md-auto-select ng-repeat="cliente in clientes  | orderBy: query.order"> -->
           <tr md-row md-select="marcas" md-select-id="id" md-auto-select ng-repeat="marca in marcas">
             <td md-cell>{{marca.id}}</td>
-            <td md-cell>{{marca.nombre}}</td>
-            <td md-cell>{{marca.rutaMiniatura}}</td>
             <td md-cell>
-              <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetalleMarca($event,marca.id)" aria-label="ver">
-                <i class="fa fa-eye" aria-hidden="true"></i>
-              </md-button>
+            <td md-cell>{{marca.nombre}}</td>
+            <td md-cell><img class="sizeImage" ng-src="http://ordertracker-tdp2grupo6.rhcloud.com/{{marca.rutaMiniatura}}"></td>
+            <td md-cell>
               <md-button class="md-fab md-primary md-mini" ng-click="editarMarcaModal($event,marca.id)" aria-label="confirmar">
                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
               </md-button>

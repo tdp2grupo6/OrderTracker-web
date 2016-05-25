@@ -218,13 +218,13 @@
               }
             );
           });
-        };
+        };*/
 
         $scope.agregarClienteModal = function(ev) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
           $mdDialog.show({
-            templateUrl: 'app/clientes/agregarCliente.tmpl.html',
+            templateUrl: 'app/clientes/agregarMarca.tmpl.html',
             targetEvent: ev,
             scope: $scope.$new(),
             clickOutsideToClose:true,
@@ -241,7 +241,7 @@
            $scope.customFullscreen = (wantsFullScreen === true);
           });
 
-        };*/
+        };
 
         $scope.getMarcasFiltrado = function (pagina, limite) {
           $scope.query.pagina = pagina;
