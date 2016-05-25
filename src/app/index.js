@@ -31,6 +31,11 @@ angular.module('myApp', [
                 templateUrl: 'app/agenda/agenda.tmpl.html',
                 controller: 'AgendaController'
             })
+            .state('main.marcas', {
+                url: '/marca',
+                templateUrl: 'app/marcas/marcas.tmpl.html',
+                controller: 'MarcasController'
+            })
             .state('main.clientes', {
                 url: '/clientes',
                 templateUrl: 'app/clientes/clientes.tmpl.html',
