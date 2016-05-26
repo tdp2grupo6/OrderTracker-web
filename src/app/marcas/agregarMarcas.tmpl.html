@@ -25,8 +25,7 @@
            <div>Imagen</div>
            <md-button class="md-raised md-primary" ngf-select ng-model="myFile" name="file" ngf-pattern="'image/*'"
                 ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="100">Subir Imagen</md-button>
-           <img ngf-thumbnail="myFile" class="sizeImage">
-           <div class="hint" ng-if="!projectForm.imagen.$touched">Ingresá la Imagen de la Marca</div>
+           <div class="centradoBloque"><img ngf-thumbnail="myFile" class="sizeImage"></div>
          </md-input-container>
          <md-button class="md-raised md-primary" ng-click="submit()" ng-disabled="projectForm.$invalid">Submit</md-button>
        </form>
