@@ -1,0 +1,60 @@
+<md-content flex layout-fill md-scroll-y>
+
+  <md-toolbar class="md-warn md-whiteframe-z1">
+    <h3 class="md-toolbar-tools">
+      <md-button class="md-icon-button md-warn md-hue-1" ng-click="openMenu()" aria-label="Toggle Menu">
+        <md-icon md-font-icon="fa fa-bars fa-lg"></md-icon>
+      </md-button>
+      <span>&nbsp;Categorías > Listado de Categorías</span>
+    </h3>
+  </md-toolbar>
+
+  <md-content layout-fill layout-padding md-scroll-y class="fondoCustom">
+    <md-card>
+      <md-card-content>
+        <md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+          <div class="md-toolbar-tools">
+            <h2 class="md-title">Categorias</h2>
+            <div flex="" class="flex"></div>
+          </div>
+          <md-button class="md-fab md-warn md-mini" ng-click="agregarCategoriaModal($event)" aria-label="+">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </md-button>
+        </md-toolbar>
+
+        <md-table-container>
+          <table md-table multiple ng-model="selected" md-progress="promise">
+            <thead md-head md-order="query.order" md-on-reorder="getCategoriasFiltrado">
+            <tr md-row>
+              <th md-column md-numeric md-order-by="id">Id</th>
+              <th md-column md-order-by="nombre">Nombre</th>
+              <th md-column md-order-by="descripcion">Descripcion</th>
+              <th md-column>Acciones</th>
+            </tr>
+            </thead>
+            <tbody md-body>
+            <!-- <tr md-row md-select="cliente" md-select-id="id" md-auto-select ng-repeat="cliente in clientes  | orderBy: query.order"> -->
+            <tr md-row md-select="categorias" md-select-id="id" md-auto-select ng-repeat="categoria in categorias">
+              <td md-cell>{{categoria.id}}</td>
+              <td md-cell>{{categoria.nombre}}</td>
+              <td md-cell>{{categoria.descripcion}}</td>
+              <td md-cell>
+                <md-button class="md-fab md-primary md-mini" ng-click="editarCategoriaModal($event,categoria.id)" aria-label="confirmar">
+                  <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                </md-button>
+                <md-button class="md-fab md-accent md-mini" ng-click="borrarCategoria(categoria.id)" aria-label="eliminar">
+                  <i class="fa fa-eraser" aria-hidden="true"></i>
+                </md-button>
+            </tr>
+            </tbody>
+          </table>
+        </md-table-container>
+
+        <md-table-pagination md-limit="20" md-page="query.pagina" md-total="{{totalResultados}}" md-label="{page: 'Página:', of: 'de'}" md-on-paginate="getCategoriasFiltrado" md-page-select></md-table-pagination>
+
+      </md-card-content>
+
+    </md-card>
+  </md-content>
+
+</md-content>

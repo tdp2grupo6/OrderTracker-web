@@ -1,0 +1,38 @@
+<md-dialog layout-padding md-scroll-y ng-cloak ng-controller="CategoriasController" class="modalAncho">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Editando Categoria: <span>{{categoria.nombre}}</span></h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cerrar()">
+        <md-tooltip md-direction="top" md-visible="tooltipVisible">Cerrar</md-tooltip>
+        <md-icon md-font-icon="fa fa-times-circle fa-lg"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <div class="md-dialog-content" layout="column">
+      <form name="projectForm" layout="column">
+        <md-input-container>
+          <label>Nombre</label>
+          <input md-maxlength="50" required name="nombre" ng-model="categoria.nombre" />
+          <div class="hint" ng-if="!projectForm.nombre.$touched">Ingresá el Nombre</div>
+          <div ng-messages="projectForm.nombre.$error" md-auto-hide="false" ng-if="projectForm.nombre.$touched">
+            <div ng-message="required" ng-if="projectForm.nombre.$touched" md-auto-hide="false">Nombre es requerido</div>
+            <div ng-message="md-maxlength" md-auto-hide="false">El Nombre debe tener como máximo 50 caracteres de longitud</div>
+          </div>
+        </md-input-container>
+
+        <md-input-container>
+          <label>Apellido</label>
+          <input md-maxlength="100" name="descripcion" ng-model="categoria.descripcion" />
+          <div class="hint" ng-if="!projectForm.descripcion.$touched">Ingresá una descripcion</div>
+          <div ng-messages="projectForm.descripcion.$error" md-auto-hide="false" ng-if="projectForm.descripcion.$touched">
+            <div ng-message="md-maxlength">La Descripción debe tener como máximo 100 caracteres de longitud</div>
+          </div>
+        </md-input-container>
+
+        <md-button class="md-raised md-primary" ng-click="update(categoria.id)" ng-disabled="projectForm.$invalid" ng-show="isAvailable">Update</md-button>
+      </form>
+    </div>
+  </md-dialog-content>
+</md-dialog>

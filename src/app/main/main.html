@@ -12,7 +12,7 @@
         <div class="lock-size" layout-align="center center">
           <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
               <md-fab-trigger>
-                <md-button class="md-primary" aria-label="Pedidos">Pedidos <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
+                <md-button class="md-primary" aria-label="Pedidos">Pedidos <md-icon md-font-icon="fa fa-sort-desc fa-lg"></md-icon></md-button>
               </md-fab-trigger>
               <md-fab-actions>
                 <md-button aria-label="Busqueda Pedidos" class="md-fab md-raised md-mini" ui-sref=".listadoPedidos" ng-click="closeMenu()">
@@ -23,7 +23,7 @@
           </md-fab-speed-dial>
           <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
               <md-fab-trigger>
-                <md-button class="md-primary" aria-label="Agenda">Agenda <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
+                <md-button class="md-primary" aria-label="Agenda">Agenda <md-icon md-font-icon="fa fa-sort-desc fa-lg"></md-icon></md-button>
               </md-fab-trigger>
               <md-fab-actions>
                 <md-button aria-label="Ver Agenda" class="md-fab md-raised md-mini" ui-sref=".agenda" ng-click="closeMenu()">
@@ -34,7 +34,7 @@
           </md-fab-speed-dial>
           <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
               <md-fab-trigger>
-                <md-button class="md-primary" aria-label="Agenda">Clientes <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
+                <md-button class="md-primary" aria-label="Agenda">Clientes <md-icon md-font-icon="fa fa-sort-desc fa-lg"></md-icon></md-button>
               </md-fab-trigger>
               <md-fab-actions>
                 <md-button aria-label="Ver Clientes" class="md-fab md-raised md-mini" ui-sref=".clientes" ng-click="closeMenu()">
@@ -45,14 +45,25 @@
           </md-fab-speed-dial>
           <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
               <md-fab-trigger>
-                <md-button class="md-primary" aria-label="Agenda">Marcas <md-icon md-font-icon="fa fa-sotr-desc fa-lg"></md-icon></md-button>
+                <md-button class="md-primary" aria-label="Agenda">Marcas <md-icon md-font-icon="fa fa-sort-desc fa-lg"></md-icon></md-button>
               </md-fab-trigger>
               <md-fab-actions>
-                <md-button aria-label="Ver Clientes" class="md-fab md-raised md-mini" ui-sref=".marcas" ng-click="closeMenu()">
+                <md-button aria-label="Ver Marcas" class="md-fab md-raised md-mini" ui-sref=".marcas" ng-click="closeMenu()">
                   <md-tooltip md-direction="top" md-visible="tooltipVisible">Marcas</md-tooltip>
                   <md-icon md-font-icon="fa fa-user fa-lg"></md-icon>
                 </md-button>
               </md-fab-actions>
+          </md-fab-speed-dial>
+          <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
+            <md-fab-trigger>
+              <md-button class="md-primary" aria-label="Agenda">Categorias <md-icon md-font-icon="fa fa-sort-desc fa-lg"></md-icon></md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+              <md-button aria-label="Ver Categorias" class="md-fab md-raised md-mini" ui-sref=".categorias" ng-click="closeMenu()">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Categorias</md-tooltip>
+                <md-icon md-font-icon="fa fa-database fa-lg"></md-icon>
+              </md-button>
+            </md-fab-actions>
           </md-fab-speed-dial>
         </div>
     </md-content>
