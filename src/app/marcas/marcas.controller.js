@@ -31,8 +31,7 @@
         };
 
         $scope.form = {
-          nombre: '',
-          imagen: ''
+          nombre: ''
         };
 
         Marcas.filtrarMarca($scope.query,
@@ -84,7 +83,7 @@
           Marcas.listarMarcas({ id: id },
             function(data) {
               $scope.marca = data;
-       
+
               // Mostrar Modal
               $mdDialog.show({
                   templateUrl: 'app/clientes/marcaDetalle.tmpl.html',
@@ -117,7 +116,7 @@
           Marcas.listarMarcas({ id: id },
             function(data) {
               $scope.marca = data;
-       
+
               // Mostrar Modal
               $mdDialog.show({
                   templateUrl: 'app/clientes/editarMarca.tmpl.html',
@@ -273,24 +272,52 @@
           });
         };
 
+        $scope.submit = function(){
+          var file = $scope.myFile;
+
+          if ($scope.projectForm.file.$valid && $scope.myFile) {
+            var filename = 'imagen';
+            var uploadUrl = Services.url + 'imagen/subir';
+            UploadFile.uploadFileToUrl(file, uploadUrl, filename)
+              .success(function(data) {
+                console.log(data);
+                $scope.imagen = data[0];
+                $scope.form.imagen = {};
+                $scope.form.imagen.id = $scope.imagen.id;
+                console.log($scope.form);
+
+                Marcas.guardarMarca($scope.form,
+                  function(data) {
+                    $mdToast.show($mdToast.simple().textContent('La Marca ha sido agregada satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+                  },
+                  function(data) {
+                    $mdToast.show($mdToast.simple().textContent('No se pudo agregar la Marca').position($scope.getToastPosition()).hideDelay(3000));
+                  });
+              })
+              .error(function(data) {
+                $mdToast.show($mdToast.simple().textContent('No se pudo agregar la Marca').position($scope.getToastPosition()).hideDelay(3000));
+              });
+          }
+          else {
+            Marcas.guardarMarca($scope.form,
+              function(data) {
+                $mdToast.show($mdToast.simple().textContent('La Marca ha sido agregada satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+              },
+              function(data) {
+                $mdToast.show($mdToast.simple().textContent('No se pudo agregar la Marca').position($scope.getToastPosition()).hideDelay(3000));
+              });
+          }
+        };
+
         $scope.uploadFile = function(){
           var file = $scope.myFile;
-          console.log('file is ' );
-          console.dir(file);
-          var uploadUrl = "http://ordertracker-tdp2grupo6.rhcloud.com/imagen/subir/";
-          UploadFile.uploadFileToUrl(file, uploadUrl, function(data) {
-              console.log(data)            
-          });
-
-          // Marcas.filtrarMarca($scope.query,
-          //   function(data) {
-          //     $scope.marcas = data.resultados;
-          //     $scope.totalResultados = data.totalResultados;
-          //   },
-          //   function() {
-
-          //   }
-          // );
+          var filename = 'imagen';
+          var uploadUrl = 'http://localhost:8080/OrderTracker/imagen/subir';
+          UploadFile.uploadFileToUrl(file, uploadUrl, filename)
+            .success(function(data) {
+              $scope.imagen = data;
+              console.log($scope.imagen);
+            });
         };
       }
 })();

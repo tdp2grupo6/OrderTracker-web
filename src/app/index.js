@@ -12,7 +12,8 @@ angular.module('myApp', [
     'xeditable',
     'md.data.table',
     'ja.qr',
-    'ui.map'])
+    'ui.map',
+    'ngFileUpload'])
 
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
@@ -71,22 +72,6 @@ angular.module('myApp', [
       $mdDateLocaleProvider.msgOpenCalendar = 'Abrir el calendario';
     })
 
-    .directive('fileModel', ['$parse', function ($parse) {
-        return {
-            restrict: 'A',
-            link: function(scope, element, attrs) {
-                var model = $parse(attrs.fileModel);
-                var modelSetter = model.assign;
-                
-                element.bind('change', function(){
-                    scope.$apply(function(){
-                        modelSetter(scope, element[0].files[0]);
-                    });
-                });
-            }
-        };
-    }])
-
     .config(function($mdThemingProvider) {
       $mdThemingProvider.theme('default')
         .primaryPalette('blue')
@@ -95,6 +80,46 @@ angular.module('myApp', [
           'default': '200', // by default use shade 400 from the light-blue palette for primary intentions
           'hue-1': '800' // use shade 100 for the <code>md-hue-1</code> class
         });
+    })
+
+    .directive('ngFileModel', ['$parse', function ($parse) {
+      return {
+        restrict: 'A',
+        link: function(scope, element, attrs) {
+          var model = $parse(attrs.ngFileModel);
+          var modelSetter = model.assign;
+
+          element.bind('change', function(){
+            scope.$apply(function(){
+              modelSetter(scope, element[0].files[0]);
+            });
+          });
+        }
+      };
+    }])
+
+    .directive('chooseFile', function() {
+      return {
+        link: function (scope, elem, attrs) {
+          var button = elem.find('button');
+          var input = angular.element(elem[0].querySelector('input#fileInput'));
+
+          button.bind('click', function() {
+            input[0].click();
+          });
+
+          input.bind('change', function(e) {
+            scope.$apply(function() {
+              var files = e.target.files;
+              if (files[0]) {
+                scope.fileName = files[0].name;
+              } else {
+                scope.fileName = null;
+              }
+            });
+          });
+        }
+      };
     })
 ;
 
