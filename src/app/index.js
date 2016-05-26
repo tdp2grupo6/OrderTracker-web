@@ -82,6 +82,7 @@ angular.module('myApp', [
         });
     })
 
+    /*
     .directive('ngFileModel', ['$parse', function ($parse) {
       return {
         restrict: 'A',
@@ -121,6 +122,7 @@ angular.module('myApp', [
         }
       };
     })
+    */
 ;
 
 

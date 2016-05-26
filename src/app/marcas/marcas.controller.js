@@ -23,6 +23,8 @@
 
     function MarcasController($scope, $mdDialog, $mdMedia, $filter, Services, Marcas, $mdToast, UploadFile) {
 
+        $scope.backendUrl = Services.url;
+
         $scope.query = {
           id: '',
           nombre: '',
@@ -284,7 +286,7 @@
                 $scope.imagen = data[0];
                 $scope.form.imagen = {};
                 $scope.form.imagen.id = $scope.imagen.id;
-                console.log($scope.form);
+                //console.log($scope.form);
 
                 Marcas.guardarMarca($scope.form,
                   function(data) {
@@ -309,6 +311,78 @@
           }
         };
 
+        $scope.update = function(id){
+          var file = $scope.myFile;
+
+          if ($scope.projectForm.file.$valid && $scope.myFile) {
+            var filename = 'imagen';
+            var uploadUrl = Services.url + 'imagen/subir';
+            UploadFile.uploadFileToUrl(file, uploadUrl, filename)
+              .success(function(data) {
+                //console.log(data);
+                $scope.imagen = data[0];
+                $scope.marca.imagen = {};
+                $scope.marca.imagen.id = $scope.imagen.id;
+                //console.log($scope.marca);
+
+                Marcas.actualizarMarca({ id: id },$scope.marca,
+                  function(data) {
+                    $mdToast.show($mdToast.simple().textContent('La Marca ha sido actualizada satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+                  },
+                  function(data) {
+                    $mdToast.show($mdToast.simple().textContent('No se pudo actualizar la Marca').position($scope.getToastPosition()).hideDelay(3000));
+                  });
+              })
+              .error(function(data) {
+                $mdToast.show($mdToast.simple().textContent('No se pudo actualizar la Marca').position($scope.getToastPosition()).hideDelay(3000));
+              });
+          }
+          else {
+            Marcas.actualizarMarca({ id: id },$scope.marca,
+              function(data) {
+                $mdToast.show($mdToast.simple().textContent('La Marca ha sido actualizada satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+              },
+              function(data) {
+                $mdToast.show($mdToast.simple().textContent('No se pudo actualizar la Marca').position($scope.getToastPosition()).hideDelay(3000));
+              });
+          }
+        };
+
+        $scope.editarMarcaModal = function(ev,id) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+
+          Marcas.listarMarca({ id: id },
+            function(data) {
+              $scope.marca = data;
+
+              // Mostrar Modal
+              $mdDialog.show({
+                  templateUrl: 'app/marcas/editarMarcas.tmpl.html',
+                  targetEvent: ev,
+                  scope: $scope.$new(),
+                  clickOutsideToClose:true,
+                  fullscreen: useFullScreen,
+                  onRemoving: function() { $scope.cerrarModal() }
+                })
+                .then(function(answer) {
+
+                }, function() {
+                });
+
+              $scope.$watch(function() {
+                return $mdMedia('xs') || $mdMedia('sm');
+              }, function(wantsFullScreen) {
+                $scope.customFullscreen = (wantsFullScreen === true);
+              });
+            },
+            function(error) {
+              console.log("ERROR! No se puede mostrar la Marca " + error);
+              $mdToast.show($mdToast.simple().textContent('ERROR! No se puede mostrar la Marca').position($scope.getToastPosition()).hideDelay(3000))
+            }
+          );
+        };
+
+        /*
         $scope.uploadFile = function(){
           var file = $scope.myFile;
           var filename = 'imagen';
@@ -319,5 +393,6 @@
               console.log($scope.imagen);
             });
         };
+       */
       }
 })();
