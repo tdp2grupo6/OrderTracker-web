@@ -19,9 +19,9 @@
       };
     });
 
-    MarcasController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$filter', 'Services', 'Marcas', '$mdToast'];
+    MarcasController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$filter', 'Services', 'Marcas', '$mdToast', 'UploadFile'];
 
-    function MarcasController($scope, $mdDialog, $mdMedia, $filter, Services, Marcas, $mdToast) {
+    function MarcasController($scope, $mdDialog, $mdMedia, $filter, Services, Marcas, $mdToast, UploadFile) {
 
         $scope.query = {
           id: '',
@@ -220,11 +220,11 @@
           });
         };*/
 
-        $scope.agregarClienteModal = function(ev) {
+        $scope.agregarMarcasModal = function(ev) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
           $mdDialog.show({
-            templateUrl: 'app/clientes/agregarMarca.tmpl.html',
+            templateUrl: 'app/marcas/agregarMarcas.tmpl.html',
             targetEvent: ev,
             scope: $scope.$new(),
             clickOutsideToClose:true,
@@ -273,52 +273,24 @@
           });
         };
 
-       /*
-        // dgacitua: funcion para filtrar clentes
-        $scope.buscarClientes = function () {
-          $scope.query = {
-            idCliente: $scope.filtroId? $scope.filtroId : '',
-            nombre: $scope.selectedItem1? $scope.selectedItem1.nombre : '',
-            apellido: $scope.selectedItem2? $scope.selectedItem2.apellido : '',
-            email: $scope.selectedItem3? $scope.selectedItem3.email : '',
-            direccion: $scope.selectedItem4? $scope.selectedItem4.direccion : '',
-            pagina: 1
-          };
+        $scope.uploadFile = function(){
+          var file = $scope.myFile;
+          console.log('file is ' );
+          console.dir(file);
+          var uploadUrl = "http://ordertracker-tdp2grupo6.rhcloud.com/imagen/subir/";
+          UploadFile.uploadFileToUrl(file, uploadUrl, function(data) {
+              console.log(data)            
+          });
 
-          Clientes.filtrarCliente($scope.query,
-            function(data) {
-              $scope.clientes = data.resultados;
-              $scope.totalResultados = data.totalResultados;
-            },
-            function() {
+          // Marcas.filtrarMarca($scope.query,
+          //   function(data) {
+          //     $scope.marcas = data.resultados;
+          //     $scope.totalResultados = data.totalResultados;
+          //   },
+          //   function() {
 
-            }
-          );
+          //   }
+          // );
         };
-
-        // dgacitua: Remover filtro clientes
-        $scope.removeFilter = function () {
-          $scope.filter.show = false;
-          $scope.query.pagina = 1;
-          $scope.query.nombre = '';
-          $scope.query.apellido = '';
-          $scope.query.idCliente = '';
-          $scope.query.email = '';
-          $scope.query.direccion = '';
-
-          if($scope.filter.form.$dirty) {
-            $scope.filter.form.$setPristine();
-          }
-
-          Clientes.filtrarCliente($scope.query,
-            function(data) {
-              $scope.clientes = data.resultados;
-              $scope.totalResultados = data.totalResultados;
-            },
-            function() {
-
-            }
-          );
-        };*/
       }
 })();
