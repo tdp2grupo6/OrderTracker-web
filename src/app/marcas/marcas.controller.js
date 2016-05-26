@@ -79,6 +79,7 @@
         };
 
         // Ver Marca Modal
+      /*
         $scope.mostrarDetalleMarca = function(ev, id) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
@@ -88,7 +89,7 @@
 
               // Mostrar Modal
               $mdDialog.show({
-                  templateUrl: 'app/clientes/marcaDetalle.tmpl.html',
+                  templateUrl: 'app/marca/marcaDetalle.tmpl.html',
                   targetEvent: ev,
                   scope: $scope.$new(),
                   clickOutsideToClose:true,
@@ -111,7 +112,9 @@
             }
           );
         };
+        */
 
+        /*
         $scope.editarMarcaModal = function(ev,id) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
@@ -168,7 +171,7 @@
           );
         };
 
-       /* $scope.submit = function() {
+        $scope.submit = function() {
           var geocoder = new google.maps.Geocoder();
           geocoder.geocode( { "address": $scope.form.direccion }, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK && results.length > 0) {

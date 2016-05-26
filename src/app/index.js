@@ -42,6 +42,11 @@ angular.module('myApp', [
               templateUrl: 'app/categorias/categorias.tmpl.html',
               controller: 'CategoriasController'
             })
+            .state('main.productos', {
+              url: '/productos',
+              templateUrl: 'app/productos/productos.tmpl.html',
+              controller: 'ProductosController'
+            })
             .state('main.clientes', {
                 url: '/clientes',
                 templateUrl: 'app/clientes/clientes.tmpl.html',
