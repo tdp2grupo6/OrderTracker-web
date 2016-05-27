@@ -22,9 +22,9 @@
       };
     });
 
-  ProductosController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$filter', 'Services', 'Productos', 'Marcas', 'Categorias', '$mdToast', 'UploadFile'];
+  ProductosController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$filter', 'Services', 'Productos', 'Marcas', 'Categorias', '$mdToast', 'UploadFile', '$q'];
 
-  function ProductosController($scope, $mdDialog, $mdMedia, $filter, Services, Productos, Marcas, Categorias, $mdToast, UploadFile) {
+  function ProductosController($scope, $mdDialog, $mdMedia, $filter, Services, Productos, Marcas, Categorias, $mdToast, UploadFile, $q) {
 
     $scope.backendUrl = Services.url;
 
@@ -35,6 +35,8 @@
     $scope.form = {};
     $scope.marcas = {};
     $scope.categoria = {};
+    $scope.marcaTemp = {};
+    $scope.categoriaTemp = {};
 
     $scope.estados = [
       {id:1,tipo:'SUSP',nombre:'Suspendido'},
@@ -52,6 +54,14 @@
 
       }
     );
+
+    Categorias.listarCategorias(function(data) {
+      $scope.categorias = data;
+    });
+
+    Marcas.listarMarcas(function(data) {
+      $scope.marcas = data
+    });
 
     $scope.isAvailable = true;
 
@@ -112,9 +122,29 @@
     $scope.mostrarProductoModal = function(ev, id) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
+      /*
+      Marcas.listarMarcas(function(data) {
+        $scope.marcas = data;
+      });
+
+      Categorias.listarCategorias(function(data) {
+      $scope.categorias = data;
+      });
+
+      */
+
+      //var p1 = $scope.cargarMarcas();
+      //var p2 = $scope.cargarCategorias();
+      var p3 = $scope.cargarProducto(id);
+      /*
       Productos.listarProducto({ id: id },
         function(data) {
           $scope.producto = data;
+      */
+      $q.all([p3]).then(function(data) {
+          console.log($scope.producto);
+
+
 
           // Mostrar Modal
           $mdDialog.show({
@@ -145,9 +175,16 @@
     $scope.editarProductoModal = function(ev,id) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
-      Productos.listarProductos({ id: id },
-        function(data) {
-          $scope.producto = data;
+      //var p1 = $scope.cargarMarcas();
+      //var p2 = $scope.cargarCategorias();
+      var p3 = $scope.cargarProducto(id);
+
+      $q.all([p3]).then(function(data) {
+          $scope.marcaTemp = $scope.producto.marcaTemp;
+          $scope.categoriaTemp = $scope.producto.categoriaTemp;
+          console.log($scope.producto);
+          //console.log($scope.marcas);
+          //console.log($scope.categorias);
 
           // Mostrar Modal
           $mdDialog.show({
@@ -170,7 +207,7 @@
           });
         },
         function(error) {
-          console.log("ERROR! No se puede mostrar la Producto " + error);
+          console.log("ERROR! No se puede mostrar el Producto " + error);
           $mdToast.show($mdToast.simple().textContent('ERROR! No se puede mostrar el Producto').position($scope.getToastPosition()).hideDelay(3000))
         }
       );
@@ -231,6 +268,9 @@
     $scope.submit = function(){
       var file = $scope.myFile;
 
+      $scope.form.marca = { id: $scope.marcaTemp.id };
+      $scope.form.categorias = [ { id: $scope.categoriaTemp.id } ];
+
       if ($scope.projectForm.file.$valid && $scope.myFile) {
         var filename = 'imagen';
         var uploadUrl = Services.url + 'imagen/subir';
@@ -238,12 +278,15 @@
           .success(function(data) {
             console.log(data);
             $scope.imagen = data[0];
+
             $scope.form.imagen = {};
             $scope.form.imagen.id = $scope.imagen.id;
-            //console.log($scope.form);
+
+            console.log($scope.form);
 
             Productos.guardarProducto($scope.form,
               function(data) {
+                console.log(data);
                 $mdToast.show($mdToast.simple().textContent('El Producto ha sido agregado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
               },
               function(data) {
@@ -255,8 +298,11 @@
           });
       }
       else {
+        console.log($scope.form);
+
         Productos.guardarProducto($scope.form,
           function(data) {
+            console.log(data);
             $mdToast.show($mdToast.simple().textContent('El Producto ha sido agregado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
           },
           function(data) {
@@ -268,16 +314,20 @@
     $scope.update = function(id){
       var file = $scope.myFile;
 
+      $scope.producto.marca = { id: $scope.marcaTemp.id };
+      $scope.producto.categorias = [ { id: $scope.categoriaTemp.id } ];
+
       if ($scope.projectForm.file.$valid && $scope.myFile) {
         var filename = 'imagen';
         var uploadUrl = Services.url + 'imagen/subir';
         UploadFile.uploadFileToUrl(file, uploadUrl, filename)
           .success(function(data) {
-            //console.log(data);
             $scope.imagen = data[0];
+
             $scope.producto.imagen = {};
             $scope.producto.imagen.id = $scope.imagen.id;
-            //console.log($scope.producto);
+
+            console.log($scope.producto);
 
             Productos.actualizarProducto({ id: id },$scope.producto,
               function(data) {
@@ -292,6 +342,8 @@
           });
       }
       else {
+        console.log($scope.producto);
+
         Productos.actualizarProducto({ id: id },$scope.producto,
           function(data) {
             $mdToast.show($mdToast.simple().textContent('El Producto ha sido actualizado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
@@ -302,16 +354,76 @@
       }
     };
 
+    $scope.cargarMarcaActual = function (id) {
+      var defered = $q.defer();
+      var promise = defered.promise;
+
+      Marcas.listarMarca({id: id}, function(data) {
+          $scope.producto.marca = data;
+          defered.resolve(data);
+        },
+        function(err) {
+          defered.reject(err);
+        });
+
+      return promise;
+    };
+
     $scope.cargarMarcas = function () {
+      var defered = $q.defer();
+      var promise = defered.promise;
+
       Marcas.listarMarcas(function(data) {
         $scope.marcas = data;
+        defered.resolve(data);
+      },
+      function(err) {
+        defered.reject(err);
       });
+
+      return promise;
     };
 
     $scope.cargarCategorias = function () {
+      var defered = $q.defer();
+      var promise = defered.promise;
+
       Categorias.listarCategorias(function(data) {
         $scope.categorias = data;
+        defered.resolve(data);
+      },
+      function(err) {
+        defered.reject(err);
       });
+
+      return promise;
+    };
+
+    $scope.cargarProducto = function (id) {
+      var defered = $q.defer();
+      var promise = defered.promise;
+
+      Productos.listarProducto({id: id},
+        function(data) {
+          $scope.producto = data;
+
+          if ($scope.marcas) {
+            $scope.producto.marcaTemp = angular.copy($filter('filter')($scope.marcas, function(d) {return d.nombre === $scope.producto.marca;})[0]);
+            //console.log($scope.producto.marcaTemp);
+          }
+
+          if ($scope.categorias) {
+            $scope.producto.categoriaTemp = angular.copy($filter('filter')($scope.categorias, function(d) {return d.nombre === $scope.producto.categorias[0].nombre;})[0]);
+            //console.log($scope.producto.categoriaTemp);
+          }
+
+          defered.resolve(data);
+        },
+        function(err) {
+          defered.reject(err);
+        });
+
+      return promise;
     };
   }
 })();

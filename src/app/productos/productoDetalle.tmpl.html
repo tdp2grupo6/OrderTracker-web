@@ -18,11 +18,12 @@
         </div>
         <div flex>
           <p><b>Nombre:</b> {{producto.nombre}}</p>
-          <p><b>Marca:</b> {{producto.marca}}</p>
+          <p><b>Marca:</b> {{producto.marca.nombre}}</p>
           <p><b>Descripción:</b> {{producto.caracteristicas}}</p>
           <p><b>Precio Unitario:</b> ${{producto.precio | number:'2'}}</p>
           <br>
-          <p><b>Categoría:</b> {{producto.categorias[0].nombre}}</p>
+          <p><b>Categoría:</b></p>
+          <div ng-repeat="cat in producto.categorias">{{cat.nombre}}</div>
           <br>
           <p><b>Stock:</b> {{producto.stock}}</p>
           <p><b>Estado:</b> {{producto.estado.nombre}}</p>

@@ -51,6 +51,10 @@ md-dialog.modalAncho {
   width: 450px;
 }
 
+md-input-container.md-input-invalid .md-input {
+  border-color: #FF0000 !important;
+}
+
 /* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
    all your sass files automatically */
 // injector

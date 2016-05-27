@@ -1,0 +1,106 @@
+<md-dialog layout-padding md-scroll-y ng-controller="ProductosController" ng-cloak class="modalProducto">
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <h2>Editar Producto: <span>{{producto.nombre}}</span></h2>
+      <span flex></span>
+      <md-button class="md-icon-button" ng-click="cerrar()">
+        <md-tooltip md-direction="top" md-visible="tooltipVisible">Cerrar</md-tooltip>
+        <md-icon md-font-icon="fa fa-times-circle fa-lg"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+  <md-dialog-content>
+    <br>
+    <div layout="row">
+      <div flex>
+        <img ngf-thumbnail="myFile || '{{backendUrl}}{{producto.rutaImagen}}'" class="imagenPreview">
+      </div>
+      <div flex>
+        <form name="projectForm" layout="column" method="POST">
+          <md-input-container>
+            <label>Nombre</label>
+            <input md-maxlength="50" required name="nombre" ng-model="producto.nombre" />
+            <div class="hint" ng-if="!projectForm.nombre.$touched">Ingresá el Nombre del Producto</div>
+            <div ng-messages="projectForm.nombre.$error" md-auto-hide="false" ng-if="projectForm.nombre.$touched">
+              <div ng-message="required" ng-if="projectForm.nombre.$touched" md-auto-hide="false">Nombre es requerido</div>
+              <div ng-message="md-maxlength" md-auto-hide="false">El Nombre debe tener como máximo 50 caracteres de longitud</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Marca</label>
+            <md-select required name="marca" ng-model="producto.marcaTemp" aria-label="marca" ng-model-options="{ trackBy: '$value.id' }">
+              <md-option ng-value="marca" ng-repeat="marca in marcas track by marca.id">{{marca.nombre}}</md-option>
+            </md-select>
+            <!--
+            <div class="hint" ng-if="!projectForm.marca.$touched">Escogé la Marca del Producto</div>
+            <div ng-messages="projectForm.marca.$error" md-auto-hide="false" ng-if="projectForm.marca.$touched">
+              <div ng-message="required" ng-if="projectForm.marca.$touched" md-auto-hide="false">Marca es requerida</div>
+            </div>
+            -->
+          </md-input-container>
+          <md-input-container>
+            <label>Descripción</label>
+            <input md-maxlength="100" required name="caracteristicas" ng-model="producto.caracteristicas" />
+            <div class="hint" ng-if="!projectForm.caracteristicas.$touched">Ingresá la Descripción del Producto</div>
+            <div ng-messages="projectForm.caracteristicas.$error" md-auto-hide="false" ng-if="projectForm.caracteristicas.$touched">
+              <div ng-message="required" ng-if="projectForm.caracteristicas.$touched" md-auto-hide="false">Descripción es requerida</div>
+              <div ng-message="md-maxlength" md-auto-hide="false">La Descripción debe tener como máximo 100 caracteres de longitud</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Precio Unitario</label>
+            <input required type="number" name="precio" ng-model="producto.precio" min="0" step="any" />
+            <div class="hint" ng-if="!projectForm.precio.$touched">Ingresá el Precio Unitario</div>
+            <div ng-messages="projectForm.precio.$error" md-auto-hide="false" ng-if="projectForm.nombre.$touched">
+              <div ng-message="required" ng-if="projectForm.precio.$touched" md-auto-hide="false">Precio Unitario es requerido</div>
+              <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+              <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Stock</label>
+            <input required type="number" name="stock" ng-model="producto.stock" min="0" />
+            <div class="hint" ng-if="!projectForm.stock.$touched">Ingresá el Stock</div>
+            <div ng-messages="projectForm.stock.$error" md-auto-hide="false" ng-if="projectForm.stock.$touched">
+              <div ng-message="required" ng-if="projectForm.stock.$touched" md-auto-hide="false">Stock es requerido</div>
+              <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+              <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+            </div>
+          </md-input-container>
+          <md-input-container>
+            <label>Categoría</label>
+            <md-select required name="categoria" ng-model="producto.categoriaTemp" aria-label="categoria" ng-model-options="{ trackBy: '$value.id' }">
+              <md-option ng-value="categoria" ng-repeat="categoria in categorias track by categoria.id">{{categoria.nombre}}</md-option>
+            </md-select>
+            <!--
+            <div class="hint" ng-if="!projectForm.categoria.$touched">Escogé la Categoria del Producto</div>
+            <div ng-messages="projectForm.categoria.$error" md-auto-hide="false" ng-if="projectForm.categoria.$touched">
+              <div ng-message="required" ng-if="projectForm.categoria.$touched" md-auto-hide="false">Categoria es requerida</div>
+            </div>
+            -->
+          </md-input-container>
+          <md-input-container>
+            <label>Estado</label>
+            <md-select required name="estado" ng-model="producto.estado" aria-label="estado">
+              <md-select-label>{{ producto.estado.nombre }}</md-select-label>
+              <md-option ng-value="estado.tipo" ng-repeat="estado in estados" ng-selected="producto.estado">{{estado.nombre}}</md-option>
+            </md-select>
+            <!--
+            <div class="hint" ng-if="!projectForm.categoria.$touched">Escogé la Categoria del Producto</div>
+            <div ng-messages="projectForm.categoria.$error" md-auto-hide="false" ng-if="projectForm.categoria.$touched">
+              <div ng-message="required" ng-if="projectForm.categoria.$touched" md-auto-hide="false">Categoria es requerida</div>
+            </div>
+            -->
+          </md-input-container>
+          <md-input-container>
+            <div>Imagen</div>
+            <md-button class="md-raised md-primary" ngf-select ng-model="myFile" name="file" ngf-pattern="'image/*'"
+                       ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="100">Subir Imagen</md-button>
+            <div class="centradoBloque"><img ngf-thumbnail="myFile" class="sizeImage"></div>
+          </md-input-container>
+          <md-button class="md-raised md-primary" ng-click="update(producto.id)" ng-disabled="projectForm.$invalid">Submit</md-button>
+        </form>
+      </div>
+    </div>
+  </md-dialog-content>
+</md-dialog>
