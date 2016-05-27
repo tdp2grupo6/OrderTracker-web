@@ -22,22 +22,25 @@
       };
     });
 
-  ProductosController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$filter', 'Services', 'Productos', '$mdToast', 'UploadFile'];
+  ProductosController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$filter', 'Services', 'Productos', 'Marcas', 'Categorias', '$mdToast', 'UploadFile'];
 
-  function ProductosController($scope, $mdDialog, $mdMedia, $filter, Services, Productos, $mdToast, UploadFile) {
+  function ProductosController($scope, $mdDialog, $mdMedia, $filter, Services, Productos, Marcas, Categorias, $mdToast, UploadFile) {
 
     $scope.backendUrl = Services.url;
 
     $scope.query = {
-      id: '',
-      nombre: '',
-      imagen: '',
       pagina: 1
     };
 
-    $scope.form = {
-      nombre: ''
-    };
+    $scope.form = {};
+    $scope.marcas = {};
+    $scope.categoria = {};
+
+    $scope.estados = [
+      {id:1,tipo:'SUSP',nombre:'Suspendido'},
+      {id:2,tipo:'NODISP',nombre:'No disponible'},
+      {id:3,tipo:'DISP',nombre:'Disponible'}
+    ];
 
     Productos.filtrarProducto($scope.query,
       function(data) {
@@ -81,6 +84,30 @@
         .join(' ');
     };
 
+    $scope.agregarProductoModal = function(ev,id) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+
+      // Mostrar Modal
+      $mdDialog.show({
+          templateUrl: 'app/productos/productoAgregar.tmpl.html',
+          targetEvent: ev,
+          scope: $scope.$new(),
+          clickOutsideToClose:true,
+          fullscreen: useFullScreen,
+          onRemoving: function() { $scope.cerrarModal() }
+        })
+        .then(function(answer) {
+
+        }, function() {
+        });
+
+      $scope.$watch(function() {
+        return $mdMedia('xs') || $mdMedia('sm');
+      }, function(wantsFullScreen) {
+        $scope.customFullscreen = (wantsFullScreen === true);
+      });
+    };
+
     // Ver Producto Modal
     $scope.mostrarProductoModal = function(ev, id) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
@@ -109,8 +136,8 @@
           });
         },
         function(error) {
-          console.log("ERROR! No se puede mostrar la Producto " + error);
-          $mdToast.show($mdToast.simple().textContent('ERROR! No se puede mostrar la Producto').position($scope.getToastPosition()).hideDelay(3000))
+          console.log("ERROR! No se puede mostrar el Producto " + error);
+          $mdToast.show($mdToast.simple().textContent('ERROR! No se puede mostrar el Producto').position($scope.getToastPosition()).hideDelay(3000))
         }
       );
     };
@@ -144,7 +171,7 @@
         },
         function(error) {
           console.log("ERROR! No se puede mostrar la Producto " + error);
-          $mdToast.show($mdToast.simple().textContent('ERROR! No se puede mostrar la Producto').position($scope.getToastPosition()).hideDelay(3000))
+          $mdToast.show($mdToast.simple().textContent('ERROR! No se puede mostrar el Producto').position($scope.getToastPosition()).hideDelay(3000))
         }
       );
     };
@@ -153,7 +180,7 @@
     $scope.borrarProducto = function(id) {
       Productos.borrarProducto({ id: id },
         function() {
-          $mdToast.show($mdToast.simple().textContent('La Producto ha sido borrada Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+          $mdToast.show($mdToast.simple().textContent('El Producto ha sido borrado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
           Productos.filtrarProducto($scope.query,
             function(data) {
               $scope.productos = data.resultados;
@@ -166,7 +193,7 @@
           );
         },
         function() {
-          $mdToast.show($mdToast.simple().textContent('La Producto no pudo ser borrada').position($scope.getToastPosition()).hideDelay(3000));
+          $mdToast.show($mdToast.simple().textContent('El Producto no pudo ser borrado').position($scope.getToastPosition()).hideDelay(3000));
         }
       );
     };
@@ -217,23 +244,23 @@
 
             Productos.guardarProducto($scope.form,
               function(data) {
-                $mdToast.show($mdToast.simple().textContent('La Producto ha sido agregada satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+                $mdToast.show($mdToast.simple().textContent('El Producto ha sido agregado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
               },
               function(data) {
-                $mdToast.show($mdToast.simple().textContent('No se pudo agregar la Producto').position($scope.getToastPosition()).hideDelay(3000));
+                $mdToast.show($mdToast.simple().textContent('No se pudo agregar el Producto').position($scope.getToastPosition()).hideDelay(3000));
               });
           })
           .error(function(data) {
-            $mdToast.show($mdToast.simple().textContent('No se pudo agregar la Producto').position($scope.getToastPosition()).hideDelay(3000));
+            $mdToast.show($mdToast.simple().textContent('No se pudo agregar el Producto').position($scope.getToastPosition()).hideDelay(3000));
           });
       }
       else {
         Productos.guardarProducto($scope.form,
           function(data) {
-            $mdToast.show($mdToast.simple().textContent('La Producto ha sido agregada satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+            $mdToast.show($mdToast.simple().textContent('El Producto ha sido agregado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
           },
           function(data) {
-            $mdToast.show($mdToast.simple().textContent('No se pudo agregar la Producto').position($scope.getToastPosition()).hideDelay(3000));
+            $mdToast.show($mdToast.simple().textContent('No se pudo agregar el Producto').position($scope.getToastPosition()).hideDelay(3000));
           });
       }
     };
@@ -254,25 +281,37 @@
 
             Productos.actualizarProducto({ id: id },$scope.producto,
               function(data) {
-                $mdToast.show($mdToast.simple().textContent('La Producto ha sido actualizada satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+                $mdToast.show($mdToast.simple().textContent('El Producto ha sido actualizado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
               },
               function(data) {
-                $mdToast.show($mdToast.simple().textContent('No se pudo actualizar la Producto').position($scope.getToastPosition()).hideDelay(3000));
+                $mdToast.show($mdToast.simple().textContent('No se pudo actualizar el Producto').position($scope.getToastPosition()).hideDelay(3000));
               });
           })
           .error(function(data) {
-            $mdToast.show($mdToast.simple().textContent('No se pudo actualizar la Producto').position($scope.getToastPosition()).hideDelay(3000));
+            $mdToast.show($mdToast.simple().textContent('No se pudo actualizar el Producto').position($scope.getToastPosition()).hideDelay(3000));
           });
       }
       else {
         Productos.actualizarProducto({ id: id },$scope.producto,
           function(data) {
-            $mdToast.show($mdToast.simple().textContent('La Producto ha sido actualizada satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+            $mdToast.show($mdToast.simple().textContent('El Producto ha sido actualizado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
           },
           function(data) {
-            $mdToast.show($mdToast.simple().textContent('No se pudo actualizar la Producto').position($scope.getToastPosition()).hideDelay(3000));
+            $mdToast.show($mdToast.simple().textContent('No se pudo actualizar el Producto').position($scope.getToastPosition()).hideDelay(3000));
           });
       }
+    };
+
+    $scope.cargarMarcas = function () {
+      Marcas.listarMarcas(function(data) {
+        $scope.marcas = data;
+      });
+    };
+
+    $scope.cargarCategorias = function () {
+      Categorias.listarCategorias(function(data) {
+        $scope.categorias = data;
+      });
     };
   }
 })();

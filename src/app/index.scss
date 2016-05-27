@@ -27,7 +27,11 @@ header {
   background-color: rgba(158, 158, 158, 0.2);
 }
 
-.md-cell.ng-binding {
+.md-column {
+  padding-right: 25px !important;
+}
+
+.md-cell {
   padding-right: 25px !important;
 }
 
@@ -39,6 +43,12 @@ header {
 
 .container {
   overflow-y: auto !important;
+}
+
+md-dialog.modalAncho {
+  min-width: 30%;
+  max-width: 70%;
+  width: 450px;
 }
 
 /* Do not remove this comments bellow. It's the markers used by gulp-inject to inject
