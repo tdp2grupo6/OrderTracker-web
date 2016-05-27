@@ -112,7 +112,7 @@
     $scope.mostrarProductoModal = function(ev, id) {
       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
-      Productos.listarProductos({ id: id },
+      Productos.listarProducto({ id: id },
         function(data) {
           $scope.producto = data;
 

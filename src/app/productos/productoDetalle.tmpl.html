@@ -1,0 +1,33 @@
+<md-dialog layout-padding md-scroll-y ng-controller="ProductosController" ng-cloak class="modalProducto">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Detalle del Producto: <span>{{producto.nombre}}</span></h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cerrar()">
+          <md-tooltip md-direction="top" md-visible="tooltipVisible">Cerrar</md-tooltip>
+          <md-icon md-font-icon="fa fa-times-circle fa-lg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <br>
+      <div layout="row">
+        <div flex>
+          <img ng-src="{{backendUrl}}{{producto.rutaImagen}}" class="imagenPreview">
+        </div>
+        <div flex>
+          <p><b>Nombre:</b> {{producto.nombre}}</p>
+          <p><b>Marca:</b> {{producto.marca}}</p>
+          <p><b>Descripción:</b> {{producto.caracteristicas}}</p>
+          <p><b>Precio Unitario:</b> ${{producto.precio | number:'2'}}</p>
+          <br>
+          <p><b>Categoría:</b> {{producto.categorias[0].nombre}}</p>
+          <br>
+          <p><b>Stock:</b> {{producto.stock}}</p>
+          <p><b>Estado:</b> {{producto.estado.nombre}}</p>
+        </div>
+      </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>

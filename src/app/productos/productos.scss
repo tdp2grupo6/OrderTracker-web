@@ -6,6 +6,21 @@
   height: auto;
 }
 
+.imagenPreview {
+  display: block;
+  max-width:300px;
+  max-height:300px;
+  width: auto;
+  height: auto;
+  margin: auto auto;
+}
+
+.modalProducto {
+  min-width: 30%;
+  max-width: 70%;
+  width: 650px;
+}
+
 div.centradoBloque {
   display: table;
   margin: 0 auto;

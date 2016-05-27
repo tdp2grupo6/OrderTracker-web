@@ -111,7 +111,7 @@
               <td md-cell>{{producto.stock}}</td>
               <td md-cell>{{producto.estado.nombre}}</td>
               <td md-cell>
-                <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetalleProducto($event,producto.id)" aria-label="ver">
+                <md-button class="md-fab md-warn md-mini" ng-click="mostrarProductoModal($event,producto.id)" aria-label="ver">
                   <i class="fa fa-eye" aria-hidden="true"></i>
                 </md-button>
                 <md-button class="md-fab md-primary md-mini" ng-click="editarProductoModal($event,producto.id)" aria-label="confirmar">
