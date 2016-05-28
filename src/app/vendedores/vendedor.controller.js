@@ -213,7 +213,6 @@
         // Cerrar modal
         $scope.cerrarModal = function() {
           $mdDialog.cancel().then(function() {
-            // dgacitua: Actualizar Lista
             Vendedores.filtrarVendedores($scope.query,
               function(data) {
                 $scope.vendedores = data.resultados;
@@ -230,7 +229,7 @@
           $scope.listaVendedores = data;
         });
 
-        // dgacitua: funcion para filtrar clentes
+        // Funcion para filtrar vendedores
         $scope.buscarClientes = function () {
           $scope.query = {
             id: $scope.filtroId? $scope.filtroId : '',
@@ -252,7 +251,7 @@
           );
         };
 
-        // dgacitua: Remover filtro clientes
+        // dgacitua: Remover filtro vendedores
         $scope.removeFilter = function () {
           $scope.filter.show = false;
           $scope.query.pagina = 1;
