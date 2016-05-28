@@ -8,8 +8,11 @@
 	Services.$inject = [];
 
 	function Services() {
+      var localUrl = 'http://localhost:8080/OrderTracker/';
+      var remoteUrl = 'http://ordertracker-tdp2grupo6.rhcloud.com/';
+
     	return {
-        	url: 'http://localhost:8080/OrderTracker/', //'http://ordertracker-tdp2grupo6.rhcloud.com/',
+          url: remoteUrl,
           dateFormat: 'yyyy-MM-dd"T"HH:mm:ssZ'
     	};
 	}
