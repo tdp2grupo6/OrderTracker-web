@@ -5,9 +5,9 @@
 			.module('myApp')
 			.controller('MainController', MainController);
 
-			MainController.$inject = ['$scope', '$mdDialog', '$mdMedia'];
+			MainController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$cookies', '$location', 'Authentication'];
 
-			function MainController($scope, $mdDialog, $mdMedia) {
+			function MainController($scope, $mdDialog, $mdMedia, $cookies, $location, Authentication) {
 				$scope.contentUrl = '';
 
 				$scope.sections = [
@@ -19,33 +19,24 @@
 		          {id:6,tipo:'ESTADO_CANCELADO',nombre:'Cancelado'}
 		        ];
 
-	      		$scope.sidenavOpen = true;
+        $scope.sidenavOpen = true;
 
-		      	$scope.openMenu = function() {
-		      		$scope.sidenavOpen = true;
-		      	};
+        $scope.openMenu = function() {
+          $scope.sidenavOpen = true;
+        };
 
-		      	$scope.closeMenu = function() {
-		      		$scope.sidenavOpen = false;
-		      	};
+        $scope.closeMenu = function() {
+          $scope.sidenavOpen = false;
+        };
 
-	/*    	$scope.showBusquedaPacienteModal = function(ev) {
-					var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
-					$mdDialog.show({
-						//templateUrl: 'app/main/busquedaPaciente.tmpl.html',
-						targetEvent: ev,
-						clickOutsideToClose:true,
-						fullscreen: useFullScreen
-					})
-					.then(function(answer) {
-						}, function() {
-					});
-
-					$scope.$watch(function() {
-						return $mdMedia('xs') || $mdMedia('sm');
-					}, function(wantsFullScreen) {
-						$scope.customFullscreen = (wantsFullScreen === true);
-					});
-				};*/
+        $scope.logout = function() {
+          $cookies.remove('username');
+          $cookies.remove('tokenType');
+          $cookies.remove('expiration');
+          $cookies.remove('accessToken');
+          $cookies.remove('refreshToken');
+          Authentication.setAuthenticated(false);
+          $location.url('/login');
+        };
 			}
 })();

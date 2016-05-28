@@ -76,6 +76,17 @@
               </md-button>
             </md-fab-actions>
           </md-fab-speed-dial>
+          <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
+            <md-fab-trigger>
+              <md-button class="md-primary" aria-label="Logout">Cerrar Sesión <md-icon md-font-icon="fa fa-sort-desc fa-lg"></md-icon></md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+              <md-button aria-label="Logout" class="md-fab md-raised md-mini" ng-click="logout()">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Salir de Order Tracker</md-tooltip>
+                <md-icon md-font-icon="fa fa-sign-out fa-lg"></md-icon>
+              </md-button>
+            </md-fab-actions>
+          </md-fab-speed-dial>
         </div>
     </md-content>
     </md-sidenav>

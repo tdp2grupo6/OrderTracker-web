@@ -17,6 +17,11 @@ angular.module('myApp', [
 
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
+            .state('login', {
+              url: '/login',
+              templateUrl: 'app/login/login.tmpl.html',
+              controller: 'LoginController'
+            })
             .state('main', {
                 url: '/main',
                 templateUrl: 'app/main/main.html',
@@ -53,7 +58,16 @@ angular.module('myApp', [
                 controller: 'ClientesController'
             });
 
-        $urlRouterProvider.otherwise('/main');
+        function authenticate($q, $state, $timeout, Authentication) {
+            if (Authentication.isAuthenticated()) {
+                return $q.when()
+            } else {
+                $timeout(function() { $state.go('login') });
+                return $q.reject()
+            }
+        }
+
+        $urlRouterProvider.otherwise('/login');
         $locationProvider.html5Mode(true).hashPrefix('#');
     })
 

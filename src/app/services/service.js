@@ -12,7 +12,7 @@
       var remoteUrl = 'http://ordertracker-tdp2grupo6.rhcloud.com/';
 
     	return {
-          url: remoteUrl,
+          url: localUrl,
           dateFormat: 'yyyy-MM-dd"T"HH:mm:ssZ'
     	};
 	}
