@@ -1,0 +1,132 @@
+<md-content flex layout-fill md-scroll-y>
+
+<md-toolbar class="md-warn md-whiteframe-z1">
+  <h3 class="md-toolbar-tools">
+    <md-button class="md-icon-button md-warn md-hue-1" ng-click="openMenu()" aria-label="Toggle Menu">
+      <md-icon md-font-icon="fa fa-bars fa-lg"></md-icon>
+    </md-button>
+    <span>&nbsp;Vendedores > Listado de Vendedores</span>
+  </h3>
+</md-toolbar>
+
+
+<md-content layout-fill layout-padding md-scroll-y class="fondoCustom">
+    <md-card>
+     <md-card-content>
+       <md-toolbar class="md-table-toolbar md-default" ng-hide="filter.show">
+        <div class="md-toolbar-tools">
+          <h2 class="md-title">Vendedores</h2>
+          <div flex="" class="flex"></div>
+          <md-button class="md-icon-button" ng-click="filter.show = true" aria-label="buscar">
+          <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-button class="md-fab md-warn md-mini" ng-click="agregarClienteModal($event)" aria-label="+">
+       <i class="fa fa-plus" aria-hidden="true"></i>
+    </md-button>
+   <!-- <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show">
+      <div class="md-toolbar-tools">
+        <form flex name="filter.form">
+          <div layout="row">
+            <div flex="10">
+              <md-select ng-model="filtroId" placeholder="ID" style="font-size:14px">
+                <md-option ng-repeat="item in listaClientes" value="{{item.id}}">
+                  {{item.id}}
+                </md-option>
+              </md-select>
+            </div>
+            <div flex>
+              <md-autocomplete md-selected-item="selectedItem1" md-search-text="searchText1" md-items="item in listaClientes | filter: searchText1" md-item-text="item.nombre" placeholder="Nombre">
+                <md-item-template>
+                  <span md-highlight-text="searchText1" md-highlight-flags="^i">{{item.nombre}}</span>
+                </md-item-template>
+                <md-not-found>
+                  No se encuentran coincidencias
+                </md-not-found>
+              </md-autocomplete>
+            </div>
+            <div flex>
+              <md-autocomplete md-selected-item="selectedItem2" md-search-text="searchText2" md-items="item in listaClientes | filter: searchText2" md-item-text="item.apellido" placeholder="Apellido">
+                <md-item-template>
+                  <span md-highlight-text="searchText2" md-highlight-flags="^i">{{item.apellido}}</span>
+                </md-item-template>
+                <md-not-found>
+                  No se encuentran coincidencias
+                </md-not-found>
+              </md-autocomplete>
+            </div>
+            <div flex>
+              <md-autocomplete md-selected-item="selectedItem3" md-search-text="searchText3" md-items="item in listaClientes | filter: searchText3" md-item-text="item.email" placeholder="Email">
+                <md-item-template>
+                  <span md-highlight-text="searchText3" md-highlight-flags="^i">{{item.email}}</span>
+                </md-item-template>
+                <md-not-found>
+                  No se encuentran coincidencias
+                </md-not-found>
+              </md-autocomplete>
+            </div>
+            <div flex>
+              <md-autocomplete ng-model="filtroDireccion" md-selected-item="selectedItem4" md-search-text="searchText4" md-items="item in listaClientes | filter: searchText4" md-item-text="item.direccion" placeholder="Direccion">
+                <md-item-template>
+                  <span md-highlight-text="searchText4" md-highlight-flags="^i">{{item.direccion}}</span>
+                </md-item-template>
+                <md-not-found>
+                  No se encuentran coincidencias
+                </md-not-found>
+              </md-autocomplete>
+            </div>
+          </div>
+        </form>
+        <md-button class="md-fab md-warn md-mini" ng-click="buscarClientes()" aria-label="buscar clientes">
+          <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
+        </md-button>
+        <md-button class="md-fab md-warn md-mini" ng-click="removeFilter()" aria-label="cerrar">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </md-button>
+      </div>
+    </md-toolbar>-->
+
+    <md-table-container>
+      <table md-table multiple ng-model="selected" md-progress="promise">
+        <thead md-head md-order="query.order" md-on-reorder="getClientesFiltrado">
+          <tr md-row>
+            <th md-column md-numeric md-order-by="id">Id</th>
+            <th md-column md-order-by="nombre">Nombre</th>
+            <th md-column md-order-by="apellido">Apellido</th>
+            <th md-column md-order-by="email">Email</th>
+            <th md-column md-order-by="telefono">Telefono</th>
+            <th md-column>Acciones</th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row md-select="vendedor" md-select-id="id" md-auto-select ng-repeat="vendedor in vendedores">
+            <td md-cell>{{vendedor.id}}</td>
+            <td md-cell>{{vendedor.nombre}}</td>
+            <td md-cell>{{vendedor.apellido}}</td>
+            <td md-cell>{{vendedor.email}}</td>
+            <td md-cell>{{vendedor.telefono}}</td>
+            <td md-cell>
+              <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetalleVendedor($event,vendedor.id)" aria-label="ver">
+                <i class="fa fa-eye" aria-hidden="true"></i>
+              </md-button>
+              <md-button class="md-fab md-primary md-mini" ng-click="editarClienteModal($event,vendedor.id)" aria-label="confirmar">
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              </md-button>
+              <md-button class="md-fab md-accent md-mini" ng-click="borrarVendedor(vendedor.id)" aria-label="eliminar">
+                <i class="fa fa-eraser" aria-hidden="true"></i>
+              </md-button>
+
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+
+    <md-table-pagination md-limit="20" md-page="query.pagina" md-total="{{totalResultados}}" md-label="{page: 'Página:', of: 'de'}" md-on-paginate="getVendedoresFiltrado" md-page-select></md-table-pagination>
+
+    </md-card-content>
+
+  </md-card>
+</md-content>
+
+</md-content>

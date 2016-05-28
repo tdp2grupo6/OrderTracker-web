@@ -51,6 +51,11 @@ angular.module('myApp', [
                 url: '/clientes',
                 templateUrl: 'app/clientes/clientes.tmpl.html',
                 controller: 'ClientesController'
+            })
+            .state('main.vendedores', {
+                url: '/vendedores',
+                templateUrl: 'app/vendedores/vendedores.tmpl.html',
+                controller: 'VendedorController'
             });
 
         $urlRouterProvider.otherwise('/main');
