@@ -1,21 +1,24 @@
-<form name="projectForm" method="POST" layout="column" layout-align="center center" class="form-content">
-  <md-input-container class="form-group">
-    <label>Usuario</label>
-    <input required name="username" ng-model="form.username">
-    <div ng-messages="projectForm.username.$error" ng-if="projectForm.username.$touched">
-      <div ng-message="required">Campo requerido</div>
+<div class="loginbox absoluteCenter">
+  <div class="centradoTexto"><h2>Order Tracker</h2></div>
+  <form name="projectForm" method="POST" layout="column" layout-align="center center" class="form-content">
+    <md-input-container class="form-group">
+      <label>Usuario</label>
+      <input required name="username" ng-model="form.username">
+      <div ng-messages="projectForm.username.$error" ng-if="projectForm.username.$touched">
+        <div ng-message="required">Campo requerido</div>
+      </div>
+    </md-input-container>
+    <md-input-container class="form-group">
+      <label>Password</label>
+      <input required name="password" type="password" ng-model="form.password" >
+      <div ng-messages="projectForm.password.$error" ng-if="projectForm.password.$touched">
+        <div ng-message="required">Campo requerido</div>
+      </div>
+    </md-input-container>
+    <md-button ng-if="!activated" class="md-raised md-primary" ng-click="submit()">Ingresar</md-button>
+    <div ng-if="error" class="centradoTexto loginError">{{error}}</div>
+    <div ng-if="activated" layout="row" layout-sm="column" layout-align="space-around">
+      <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
     </div>
-  </md-input-container>
-  <md-input-container class="form-group">
-    <label>Password</label>
-    <input required name="password" type="password" ng-model="form.password" >
-    <div ng-messages="projectForm.password.$error" ng-if="projectForm.password.$touched">
-      <div ng-message="required">Campo requerido</div>
-    </div>
-  </md-input-container>
-  <md-button ng-if="!activated" class="md-whiteframe-z1 login_button" ng-click="submit()">Login</md-button>
-  <div ng-if="error" class="login-error">{{error}}</div>
-  <div ng-if="activated" layout="row" layout-sm="column" layout-align="space-around">
-    <md-progress-circular md-mode="indeterminate" md-diameter="96"></md-progress-circular>
-  </div>
-</form>
+  </form>
+</div>

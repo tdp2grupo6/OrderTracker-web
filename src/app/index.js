@@ -25,7 +25,8 @@ angular.module('myApp', [
             .state('main', {
                 url: '/main',
                 templateUrl: 'app/main/main.html',
-                controller: 'MainController'
+                controller: 'MainController',
+                resolve: { authenticate: authenticate }
             })
             .state('main.listadoPedidos', {
                 url: '/listadoPedidos',

@@ -1,0 +1,17 @@
+div.centradoTexto {
+  text-align: center;
+}
+
+div.loginbox {
+  display: block;
+  max-width: 50%;
+  max-height: 80%;
+  width: 450px;
+}
+
+div.absoluteCenter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
