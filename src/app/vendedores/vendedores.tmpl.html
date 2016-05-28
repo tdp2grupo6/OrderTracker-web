@@ -30,13 +30,6 @@
         <form flex name="filter.form">
           <div layout="row">
             <div flex="10">
-              <md-select ng-model="filtroId" placeholder="ID" style="font-size:14px">
-                <md-option ng-repeat="item in listaVendedores" value="{{item.id}}">
-                  {{item.id}}
-                </md-option>
-              </md-select>
-            </div>
-            <div flex>
               <md-autocomplete md-selected-item="selectedItem1" md-search-text="searchText1" md-items="item in listaVendedores | filter: searchText1" md-item-text="item.nombre" placeholder="Nombre">
                 <md-item-template>
                   <span md-highlight-text="searchText1" md-highlight-flags="^i">{{item.nombre}}</span>
@@ -57,19 +50,9 @@
               </md-autocomplete>
             </div>
             <div flex>
-              <md-autocomplete md-selected-item="selectedItem3" md-search-text="searchText3" md-items="item in listaVendedores | filter: searchText3" md-item-text="item.email" placeholder="Email">
+              <md-autocomplete md-selected-item="selectedItem3" md-search-text="searchText3" md-items="item in listaVendedores | filter: searchText3" md-item-text="item.username" placeholder="UserName">
                 <md-item-template>
-                  <span md-highlight-text="searchText3" md-highlight-flags="^i">{{item.email}}</span>
-                </md-item-template>
-                <md-not-found>
-                  No se encuentran coincidencias
-                </md-not-found>
-              </md-autocomplete>
-            </div>
-            <div flex>
-              <md-autocomplete ng-model="filtroTelefono" md-selected-item="selectedItem4" md-search-text="searchText4" md-items="item in listaVendedores | filter: searchText4" md-item-text="item.telefono" placeholder="Telefono">
-                <md-item-template>
-                  <span md-highlight-text="searchText4" md-highlight-flags="^i">{{item.telefono}}</span>
+                  <span md-highlight-text="searchText3" md-highlight-flags="^i">{{item.username}}</span>
                 </md-item-template>
                 <md-not-found>
                   No se encuentran coincidencias
@@ -95,6 +78,7 @@
             <th md-column md-order-by="nombre">Nombre</th>
             <th md-column md-order-by="apellido">Apellido</th>
             <th md-column md-order-by="email">Email</th>
+            <th md-column md-order-by="username">UserName</th>  
             <th md-column md-order-by="telefono">Telefono</th>
             <th md-column>Acciones</th>
           </tr>
@@ -105,6 +89,7 @@
             <td md-cell>{{vendedor.nombre}}</td>
             <td md-cell>{{vendedor.apellido}}</td>
             <td md-cell>{{vendedor.email}}</td>
+            <td md-cell>{{vendedor.username}}</td>
             <td md-cell>{{vendedor.telefono}}</td>
             <td md-cell>
               <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetalleVendedor($event,vendedor.id)" aria-label="ver">
@@ -116,7 +101,6 @@
               <md-button class="md-fab md-accent md-mini" ng-click="borrarVendedor(vendedor.id)" aria-label="eliminar">
                 <i class="fa fa-eraser" aria-hidden="true"></i>
               </md-button>
-
           </tr>
         </tbody>
       </table>

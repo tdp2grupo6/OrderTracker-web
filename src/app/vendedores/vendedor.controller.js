@@ -28,6 +28,7 @@
           id: '',
           nombre: '',
           apellido: '',
+          username: '',
           email: '',
           telefono: '',
           pagina: 1
@@ -39,7 +40,7 @@
           email: '',
           telefono: '',
           nombreCompleto: '',
-          userName: ''
+          username: ''
         };  
 
         Vendedores.filtrarVendedores($scope.query,
@@ -232,11 +233,9 @@
         // Funcion para filtrar vendedores
         $scope.buscarVendedores = function () {
           $scope.query = {
-            id: $scope.filtroId? $scope.filtroId : '',
             nombre: $scope.selectedItem1? $scope.selectedItem1.nombre : '',
             apellido: $scope.selectedItem2? $scope.selectedItem2.apellido : '',
-            email: $scope.selectedItem3? $scope.selectedItem3.email : '',
-            telefono: $scope.selectedItem4? $scope.selectedItem4.telefono : '',
+            username: $scope.selectedItem3? $scope.selectedItem3.username : '',
             pagina: 1
           };
 
@@ -257,10 +256,8 @@
           $scope.query.pagina = 1;
           $scope.query.nombre = '';
           $scope.query.apellido = '';
-          $scope.query.id = '';
-          $scope.query.email = '';
-          $scope.query.telefono = '';
-
+          $scope.query.username = '';
+          
           if($scope.filter.form.$dirty) {
             $scope.filter.form.$setPristine();
           }
