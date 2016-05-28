@@ -34,9 +34,7 @@
 
     $scope.form = {};
     $scope.marcas = {};
-    $scope.categoria = {};
-    $scope.marcaTemp = {};
-    $scope.categoriaTemp = {};
+    $scope.categorias = {};
 
     $scope.estados = [
       {id:1,tipo:'SUSP',nombre:'Suspendido'},
@@ -142,7 +140,7 @@
           $scope.producto = data;
       */
       $q.all([p3]).then(function(data) {
-          console.log($scope.producto);
+          //console.log($scope.producto);
 
 
 
@@ -180,12 +178,6 @@
       var p3 = $scope.cargarProducto(id);
 
       $q.all([p3]).then(function(data) {
-          $scope.marcaTemp = $scope.producto.marcaTemp;
-          $scope.categoriaTemp = $scope.producto.categoriaTemp;
-          console.log($scope.producto);
-          //console.log($scope.marcas);
-          //console.log($scope.categorias);
-
           // Mostrar Modal
           $mdDialog.show({
               templateUrl: 'app/productos/productoEditar.tmpl.html',
@@ -314,8 +306,9 @@
     $scope.update = function(id){
       var file = $scope.myFile;
 
-      $scope.producto.marca = { id: $scope.marcaTemp.id };
-      $scope.producto.categorias = [ { id: $scope.categoriaTemp.id } ];
+      $scope.producto.marca = { id: $scope.producto.marcaTemp.id };
+      $scope.producto.categorias = [ { id: $scope.producto.categoriaTemp.id } ];
+      $scope.producto.estado = $scope.producto.estadoTemp.tipo;
 
       if ($scope.projectForm.file.$valid && $scope.myFile) {
         var filename = 'imagen';
@@ -408,13 +401,19 @@
           $scope.producto = data;
 
           if ($scope.marcas) {
-            $scope.producto.marcaTemp = angular.copy($filter('filter')($scope.marcas, function(d) {return d.nombre === $scope.producto.marca;})[0]);
+            var aux = $scope.producto.marca? $scope.producto.marca : 'No existe';
+            $scope.producto.marcaTemp = angular.copy($filter('filter')($scope.marcas, function(d) {return d.nombre === aux;})[0]);
             //console.log($scope.producto.marcaTemp);
           }
 
           if ($scope.categorias) {
-            $scope.producto.categoriaTemp = angular.copy($filter('filter')($scope.categorias, function(d) {return d.nombre === $scope.producto.categorias[0].nombre;})[0]);
+            var aux = $scope.producto.categorias[0]? $scope.producto.categorias[0].nombre : 'No existe';
+            $scope.producto.categoriaTemp = angular.copy($filter('filter')($scope.categorias, function(d) {return d.nombre === aux;})[0]);
             //console.log($scope.producto.categoriaTemp);
+          }
+
+          if ($scope.estados) {
+            $scope.producto.estadoTemp = angular.copy($filter('filter')($scope.estados, function (d) {return d.nombre === $scope.producto.estado.nombre;})[0]);
           }
 
           defered.resolve(data);

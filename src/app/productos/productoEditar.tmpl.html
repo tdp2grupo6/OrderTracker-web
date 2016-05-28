@@ -81,9 +81,8 @@
           </md-input-container>
           <md-input-container>
             <label>Estado</label>
-            <md-select required name="estado" ng-model="producto.estado" aria-label="estado">
-              <md-select-label>{{ producto.estado.nombre }}</md-select-label>
-              <md-option ng-value="estado.tipo" ng-repeat="estado in estados" ng-selected="producto.estado">{{estado.nombre}}</md-option>
+            <md-select required name="estado" ng-model="producto.estadoTemp" aria-label="estado" ng-model-options="{ trackBy: '$value.id' }">
+              <md-option ng-value="estado" ng-repeat="estado in estados track by estado.id">{{estado.nombre}}</md-option>
             </md-select>
             <!--
             <div class="hint" ng-if="!projectForm.categoria.$touched">Escogé la Categoria del Producto</div>
@@ -96,7 +95,6 @@
             <div>Imagen</div>
             <md-button class="md-raised md-primary" ngf-select ng-model="myFile" name="file" ngf-pattern="'image/*'"
                        ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="100">Subir Imagen</md-button>
-            <div class="centradoBloque"><img ngf-thumbnail="myFile" class="sizeImage"></div>
           </md-input-container>
           <md-button class="md-raised md-primary" ng-click="update(producto.id)" ng-disabled="projectForm.$invalid">Submit</md-button>
         </form>

@@ -18,15 +18,15 @@
         </div>
         <div flex>
           <p><b>Nombre:</b> {{producto.nombre}}</p>
-          <p><b>Marca:</b> {{producto.marca.nombre}}</p>
+          <p><b>Marca:</b> {{producto.marca? producto.marca : 'No existe'}}</p>
           <p><b>Descripción:</b> {{producto.caracteristicas}}</p>
           <p><b>Precio Unitario:</b> ${{producto.precio | number:'2'}}</p>
           <br>
-          <p><b>Categoría:</b></p>
-          <div ng-repeat="cat in producto.categorias">{{cat.nombre}}</div>
+          <p><b>Categoría:</b>
+          <span ng-repeat="cat in producto.categorias">{{cat? cat.nombre : 'No existe'}} </span></p>
           <br>
           <p><b>Stock:</b> {{producto.stock}}</p>
-          <p><b>Estado:</b> {{producto.estado.nombre}}</p>
+          <p><b>Estado:</b> {{producto.estado? producto.estado.nombre : 'No existe'}}</p>
         </div>
       </div>
     </md-dialog-content>
