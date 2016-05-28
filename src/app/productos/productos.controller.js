@@ -29,7 +29,11 @@
     $scope.backendUrl = Services.url;
 
     $scope.query = {
-      pagina: 1
+      pagina: 1,
+      estado: '',
+      nombre: '',
+      marca: '',
+      categoria: ''
     };
 
     $scope.form = {};
@@ -345,6 +349,54 @@
             $mdToast.show($mdToast.simple().textContent('No se pudo actualizar el Producto').position($scope.getToastPosition()).hideDelay(3000));
           });
       }
+    };
+
+    $scope.filtrarProductos = function() {
+      $scope.query.categoria = $scope.filter.form.filtroCategoria? $scope.filter.form.filtroCategoria.nombre : '';
+      $scope.query.estado = $scope.filter.form.filtroEstado? $scope.filter.form.filtroEstado.id : '';
+      $scope.query.nombre = $scope.filter.form.filtroNombre? $scope.filter.form.filtroNombre : '';
+      $scope.query.marca = $scope.filter.form.filtroMarca? $scope.filter.form.filtroMarca.nombre : '';
+      $scope.query.pagina = 1;
+
+      console.log($scope.query);
+
+      Productos.filtrarProducto($scope.query,
+        function(data) {
+          $scope.productos = data.resultados;
+          $scope.totalResultados = data.totalResultados;
+        },
+        function() {
+
+        }
+      );
+    };
+
+    $scope.removerFiltro = function() {
+      $scope.filter.show = false;
+      $scope.query.categoria = '';
+      $scope.query.estado = '';
+      $scope.query.nombre = '';
+      $scope.query.marca = '';
+      $scope.query.pagina = 1;
+
+      if($scope.filter.form.$dirty) {
+        $scope.filter.form.$setPristine();
+      }
+
+      $scope.filter.form.filtroCategoria = '';
+      $scope.filter.form.filtroNombre = '';
+      $scope.filter.form.filtroEstado = '';
+      $scope.filter.form.filtroMarca = '';
+
+      Productos.filtrarProducto($scope.query,
+        function(data) {
+          $scope.productos = data.resultados;
+          $scope.totalResultados = data.totalResultados;
+        },
+        function() {
+
+        }
+      );
     };
 
     $scope.cargarMarcaActual = function (id) {

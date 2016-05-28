@@ -28,59 +28,32 @@
           <div class="md-toolbar-tools">
             <form flex name="filter.form">
               <div layout="row">
-                <div flex="10">
-                  <md-select ng-model="filtroId" placeholder="ID" style="font-size:14px">
-                    <md-option ng-repeat="item in listaProductos" value="{{item.id}}">
-                      {{item.id}}
-                    </md-option>
+                <div flex class="filtroFormContainer">
+                  <md-input-container>
+                    <input name="nombre" aria-label="nombre" ng-model="filter.form.filtroNombre" placeholder="Nombre "/>
+                  </md-input-container>
+                </div>
+                <div flex class="filtroFormContainer">
+                  <md-select name="marca" aria-label="marca" ng-model="filter.form.filtroMarca" placeholder="Marca">
+                    <md-option ng-value="marca" ng-repeat="marca in marcas">{{marca.nombre}}</md-option>
                   </md-select>
                 </div>
-                <div flex>
-                  <md-autocomplete md-selected-item="selectedItem1" md-search-text="searchText1" md-items="item in listaProductos | filter: searchText1" md-item-text="item.nombre" placeholder="Nombre">
-                    <md-item-template>
-                      <span md-highlight-text="searchText1" md-highlight-flags="^i">{{item.nombre}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                      No se encuentran coincidencias
-                    </md-not-found>
-                  </md-autocomplete>
+                <div flex class="filtroFormContainer">
+                  <md-select name="categoria" aria-label="categoria" ng-model="filter.form.filtroCategoria" placeholder="Categoria">
+                    <md-option ng-value="categoria" ng-repeat="categoria in categorias">{{categoria.nombre}}</md-option>
+                  </md-select>
                 </div>
-                <div flex>
-                  <md-autocomplete md-selected-item="selectedItem2" md-search-text="searchText2" md-items="item in listaProductos | filter: searchText2" md-item-text="item.apellido" placeholder="Apellido">
-                    <md-item-template>
-                      <span md-highlight-text="searchText2" md-highlight-flags="^i">{{item.apellido}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                      No se encuentran coincidencias
-                    </md-not-found>
-                  </md-autocomplete>
-                </div>
-                <div flex>
-                  <md-autocomplete md-selected-item="selectedItem3" md-search-text="searchText3" md-items="item in listaProductos | filter: searchText3" md-item-text="item.email" placeholder="Email">
-                    <md-item-template>
-                      <span md-highlight-text="searchText3" md-highlight-flags="^i">{{item.email}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                      No se encuentran coincidencias
-                    </md-not-found>
-                  </md-autocomplete>
-                </div>
-                <div flex>
-                  <md-autocomplete ng-model="filtroDireccion" md-selected-item="selectedItem4" md-search-text="searchText4" md-items="item in listaProductos | filter: searchText4" md-item-text="item.direccion" placeholder="Direccion">
-                    <md-item-template>
-                      <span md-highlight-text="searchText4" md-highlight-flags="^i">{{item.direccion}}</span>
-                    </md-item-template>
-                    <md-not-found>
-                      No se encuentran coincidencias
-                    </md-not-found>
-                  </md-autocomplete>
+                <div flex class="filtroFormContainer">
+                  <md-select name="estado" aria-label="estado" ng-model="filter.form.filtroEstado" placeholder="Estado">
+                    <md-option ng-value="estado" ng-repeat="estado in estados">{{estado.nombre}}</md-option>
+                  </md-select>
                 </div>
               </div>
             </form>
-            <md-button class="md-fab md-warn md-mini" ng-click="buscarProductos()" aria-label="buscar productos">
+            <md-button class="md-fab md-warn md-mini" ng-click="filtrarProductos()" aria-label="buscar productos">
               <md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
             </md-button>
-            <md-button class="md-fab md-warn md-mini" ng-click="removeFilter()" aria-label="cerrar">
+            <md-button class="md-fab md-warn md-mini" ng-click="removerFiltro()" aria-label="cerrar">
               <i class="fa fa-times" aria-hidden="true"></i>
             </md-button>
           </div>
