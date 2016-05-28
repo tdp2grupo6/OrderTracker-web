@@ -126,7 +126,7 @@
               
               // Mostrar Modal
               $mdDialog.show({
-                  templateUrl: 'app/clientes/editarVendedor.tmpl.html',
+                  templateUrl: 'app/vendedores/editarVendedor.tmpl.html',
                   targetEvent: ev,
                   scope: $scope.$new(),
                   clickOutsideToClose:true,
@@ -156,11 +156,11 @@
            Vendedores.borrarVendedor({ id: id },
             function() {
              $mdToast.show($mdToast.simple().textContent('El Vendedor ha sido borrado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
-               Vendedores.filtrarCliente($scope.query,
+               Vendedores.filtrarVendedores($scope.query,
                 function(data) {
                   $scope.vendedores = data.resultados;
                   $scope.totalResultados = data.totalResultados;
-                  angular.forEach($scope.vendedores, function(cliente) {});
+                  angular.forEach($scope.vendedores, function(vendedor) {});
                 },
                 function() {
 
@@ -168,7 +168,7 @@
               );
             },
             function() {
-              $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser borrado').position($scope.getToastPosition()).hideDelay(3000));
+              $mdToast.show($mdToast.simple().textContent('El Vendedor no pudo ser borrado').position($scope.getToastPosition()).hideDelay(3000));
             }
           );
         };
@@ -230,7 +230,7 @@
         });
 
         // Funcion para filtrar vendedores
-        $scope.buscarClientes = function () {
+        $scope.buscarVendedores = function () {
           $scope.query = {
             id: $scope.filtroId? $scope.filtroId : '',
             nombre: $scope.selectedItem1? $scope.selectedItem1.nombre : '',
@@ -265,9 +265,9 @@
             $scope.filter.form.$setPristine();
           }
 
-          Clientes.filtrarCliente($scope.query,
+          Vendedores.filtrarVendedores($scope.query,
             function(data) {
-              $scope.clientes = data.resultados;
+              $scope.vendedores = data.resultados;
               $scope.totalResultados = data.totalResultados;
             },
             function() {
