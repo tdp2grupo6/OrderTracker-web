@@ -1,0 +1,26 @@
+<md-dialog layout-padding md-scroll-y ng-controller="VendedorController" ng-cloak class="modalAncho">
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Detalle del Vendedor: <span>{{vendedor.nombreCompleto}}</span></h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cerrar()">
+          <md-tooltip md-direction="top" md-visible="tooltipVisible">Cerrar</md-tooltip>
+          <md-icon md-font-icon="fa fa-times-circle fa-lg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div>
+          <p><b>Nombre(s):</b> {{vendedor.nombre}}</p>
+          <p><b>Apellido:</b> {{vendedor.apellido}}</p>
+          <p><b>UserName:</b> {{vendedor.username}}</p>
+          <p><b>Teléfono:</b> {{vendedor.telefono}}</p>
+          <p><b>Email:</b> {{vendedor.email}}</p>
+          <br>
+        </div>
+      </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>
