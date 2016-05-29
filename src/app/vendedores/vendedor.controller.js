@@ -275,15 +275,34 @@
         $scope.submit = function() {
            Vendedores.guardarVendedor($scope.form,
               function() {
-                $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+                $mdToast.show($mdToast.simple().textContent('El Vendedor ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
                 $scope.cerrarModal();
               },
               function() {
-                $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
+                $mdToast.show($mdToast.simple().textContent('El Vendedor no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
               }
             );
         };
 
-
+        $scope.update = function(id) {
+          
+          $scope.request = angular.copy($scope.vendedor);
+          
+          delete $scope.request.id;
+          delete $scope.request.nombreCompleto;
+          delete $scope.request.clientes;
+          delete $scope.request.telefono;
+          console.log($scope.request);
+          
+          Vendedores.actualizarVendedor({id: id},$scope.request,
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Vendedor ha sido actualizado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+                $scope.cerrarModal();
+              },
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Vendedor no pudo ser actualizado').position($scope.getToastPosition()).hideDelay(3000));
+              }
+            );
+        };
       }
 })();

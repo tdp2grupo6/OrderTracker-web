@@ -81,43 +81,6 @@
             </div>
           </md-input-container>
 
-          <!--
-          <md-input-container>
-            <label>Nombre</label>
-            <input type="text" ng-model="cliente.nombre">
-          </md-input-container>
-
-          <md-input-container>
-            <label>Apellido</label>
-            <input md-maxlength="20" required name="apellido" ng-value="cliente.apellido" ng-model="form.apellido" />
-          </md-input-container>
-
-          <md-input-container>
-            <label>Direccion</label>
-            <input type="text" ng-value="cliente.direccion" ng-model="cliente.direccion" />
-          </md-input-container>
-
-          <md-input-container>
-            <label>Teléfono</label>
-            <input type="text" ng-model="cliente.telefono" ng-pattern="/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/"/>
-          </md-input-container>
-
-          <md-input-container>
-            <label>Email</label>
-            <input type="text" ng-model="cliente.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"/>
-          </md-input-container>
-
-          <md-input-container>
-            <label>Razon Social</label>
-            <input type="text" ng-model="cliente.razonSocial">
-          </md-input-container>
-
-          <md-input-container>
-            <label>Horario de Preferencia</label>
-            <input type="text"  ng-model="cliente.disponibilidad">
-          </md-input-container>
-          -->
-
           <md-button class="md-raised md-primary" ng-click="update(cliente.id)" ng-disabled="projectForm.$invalid" ng-show="isAvailable">Update</md-button>
         </form>
       </div>
