@@ -294,7 +294,7 @@
           delete $scope.request.telefono;
           console.log($scope.request);
           
-          Vendedores.actualizarVendedor({id: id},$scope.request,
+          Vendedores.actualizarVendedor({id: id},$scope.f,
               function() {
                 $mdToast.show($mdToast.simple().textContent('El Vendedor ha sido actualizado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
                 $scope.cerrarModal();
