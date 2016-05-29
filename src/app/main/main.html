@@ -1,6 +1,6 @@
 <div layout-xs="column" ng-cloak class="md-default-theme" layout-fill>
   <div layout-fill>
-    <md-sidenav class="md-sidenav-left md-whiteframe-z2" style="float:left" md-component-id="left" hide-print md-is-open="sidenavOpen">
+    <md-sidenav class="md-sidenav-left md-whiteframe-z2 bodyMainPrincipal" style="float:left" md-component-id="left" hide-print md-is-open="sidenavOpen">
     <header class="nav-header">
         <md-toolbar class="md-whiteframe-z1 md-tall" layout="column">
         <h2 class="md-toolbar-tools md-toolbar-tools-bottom">
@@ -78,6 +78,17 @@
           </md-fab-speed-dial>
           <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
             <md-fab-trigger>
+              <md-button class="md-primary" aria-label="Categorias">Vendedores <md-icon md-font-icon="fa fa-sort-desc fa-lg"></md-icon></md-button>
+            </md-fab-trigger>
+            <md-fab-actions>
+              <md-button aria-label="Ver Categorias" class="md-fab md-raised md-mini" ui-sref=".vendedores" ng-click="closeMenu()">
+                <md-tooltip md-direction="top" md-visible="tooltipVisible">Vendedores</md-tooltip>
+                <md-icon md-font-icon="fa fa-line-chart fa-lg"></md-icon>
+              </md-button>
+            </md-fab-actions>
+          </md-fab-speed-dial>
+          <md-fab-speed-dial md-open="false" md-direction="down" ng-class="'md-scale'">
+            <md-fab-trigger>
               <md-button class="md-primary" aria-label="Logout">Cerrar Sesión <md-icon md-font-icon="fa fa-sort-desc fa-lg"></md-icon></md-button>
             </md-fab-trigger>
             <md-fab-actions>
@@ -87,6 +98,7 @@
               </md-button>
             </md-fab-actions>
           </md-fab-speed-dial>
+          
         </div>
     </md-content>
     </md-sidenav>

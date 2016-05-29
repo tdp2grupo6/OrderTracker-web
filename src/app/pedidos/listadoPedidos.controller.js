@@ -23,9 +23,9 @@
         };
       });
 
-      ListadoPedidosController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Pedidos', 'Clientes', 'Services', '$filter', '$mdToast'];
+      ListadoPedidosController.$inject = ['$scope', '$mdDialog', '$mdMedia', 'Pedidos', 'Clientes', 'Productos', 'Services', '$filter', '$mdToast'];
 
-      function ListadoPedidosController($scope, $mdDialog, $mdMedia, Pedidos, Clientes, Services, $filter, $mdToast) {
+      function ListadoPedidosController($scope, $mdDialog, $mdMedia, Pedidos, Clientes, Productos ,Services, $filter, $mdToast) {
 
         $scope.query = {
           estado: '',
@@ -134,6 +134,17 @@
           );
         };
 
+        $scope.descontarStockPedido = function(idPedido, accion) {
+          Pedidos.descontarStock({id: idPedido},
+            function(data) {
+              $scope.cambiarEstado(idPedido, accion);
+            },
+            function(error) {
+              $mdToast.show($mdToast.simple().textContent('No se puede aceptar el Pedido! (No hay stock suficiente)').position($scope.getToastPosition()).hideDelay(3000));
+            }
+          )
+        };
+
         $scope.showFiltro = function () {
           $scope.filter.show = true;
 
@@ -221,6 +232,17 @@
             function(data) {
               $scope.unPedido = data;
               $scope.items = $scope.unPedido.elementos;
+
+              angular.forEach($scope.items, function(f) {
+                Productos.listarProducto({id: f.codigoProducto},
+                  function(data) {
+                    f.stock = data.stock;
+                  },
+                  function(error) {
+                    f.stock = -1;
+                  }
+                );
+              });
             },
             function() {
 

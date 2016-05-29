@@ -3,14 +3,14 @@
 
 	angular
 		.module('myApp')
-		.factory('Pedidos', Pedidos);
+		.factory('Vendedores', Vendedores);
 
-		Pedidos.$inject = ['$resource', 'Services'];
+		Vendedores.$inject = ['$resource', 'Services'];
 
-		function Pedidos($resource, Services) {
-      return $resource(Services.url + 'pedido', {},
+		function Vendedores($resource, Services) {
+      return $resource(Services.url + 'vendedor', {},
         {
-          listarPedidos: {
+          listarVendedores: {
             method: 'GET',
             isArray: true,
             headers: {
@@ -18,53 +18,53 @@
             }
           },
 
-          guardarPedido: {
+          guardarVendedor: {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             }
           },
 
-          actualizarPedido: {
+          actualizarVendedor: {
             method: 'PUT',
-            url: Services.url + 'pedido/:id',
+            url: Services.url + 'vendedor/:id',
             params: {id: '@id'},
             headers: {
               'Content-Type': 'application/json'
             }
           },
 
-          borrarPedido: {
+          borrarVendedor: {
             method: 'DELETE',
-            url: Services.url + 'pedido/:id',
+            url: Services.url + 'vendedor/:id',
 						params: {id: '@id'},
             headers: {
               'Content-Type': 'application/json'
             }
           },
 
-          listarPedido: {
+          listarVendedor: {
             method: 'GET',
-            url: Services.url + 'pedido/:id',
+            url: Services.url + 'vendedor/:id',
             params: {id: '@id'},
             headers: {
               'Content-Type': 'application/json'
             }
+
           },
 
-          filtrarPedido: {
+          filtrarVendedores: {
             method: 'POST',
-            url: Services.url + 'pedido/filtro',
+            url: Services.url + 'vendedor/filtro',
             headers: {
               'Content-Type': 'application/json'
             }
           },
 
-          descontarStock: {
+          listaCortaVendedores: {
             method: 'GET',
-            url: Services.url + 'pedido/descontar/:id',
-            params: {id: '@id'},
             isArray: true,
+            url: Services.url + 'vendedor/lista-corta',
             headers: {
               'Content-Type': 'application/json'
             }

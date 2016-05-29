@@ -92,7 +92,7 @@
               </md-button>
             </td>
             <td md-cell>
-              <md-button class="md-fab md-accent md-mini" ng-click="cambiarEstado(pedido.id, 'A')" aria-label="confirmar" ng-show="pedido.estado.id <= 3">
+              <md-button class="md-fab md-accent md-mini" ng-click="descontarStockPedido(pedido.id, 'A')" aria-label="confirmar" ng-show="pedido.estado.id <= 3">
                 <i class="fa fa-check" aria-hidden="true"></i>
               </md-button>
               <md-button class="md-fab md-warn md-mini" ng-click="cambiarEstado(pedido.id, 'D')" aria-label="despachar" ng-show="pedido.estado.id == 4">

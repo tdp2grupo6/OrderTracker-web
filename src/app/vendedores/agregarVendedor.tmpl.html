@@ -1,0 +1,69 @@
+<md-dialog layout-padding md-scroll-y ng-controller="VendedorController" ng-cloak class="modalAncho">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Agregar Vendedor</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cerrar()">
+          <md-tooltip md-direction="top" md-visible="tooltipVisible">Cerrar</md-tooltip>
+          <md-icon md-font-icon="fa fa-times-circle fa-lg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content" layout="column">
+       <form name="projectForm" layout="column" method="POST">
+         <md-input-container>
+           <label>Nombre</label>
+           <input md-maxlength="50" required name="nombre" ng-model="form.nombre" />
+           <div class="hint" ng-if="!projectForm.nombre.$touched">Ingresá el Nombre del Vendedor</div>
+           <div ng-messages="projectForm.nombre.$error" md-auto-hide="false" ng-if="projectForm.nombre.$touched">
+             <div ng-message="required" ng-if="projectForm.nombre.$touched" md-auto-hide="false">Nombre es requerido</div>
+             <div ng-message="md-maxlength" md-auto-hide="false">El Nombre debe tener como máximo 50 caracteres de longitud</div>
+           </div>
+         </md-input-container>
+
+         <md-input-container>
+           <label>Apellido</label>
+           <input md-maxlength="50" required name="apellido" ng-model="form.apellido" />
+           <div class="hint" ng-if="!projectForm.apellido.$touched">Ingresá el Apellido</div>
+           <div ng-messages="projectForm.apellido.$error" md-auto-hide="false" ng-if="projectForm.apellido.$touched">
+             <div ng-message="required" ng-if="projectForm.apellido.$touched">Apellido es requerido</div>
+             <div ng-message="md-maxlength">El Apellido debe tener como máximo 50 caracteres de longitud</div>
+           </div>
+         </md-input-container>
+
+         <md-input-container>
+           <label>UserName</label>
+           <input md-maxlength="20" required name="username" ng-model="form.username" />
+           <div class="hint" ng-if="!showHints && !projectForm.username.$touched">Ingresá el UserName</div>
+           <div ng-messages="projectForm.username.$error" md-auto-hide="false" ng-if="projectForm.username.$touched">
+             <div ng-message="required" ng-if="projectForm.username.$touched">UserName requerido</div>
+             <div ng-message="md-maxlength">El UserName debe tener como máximo 20 caracteres de longitud</div>
+           </div>
+         </md-input-container>
+
+         <md-input-container>
+           <label>Password</label>
+           <input md-maxlength="10" type="password" required name="password" ng-model="form.password" />
+           <div class="hint" ng-if="!showHints && !projectForm.password.$touched">Ingresá la Password</div>
+           <div ng-messages="projectForm.password.$error" md-auto-hide="false" ng-if="projectForm.password.$touched">
+             <div ng-message="required" ng-if="projectForm.password.$touched">Password requerida</div>
+             <div ng-message="md-maxlength">El password debe tener como máximo 10 caracteres de longitud</div>
+           </div>
+         </md-input-container>
+
+        <md-input-container >
+           <label>Email</label>
+           <input required name="email" ng-model="form.email" minlength="10" maxlength="100" ng-pattern="/^.+@.+\..+$/"/>
+           <div class="hint" ng-if="!showHints && !projectForm.email.$touched">Ingresá un Email de Contacto (micorreo@mail.com)</div>
+           <div ng-messages="projectForm.email.$error" md-auto-hide="false" ng-if="projectForm.email.$touched">
+             <div ng-message="required" ng-if="projectForm.email.$touched">Email es requerido</div>
+             <div ng-message-exp="['required','minlength','maxlength', 'pattern']">Por favor ingresá un E-mail válido entre 10 y 100 caracteres</div>
+           </div>
+         </md-input-container>
+
+        <md-button class="md-raised md-primary" ng-click="submit()" ng-disabled="projectForm.$invalid">Submit</md-button>
+       </form>
+      </div>
+    </md-dialog-content>
+</md-dialog>
