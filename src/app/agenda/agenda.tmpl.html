@@ -13,7 +13,7 @@
 	        <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show">
 		        <div class="md-toolbar-tools">
 					<!-- <h2>{{date | date:'EEEE dd'}}</h2> -->
-					<h2>Lunes 16</h2>
+					<h2>Lunes 30</h2>
 					<div flex="" class="flex"></div>
 					<md-button class="md-icon-button" ng-click="filter.show = true" aria-label="buscar">
 		          		<md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
@@ -33,7 +33,7 @@
 			            	</div>
 		        		</div>
 			        </form>
-					<h2>Lunes 16</h2>
+					<h2>Lunes 30</h2>
 					<div flex="" class="flex"></div>
 			        <md-button class="md-fab md-warn md-mini" ng-click="buscarVendedor()" aria-label="buscar">
 			        	<md-icon md-font-icon="fa fa-search fa-lg"></md-icon>
@@ -47,7 +47,7 @@
 			    <md-card>
 			    	<md-card-content>
 		    			<div flex>
-				    		<h4>Agregar a la agenda</h4>
+				    		<h4>Agregar un cliente a la agenda</h4>
 			    		</div>
 			    		<div layout="row">
 				    		<div flex>
@@ -73,10 +73,10 @@
 					        </div>
 					        <div flex>
 					    		<div flex ng-show="idClienteFilter">
-					            	<h5 style="padding:20px">Horario Preferido: {{disponibilidadCliente}}</h5>
+					            	<h5 style="padding:20px"><b>Horario Preferido: </b>{{disponibilidadCliente}}</h5>
 					    		</div>
 					    		<div flex ng-show="idClienteFilter">
-					            	<h5 style="padding:20px">Dirección: {{direccionCliente}}</h5>
+					            	<h5 style="padding:20px"><b>Dirección: </b>{{direccionCliente}}</h5>
 					    		</div>
 					        </div>
 				        </div>
@@ -100,44 +100,79 @@
 			        	<tbody md-body>
 			          		<tr md-row md-select="pedido" md-select-id="id" md-auto-select ng-repeat="x in contador">
 				            	<td md-cell>
-				            		<md-chips ng-model="agendaLunes" md-on-remove="eliminarCliente($chip, 1)" md-on-add="agregarCliente($chip, 1)" md-on-select="seleccionarChip($chip, 1)" md-require-match="requireMatch" md-autocomplete-snap>
-				            			<md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
+				            		<md-chips ng-model="agendaLunes" md-on-remove="eliminarCliente($chip, 1)" md-require-match="requireMatch" md-autocomplete-snap>
+				            			<md-chip-template>
+									        <span class="{{$chip.color}}">
+									          <strong>{{$chip.nombre}}</strong>
+									        </span>
+									      </md-chip-template>
+				            			<md-autocomplete class="hidden" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
 						        			<span md-highlight-text="ctrl.searchText">{{cliente}}</span>
 						      			</md-autocomplete>
   									</md-chips>
   								</td>
-					            <td md-cell><md-chips ng-model="agendaMartes" md-on-remove="eliminarCliente($chip, 2)" md-on-add="agregarCliente($chip, 2)" md-on-select="seleccionarChip($chip, 2)" md-require-match="requireMatch" md-autocomplete-snap>
-				            			<md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
+					            <td md-cell><md-chips ng-model="agendaMartes" md-on-remove="eliminarCliente($chip, 2)"  md-require-match="requireMatch" md-autocomplete-snap>
+				            			<md-chip-template>
+									        <span class="{{$chip.color}}">
+									          <strong>{{$chip.nombre}}</strong>
+									        </span>
+									      </md-chip-template>
+				            			<md-autocomplete class="hidden" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
 						        			<span md-highlight-text="ctrl.searchText">{{cliente}}</span>
 						      			</md-autocomplete>
   									</md-chips>
   								</td>
-					            <td md-cell><md-chips ng-model="agendaMiercoles" md-on-remove="eliminarCliente($chip, 3)" md-on-add="agregarCliente($chip, 3)" md-on-select="seleccionarChip($chip, 3)" md-require-match="requireMatch" md-autocomplete-snap>
-				            			<md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
+					            <td md-cell><md-chips ng-model="agendaMiercoles" md-on-remove="eliminarCliente($chip, 3)" md-require-match="requireMatch" md-autocomplete-snap>
+				            			<md-chip-template>
+									        <span class="{{$chip.color}}">
+									          <strong>{{$chip.nombre}}</strong>
+									        </span>
+									      </md-chip-template>
+				            			<md-autocomplete class="hidden" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
 						        			<span md-highlight-text="ctrl.searchText">{{cliente}}</span>
 						      			</md-autocomplete>
   									</md-chips>
   								</td>
-					            <td md-cell><md-chips ng-model="agendaJueves" md-on-remove="eliminarCliente($chip, 4)" md-on-add="agregarCliente($chip, 4)" md-on-select="seleccionarChip($chip, 4)" md-require-match="requireMatch" md-autocomplete-snap>
-				            			<md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
+					            <td md-cell><md-chips ng-model="agendaJueves" md-on-remove="eliminarCliente($chip, 4)" md-require-match="requireMatch" md-autocomplete-snap>
+				            			<md-chip-template>
+									        <span class="{{$chip.color}}">
+									          <strong>{{$chip.nombre}}</strong>
+									        </span>
+									      </md-chip-template>
+				            			<md-autocomplete class="hidden" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
 						        			<span md-highlight-text="ctrl.searchText">{{cliente}}</span>
 						      			</md-autocomplete>
   									</md-chips>
   								</td>
-					            <td md-cell><md-chips ng-model="agendaViernes" md-on-remove="eliminarCliente($chip, 5)" md-on-add="agregarCliente($chip, 5)" md-on-select="seleccionarChip($chip, 5)" md-require-match="requireMatch" md-autocomplete-snap>
-				            			<md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
+					            <td md-cell><md-chips ng-model="agendaViernes" md-on-remove="eliminarCliente($chip, 5)" md-require-match="requireMatch" md-autocomplete-snap>
+				            			<md-chip-template>
+									        <span class="{{$chip.color}}">
+									          <strong>{{$chip.nombre}}</strong>
+									        </span>
+									      </md-chip-template>
+				            			<md-autocomplete class="hidden" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
 						        			<span md-highlight-text="ctrl.searchText">{{cliente}}</span>
 						      			</md-autocomplete>
   									</md-chips>
   								</td>
-					            <td md-cell><md-chips ng-model="agendaSabado" md-on-remove="eliminarCliente($chip, 6)" md-on-add="agregarCliente($chip, 6)" md-on-select="seleccionarChip($chip, 6)" md-require-match="requireMatch" md-autocomplete-snap>
-				            			<md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
+					            <td md-cell><md-chips ng-model="agendaSabado" md-on-remove="eliminarCliente($chip, 6)" md-require-match="requireMatch" md-autocomplete-snap>
+				            			<md-chip-template>
+									        <span class="{{$chip.color}}">
+									          <strong>{{$chip.nombre}}</strong>
+									        </span>
+									      </md-chip-template>
+				            			<md-autocomplete class="hidden" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
 						        			<span md-highlight-text="ctrl.searchText">{{cliente}}</span>
 						      			</md-autocomplete>
   									</md-chips>
   								</td>
-					            <td md-cell><md-chips ng-model="agendaDomingo" md-on-remove="eliminarCliente($chip, 0)" md-on-add="agregarCliente($chip, 0)" md-on-select="seleccionarChip($chip, 0)" md-require-match="requireMatch" md-autocomplete-snap>
-				            			<md-autocomplete md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
+					            <td md-cell><md-chips ng-model="agendaDomingo" md-on-remove="eliminarCliente($chip, 0)" md-require-match="requireMatch" md-autocomplete-snap>
+				            			<md-chip-template>
+									        <span class="{{$chip.color}}">
+									          <strong>{{$chip.nombre}}</strong>
+									        </span>
+									      </md-chip-template>
+				            			<md-autocomplete class="hidden" md-selected-item="ctrl.selectedItem" md-search-text="ctrl.searchText" md-items="cliente in buscarCliente(ctrl.searchText)" md-item-text="cliente">
 						        			<span md-highlight-text="ctrl.searchText">{{cliente}}</span>
 						      			</md-autocomplete>
   									</md-chips>

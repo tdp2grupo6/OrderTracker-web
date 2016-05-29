@@ -1,3 +1,23 @@
 .letraCustom {
   color: #FF0000;
 }
+
+.hidden {
+	display:none !important;
+}
+
+.rojo {
+	color:#ff0057 !important;
+}
+
+.verde {
+	color:#46b643 !important;
+}
+
+.amarillo {
+	color:#f0d14e !important;
+}
+
+md-chips.md-default-theme .md-chips, md-chips .md-chips {
+    box-shadow: 0 0px rgb(224,224,224);
+}
