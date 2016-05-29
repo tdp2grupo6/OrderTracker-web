@@ -50,12 +50,21 @@
             headers: {
               'Content-Type': 'application/json'
             }
-
           },
 
           filtrarPedido: {
             method: 'POST',
             url: Services.url + 'pedido/filtro',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          },
+
+          descontarStock: {
+            method: 'GET',
+            url: Services.url + 'pedido/descontar/:id',
+            params: {id: '@id'},
+            isArray: true,
             headers: {
               'Content-Type': 'application/json'
             }
