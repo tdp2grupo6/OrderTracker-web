@@ -42,6 +42,8 @@
           apellido: ''
         };  
 
+        $scope.vendedoresNuevos = {};
+
         Vendedores.filtrarVendedores($scope.query,
           function(data) {
             $scope.vendedores = data.resultados;
@@ -151,9 +153,33 @@
           );
         };
 
+        $scope.transfer = function(idNuevo,idViejo) {
+          Vendedores.transferirClientes
+        };
 
-        $scope.borrarVendedor = function(id) {
-           Vendedores.borrarVendedor({ id: id },
+        $scope.borrarVendedor = function(ev,id) {
+
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
+
+          $mdDialog.show({
+                  templateUrl: 'app/vendedores/transferirClientesVendedor.tmpl.html',
+                  targetEvent: ev,
+                  scope: $scope.$new(),
+                  clickOutsideToClose:true,
+                  fullscreen: useFullScreen,
+                  onRemoving: function() { $scope.cerrarModal() }
+                })
+                .then(function(answer) {
+
+                }, function() {
+                });
+
+              $scope.$watch(function() {
+                return $mdMedia('xs') || $mdMedia('sm');
+              }, function(wantsFullScreen) {
+                $scope.customFullscreen = (wantsFullScreen === true);
+              });
+          /*Vendedores.borrarVendedor({ id: id },
             function() {
              $mdToast.show($mdToast.simple().textContent('El Vendedor ha sido borrado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
                Vendedores.filtrarVendedores($scope.query,
@@ -170,7 +196,7 @@
             function() {
               $mdToast.show($mdToast.simple().textContent('El Vendedor no pudo ser borrado').position($scope.getToastPosition()).hideDelay(3000));
             }
-          );
+          );*/
         };
 
         $scope.agregarVendedorModal = function(ev) {

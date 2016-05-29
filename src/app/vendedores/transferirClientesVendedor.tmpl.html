@@ -1,0 +1,24 @@
+<md-dialog layout-padding md-scroll-y ng-controller="VendedorController" ng-cloak class="modalAncho">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Transferir Clientes al Vendedor</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cerrar()">
+          <md-tooltip md-direction="top" md-visible="tooltipVisible">Cerrar</md-tooltip>
+          <md-icon md-font-icon="fa fa-times-circle fa-lg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-input-container>
+    <form name="projectForm" layout="column">
+        <label>Vendedores</label>
+        <md-select ng-model="projectForm.vendedoresNuevos">
+          <md-option class="selectFontSize" value="">Seleccione una Opción</md-option>
+          <md-option class="selectFontSize" ng-repeat="v in listaVendedores" value="{{v.id}}">{{v.username}}</md-option>
+        </md-select>   
+        <section layout="row" layout-xs="column" layout-align="center center" >
+        <md-button class="md-raised md-primary" ng-click="transfer(vendedoresNuevos.id,vendedor.id)" ng-show="isAvailable">Transferir</md-button> 
+     </section>
+    </form>
+    </md-input-container>
+</md-dialog>
