@@ -1,7 +1,7 @@
 <md-dialog layout-padding md-scroll-y ng-controller="VendedorController" ng-cloak class="modalAncho">
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Transferir Clientes al Vendedor</h2>
+        <h2>Eliminar Vendedor: <span>{{vendedor.nombreCompleto}}</span></h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cerrar()">
           <md-tooltip md-direction="top" md-visible="tooltipVisible">Cerrar</md-tooltip>
@@ -10,15 +10,14 @@
       </div>
     </md-toolbar>
     <md-input-container>
-    <form name="projectForm" layout="column">
-        <label>Vendedores</label>
-        <md-select ng-model="projectForm.vendedoresNuevos">
-          <md-option class="selectFontSize" value="">Seleccione una Opción</md-option>
-          <md-option class="selectFontSize" ng-repeat="v in listaVendedores" value="{{v.id}}">{{v.username}}</md-option>
-        </md-select>   
-        <section layout="row" layout-xs="column" layout-align="center center" >
-        <md-button class="md-raised md-primary" ng-click="transfer(vendedoresNuevos.id,vendedor.id)" ng-show="isAvailable">Transferir</md-button> 
-     </section>
-    </form>
+      <p>Para eliminar el Vendedor, debe transferir sus clientes a otro</p>
+      <form name="projectForm" layout="column">
+          <md-select name="vendedor" aria-label="vendedor" ng-model="vendedoresNuevos" placeholder="Vendedor">
+            <md-option ng-value="v.id" ng-repeat="v in listaVendedores">{{v.username}} ({{v.nombre}} {{v.apellido}})</md-option>
+          </md-select>
+          <section layout="row" layout-xs="column" layout-align="center center" >
+            <md-button class="md-raised md-primary" ng-click="transfer(vendedor.id,vendedoresNuevos)" ng-show="isAvailable">Transferir Clientes</md-button>
+          </section>
+      </form>
     </md-input-container>
 </md-dialog>

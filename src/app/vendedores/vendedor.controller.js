@@ -40,7 +40,7 @@
           email: '',
           nombre: '',
           apellido: ''
-        };  
+        };
 
         $scope.vendedoresNuevos = {};
 
@@ -92,7 +92,7 @@
           Vendedores.listarVendedor({ id: id },
             function(data) {
               $scope.vendedor = data;
-              
+
               // Mostrar Modal
               $mdDialog.show({
                   templateUrl: 'app/vendedores/vendedorDetalle.tmpl.html',
@@ -125,7 +125,7 @@
            Vendedores.listarVendedor({ id: id },
             function(data) {
               $scope.vendedor = data;
-              
+
               // Mostrar Modal
               $mdDialog.show({
                   templateUrl: 'app/vendedores/editarVendedor.tmpl.html',
@@ -153,15 +153,39 @@
           );
         };
 
-        $scope.transfer = function(idNuevo,idViejo) {
-          Vendedores.transferirClientes
+        $scope.transfer = function(idViejo,idNuevo) {
+          var request = { vendedorViejo: {id: idViejo}, vendedorNuevo: {id: idNuevo}};
+          console.log(request);
+
+          if (idViejo !== idNuevo) {
+            Vendedores.transferirClientes(request,
+              function(data) {
+                Vendedores.borrarVendedor({id: idViejo},
+                  function(data) {
+                    $mdToast.show($mdToast.simple().textContent('El Vendedor fue borrado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000))
+                  },
+                  function(error) {
+                    $mdToast.show($mdToast.simple().textContent('El Vendedor no pudo ser borrado').position($scope.getToastPosition()).hideDelay(3000))
+                  });
+              },
+              function(error) {
+                $mdToast.show($mdToast.simple().textContent('ERROR! No se puede hacer la transferencia').position($scope.getToastPosition()).hideDelay(3000))
+              });
+            $scope.cerrarModal();
+          }
+          else {
+            $mdToast.show($mdToast.simple().textContent('ERROR! No se puede transferir al mismo cliente').position($scope.getToastPosition()).hideDelay(3000))
+          }
         };
 
         $scope.borrarVendedor = function(ev,id) {
-
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && $scope.customFullscreen;
 
-          $mdDialog.show({
+          Vendedores.listarVendedor({id: id},
+            function(data) {
+              $scope.vendedor = data;
+
+              $mdDialog.show({
                   templateUrl: 'app/vendedores/transferirClientesVendedor.tmpl.html',
                   targetEvent: ev,
                   scope: $scope.$new(),
@@ -179,24 +203,11 @@
               }, function(wantsFullScreen) {
                 $scope.customFullscreen = (wantsFullScreen === true);
               });
-          /*Vendedores.borrarVendedor({ id: id },
-            function() {
-             $mdToast.show($mdToast.simple().textContent('El Vendedor ha sido borrado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
-               Vendedores.filtrarVendedores($scope.query,
-                function(data) {
-                  $scope.vendedores = data.resultados;
-                  $scope.totalResultados = data.totalResultados;
-                  angular.forEach($scope.vendedores, function(vendedor) {});
-                },
-                function() {
-
-                }
-              );
             },
-            function() {
-              $mdToast.show($mdToast.simple().textContent('El Vendedor no pudo ser borrado').position($scope.getToastPosition()).hideDelay(3000));
+            function(error) {
+              $mdToast.show($mdToast.simple().textContent('ERROR! No se puede acceder a la base de datos').position($scope.getToastPosition()).hideDelay(3000))
             }
-          );*/
+          );
         };
 
         $scope.agregarVendedorModal = function(ev) {
@@ -270,7 +281,7 @@
               $scope.totalResultados = data.totalResultados;
             },
             function() {
-
+              $mdToast.show($mdToast.simple().textContent('El Vendedor ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
             }
           );
         };
@@ -282,10 +293,14 @@
           $scope.query.nombre = '';
           $scope.query.apellido = '';
           $scope.query.username = '';
-          
+
           if($scope.filter.form.$dirty) {
             $scope.filter.form.$setPristine();
           }
+
+          $scope.selectedItem1 = '';
+          $scope.selectedItem2 = '';
+          $scope.selectedItem3 = '';
 
           Vendedores.filtrarVendedores($scope.query,
             function(data) {
@@ -311,16 +326,16 @@
         };
 
         $scope.update = function(id) {
-          
+
           $scope.request = angular.copy($scope.vendedor);
-          
+
           delete $scope.request.id;
           delete $scope.request.nombreCompleto;
           delete $scope.request.clientes;
-          delete $scope.request.telefono;
-          console.log($scope.request);
-          
-          Vendedores.actualizarVendedor({id: id},$scope.f,
+
+          //console.log($scope.request);
+
+          Vendedores.actualizarVendedor({id: id},$scope.request,
               function() {
                 $mdToast.show($mdToast.simple().textContent('El Vendedor ha sido actualizado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
                 $scope.cerrarModal();

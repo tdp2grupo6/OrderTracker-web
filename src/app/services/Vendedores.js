@@ -70,13 +70,22 @@
             }
           },
 
+          transferirCliente: {
+            method: 'POST',
+            isArray: true,
+            url: Services.url + 'vendedor/transferir',
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          },
+
           transferirClientes: {
             method: 'POST',
             isArray: true,
             url: Services.url + 'vendedor/transferir-clientes',
             headers: {
               'Content-Type': 'application/json'
-            } 
+            }
           }
         }
       );
