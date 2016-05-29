@@ -28,18 +28,18 @@
           id: '',
           nombre: '',
           apellido: '',
+          username: '',
           email: '',
           telefono: '',
           pagina: 1
         };
 
         $scope.form = {
-          nombre: '',
-          apellido: '',
+          username: '',
+          password: '',
           email: '',
-          telefono: '',
-          nombreCompleto: '',
-          userName: ''
+          nombre: '',
+          apellido: ''
         };  
 
         Vendedores.filtrarVendedores($scope.query,
@@ -232,11 +232,9 @@
         // Funcion para filtrar vendedores
         $scope.buscarVendedores = function () {
           $scope.query = {
-            id: $scope.filtroId? $scope.filtroId : '',
             nombre: $scope.selectedItem1? $scope.selectedItem1.nombre : '',
             apellido: $scope.selectedItem2? $scope.selectedItem2.apellido : '',
-            email: $scope.selectedItem3? $scope.selectedItem3.email : '',
-            telefono: $scope.selectedItem4? $scope.selectedItem4.telefono : '',
+            username: $scope.selectedItem3? $scope.selectedItem3.username : '',
             pagina: 1
           };
 
@@ -257,10 +255,8 @@
           $scope.query.pagina = 1;
           $scope.query.nombre = '';
           $scope.query.apellido = '';
-          $scope.query.id = '';
-          $scope.query.email = '';
-          $scope.query.telefono = '';
-
+          $scope.query.username = '';
+          
           if($scope.filter.form.$dirty) {
             $scope.filter.form.$setPristine();
           }
@@ -275,5 +271,19 @@
             }
           );
         };
+
+        $scope.submit = function() {
+           Vendedores.guardarVendedor($scope.form,
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+                $scope.cerrarModal();
+              },
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
+              }
+            );
+        };
+
+
       }
 })();
