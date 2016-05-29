@@ -29,7 +29,7 @@
       <div class="md-toolbar-tools">
         <form flex name="filter.form">
           <div layout="row">
-            <div flex="10">
+            <div flex="33">
               <md-autocomplete md-selected-item="selectedItem1" md-search-text="searchText1" md-items="item in listaVendedores | filter: searchText1" md-item-text="item.nombre" placeholder="Nombre">
                 <md-item-template>
                   <span md-highlight-text="searchText1" md-highlight-flags="^i">{{item.nombre}}</span>
@@ -39,7 +39,7 @@
                 </md-not-found>
               </md-autocomplete>
             </div>
-            <div flex>
+            <div flex="33">
               <md-autocomplete md-selected-item="selectedItem2" md-search-text="searchText2" md-items="item in listaVendedores | filter: searchText2" md-item-text="item.apellido" placeholder="Apellido">
                 <md-item-template>
                   <span md-highlight-text="searchText2" md-highlight-flags="^i">{{item.apellido}}</span>
@@ -49,7 +49,7 @@
                 </md-not-found>
               </md-autocomplete>
             </div>
-            <div flex>
+            <div flex="33">
               <md-autocomplete md-selected-item="selectedItem3" md-search-text="searchText3" md-items="item in listaVendedores | filter: searchText3" md-item-text="item.username" placeholder="UserName">
                 <md-item-template>
                   <span md-highlight-text="searchText3" md-highlight-flags="^i">{{item.username}}</span>
