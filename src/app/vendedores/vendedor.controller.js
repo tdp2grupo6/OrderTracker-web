@@ -35,12 +35,11 @@
         };
 
         $scope.form = {
-          nombre: '',
-          apellido: '',
+          username: '',
+          password: '',
           email: '',
-          telefono: '',
-          nombreCompleto: '',
-          username: ''
+          nombre: '',
+          apellido: ''
         };  
 
         Vendedores.filtrarVendedores($scope.query,
@@ -272,5 +271,19 @@
             }
           );
         };
+
+        $scope.submit = function() {
+           Vendedores.guardarVendedor($scope.form,
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Cliente ha sido agregado Satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+                $scope.cerrarModal();
+              },
+              function() {
+                $mdToast.show($mdToast.simple().textContent('El Cliente no pudo ser agregado').position($scope.getToastPosition()).hideDelay(3000));
+              }
+            );
+        };
+
+
       }
 })();

@@ -79,7 +79,6 @@
             <th md-column md-order-by="apellido">Apellido</th>
             <th md-column md-order-by="email">Email</th>
             <th md-column md-order-by="username">UserName</th>  
-            <th md-column md-order-by="telefono">Telefono</th>
             <th md-column>Acciones</th>
           </tr>
         </thead>
@@ -90,7 +89,6 @@
             <td md-cell>{{vendedor.apellido}}</td>
             <td md-cell>{{vendedor.email}}</td>
             <td md-cell>{{vendedor.username}}</td>
-            <td md-cell>{{vendedor.telefono}}</td>
             <td md-cell>
               <md-button class="md-fab md-warn md-mini" ng-click="mostrarDetalleVendedor($event,vendedor.id)" aria-label="ver">
                 <i class="fa fa-eye" aria-hidden="true"></i>
