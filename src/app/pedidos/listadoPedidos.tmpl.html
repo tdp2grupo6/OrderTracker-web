@@ -22,14 +22,14 @@
     <md-toolbar class="md-table-toolbar md-default" ng-show="filter.show">
       <div class="md-toolbar-tools">
         <form flex name="filter.form">
-          <div class="row">
-            <div class="col-md-3" style="padding-top:12px">
+          <div layout="row">
+            <div flex class="filtroPedidos">
                 <md-datepicker ng-model="fechaInicioFilter" md-placeholder="Fecha inicio"></md-datepicker>
             </div>
-            <div class="col-md-3" style="padding-top:12px">
+            <div flex class="filtroPedidos">
                 <md-datepicker ng-model="fechaFinFilter" md-placeholder="Fecha fin"></md-datepicker>
             </div>
-            <div class="col-md-3">
+            <div flex class="filtroPedidos">
               <md-autocomplete class="no-float" md-selected-item="selectedItem1" md-search-text="searchText1" md-items="item in listaClientes | filter: searchText1" md-item-text="item.nombreCompleto" placeholder="Cliente">
                 <md-item-template>
                   <span md-highlight-text="searchText1" md-highlight-flags="^i">{{item.nombreCompleto}}</span>
@@ -46,8 +46,8 @@
                 </md-select>
                -->
             </div>
-            <div class="col-md-3">
-              <md-select ng-model="estadoFilter" placeholder="Estado" style="font-size:14px">
+            <div flex>
+              <md-select ng-model="estadoFilter" placeholder="Estado" class="filtroPedidosEstado">
                   <md-option ng-repeat="estado in estados" value="{{estado.id}}">
                     {{estado.nombre}}
                   </md-option>
