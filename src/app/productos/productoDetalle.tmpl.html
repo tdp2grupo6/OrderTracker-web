@@ -27,8 +27,17 @@
           <br>
           <p><b>Stock:</b> {{producto.stock}}</p>
           <p><b>Estado:</b> {{producto.estado? producto.estado.nombre : 'No existe'}}</p>
+          <p><b>Descuentos:</b>
+          <br>
+          <span ng-repeat="desc in producto.descuentos">
+          <b>%{{desc.descuento}}</b><br>
+          <b>Cant Min: {{desc.minimoProductos}}</b><br>
+          <b>Cant Max: {{desc.maximoProductos}}</b><br>
+          </span></p>
         </div>
       </div>
+      <br>
+      
     </md-dialog-content>
   </form>
 </md-dialog>

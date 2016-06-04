@@ -39,6 +39,7 @@
     $scope.form = {};
     $scope.marcas = {};
     $scope.categorias = {};
+    $scope.descuentos = {};
 
     $scope.estados = [
       {id:1,tipo:'SUSP',nombre:'Suspendido'},
@@ -451,7 +452,7 @@
       Productos.listarProducto({id: id},
         function(data) {
           $scope.producto = data;
-
+          $scope.descuentos = data.descuentos;
           if ($scope.marcas) {
             var aux = $scope.producto.marca? $scope.producto.marca : 'No existe';
             $scope.producto.marcaTemp = angular.copy($filter('filter')($scope.marcas, function(d) {return d.nombre === aux;})[0]);
