@@ -22,9 +22,9 @@
       };
     });
 
-  ProductosController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$filter', 'Services', 'Productos', 'Marcas', 'Categorias', '$mdToast', 'UploadFile', '$q'];
+  ProductosController.$inject = ['$scope', '$mdDialog', '$mdMedia', '$filter', 'Services', 'Productos', 'Marcas', 'Categorias', '$mdToast', 'UploadFile', '$q','Descuentos'];
 
-  function ProductosController($scope, $mdDialog, $mdMedia, $filter, Services, Productos, Marcas, Categorias, $mdToast, UploadFile, $q) {
+  function ProductosController($scope, $mdDialog, $mdMedia, $filter, Services, Productos, Marcas, Categorias, $mdToast, UploadFile, $q, Descuentos) {
 
     $scope.backendUrl = Services.url;
 
@@ -40,6 +40,7 @@
     $scope.marcas = {};
     $scope.categorias = {};
     $scope.descuentos = {};
+    $scope.descuentosArray = [];
 
     $scope.estados = [
       {id:1,tipo:'SUSP',nombre:'Suspendido'},
@@ -307,6 +308,15 @@
           });
       }
     };
+
+    $scope.submitDescuento = function(){
+
+      for ( var i=0 ; i < $scope.descuentosArray.length; i++) {
+
+      }
+    };
+
+    
 
     $scope.update = function(id){
       var file = $scope.myFile;
