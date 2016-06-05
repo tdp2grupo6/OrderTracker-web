@@ -28,8 +28,8 @@
           <p><b>Stock:</b> {{producto.stock}}</p>
           <p><b>Estado:</b> {{producto.estado? producto.estado.nombre : 'No existe'}}</p>
           <br>
-          <p><b>Descuentos:</b><br>
-          <div>
+          <div ng-if="producto.descuentos.length > 0">
+            <p><b>Descuentos:</b><br>
             <div layout="row">
               <div flex><b>Descuento</b></div>
               <div flex><b>Cant Min</b></div>

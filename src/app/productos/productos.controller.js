@@ -501,6 +501,22 @@
       return promise;
     };
 
+    $scope.submitDescuento = function(idProd, desc) {
+      var defered = $q.defer();
+      var promise = defered.promise;
+
+      Descuentos.guardarDescuento(desc,
+        function(data) {
+          console.log(data);
+          defered.resolve(data);
+        },
+        function(err) {
+          defered.reject(err);
+        });
+
+      return promise;
+    };
+
     $scope.updateDescuento = function(id, desc) {
       var defered = $q.defer();
       var promise = defered.promise;
@@ -527,8 +543,16 @@
         if (prods[i]) {
           delete prods[i].nombre;
           delete prods[i].nombreProducto;
+          delete prods[i].$$hashKey;
+          prods[i].producto = {id: id};
           console.log(prods[i]);
-          promises.push($scope.updateDescuento(prods[i].id, prods[i]));
+
+          if (prods[i].newItem===true) {
+            promises.push($scope.submitDescuento(id, prods[i]));
+          }
+          else {
+            promises.push($scope.updateDescuento(prods[i].id, prods[i]));
+          }
         }
       }
 
@@ -538,6 +562,15 @@
       function(error) {
         $mdToast.show($mdToast.simple().textContent('ERROR! No se pueden actualizar los descuentos').position($scope.getToastPosition()).hideDelay(3000))
       });
+    };
+
+    $scope.agregarTramoDescuento = function(id) {
+      if ($scope.producto.descuentos.length < 4) {
+        $scope.producto.descuentos.push({
+          newItem: true
+        });
+        //$scope.$apply();
+      }
     };
   }
 })();
