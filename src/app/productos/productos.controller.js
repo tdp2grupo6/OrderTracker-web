@@ -329,7 +329,7 @@
       }
     };
 
-    
+
 
     $scope.update = function(id){
       var file = $scope.myFile;
@@ -501,17 +501,43 @@
       return promise;
     };
 
-    $scope.updateDescuentos = function(id){
-      console.log($scope.descuentos);
-      //for
+    $scope.updateDescuento = function(id, desc) {
+      var defered = $q.defer();
+      var promise = defered.promise;
 
-        Productos.actualizarProducto({ id: id },$scope.producto,
-          function(data) {
-            $mdToast.show($mdToast.simple().textContent('El Producto ha sido actualizado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
-          },
-          function(data) {
-            $mdToast.show($mdToast.simple().textContent('No se pudo actualizar el Producto').position($scope.getToastPosition()).hideDelay(3000));
-          });
+      Descuentos.actualizarDescuento({id: id}, desc,
+        function(data) {
+          console.log(data);
+          defered.resolve(data);
+        },
+        function(err) {
+          defered.reject(err);
+        });
+
+      return promise;
+    };
+
+    $scope.updateDescuentos = function(id) {
+      //console.log($scope.producto.descuentos);
+      var promises = [];
+      var prods = $scope.producto.descuentos;
+      var largo = prods.length;
+
+      for (var i=0; i<largo; i++) {
+        if (prods[i]) {
+          delete prods[i].nombre;
+          delete prods[i].nombreProducto;
+          console.log(prods[i]);
+          promises.push($scope.updateDescuento(prods[i].id, prods[i]));
+        }
+      }
+
+      $q.all(promises).then(function(data) {
+        $mdToast.show($mdToast.simple().textContent('Descuentos actualizados correctamente').position($scope.getToastPosition()).hideDelay(3000))
+      },
+      function(error) {
+        $mdToast.show($mdToast.simple().textContent('ERROR! No se pueden actualizar los descuentos').position($scope.getToastPosition()).hideDelay(3000))
+      });
     };
   }
 })();
