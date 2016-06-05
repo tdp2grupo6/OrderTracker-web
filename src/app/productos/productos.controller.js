@@ -572,5 +572,23 @@
         //$scope.$apply();
       }
     };
+
+    $scope.eliminarTramoDescuento = function(objDesc) {
+      if (objDesc.newItem===true) {
+        var index = $scope.producto.descuentos.indexOf(objDesc);
+        $scope.producto.descuentos.splice(index, 1);
+      }
+      else {
+        Descuentos.borrarDescuento({id: objDesc.id},
+          function(data) {
+            var index = $scope.producto.descuentos.indexOf(objDesc);
+            $scope.producto.descuentos.splice(index, 1);
+          },
+          function(error) {
+
+          }
+        );
+      }
+    };
   }
 })();
