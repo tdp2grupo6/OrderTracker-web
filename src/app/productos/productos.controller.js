@@ -41,6 +41,7 @@
     $scope.categorias = {};
     $scope.descuentos = {};
     $scope.descuentosArray = [];
+    $scope.bodyDescuentos = {};
 
     $scope.estados = [
       {id:1,tipo:'SUSP',nombre:'Suspendido'},
@@ -311,8 +312,20 @@
 
     $scope.submitDescuento = function(){
 
-      for ( var i=0 ; i < $scope.descuentosArray.length; i++) {
-
+    for ( var i=0 ; i < $scope.descuentosArray.length; i++) {
+          $scope.bodyDescuentos.idProducto = $scope.producto.id;
+          $scope.bodyDescuentos.nombreProducto = $scope.producto.nombreProducto;
+          $scope.bodyDescuentos.descuento = descuentosArray[i].descuento;
+          $scope.bodyDescuentos.minimoProductos = descuentosArray[i].minimoProductos;
+          $scope.bodyDescuentos.maximoProductos = descuentosArray[i].maximoProductos;
+          Descuentos.guardarDescuento($scope.bodyDescuentos,
+              function(data) {
+                console.log(data);
+                $mdToast.show($mdToast.simple().textContent('El Descuento ha sido agregado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+              },
+              function(data) {
+                $mdToast.show($mdToast.simple().textContent('No se pudo agregar el Descuento').position($scope.getToastPosition()).hideDelay(3000));
+          });
       }
     };
 
