@@ -477,5 +477,18 @@
 
       return promise;
     };
+
+    $scope.updateDescuentos = function(id){
+      console.log($scope.descuentos);
+      //for
+
+        Productos.actualizarProducto({ id: id },$scope.producto,
+          function(data) {
+            $mdToast.show($mdToast.simple().textContent('El Producto ha sido actualizado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
+          },
+          function(data) {
+            $mdToast.show($mdToast.simple().textContent('No se pudo actualizar el Producto').position($scope.getToastPosition()).hideDelay(3000));
+          });
+    };
   }
 })();

@@ -78,150 +78,167 @@
             <md-button class="md-raised md-primary" ngf-select ng-model="myFile" name="file" ngf-pattern="'image/*'"
                        ngf-accept="'image/*'" ngf-max-size="2MB" ngf-min-height="100">Subir Imagen</md-button>
           </md-input-container>
-          <h5>Descuentos</h5>
-          <div layout="row">
-            <div flex>
-                <md-input-container>
-                  <label>Min</label>
-                  <input required type="number" name="min1" ng-model="producto.descuentos[0].minimoProductos" min="0" />
-                  <div class="hint" ng-if="!projectForm.min1.$touched">Mínimo</div>
-                  <div ng-messages="projectForm.min1.$error" md-auto-hide="false" ng-if="projectForm.min1.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-            </div>
-            <div flex>
-                <md-input-container>
-                  <label>Máx</label>
-                  <input required type="number" name="max1" ng-model="producto.descuentos[0].maximoProductos" min="0" />
-                  <div class="hint" ng-if="!projectForm.max1.$touched">Máximo</div>
-                  <div ng-messages="projectForm.max1.$error" md-auto-hide="false" ng-if="projectForm.max1.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-              </div>
-            <div flex>
-                <md-input-container>
-                  <label>% Dto</label>
-                  <input required type="number" name="dto1" ng-model="producto.descuentos[0].descuento" min="0" />
-                  <div class="hint" ng-if="!projectForm.dto1.$touched">Descuento</div>
-                  <div ng-messages="projectForm.dto1.$error" md-auto-hide="false" ng-if="projectForm.dto1.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-              </div>
-          </div>
-          <div layout="row">
-            <div flex>
-                <md-input-container>
-                  <label>Min</label>
-                  <input required type="number" name="min2" ng-model="producto.descuentos[1].minimoProductos" min="0" />
-                  <div class="hint" ng-if="!projectForm.min2.$touched">Mínimo</div>
-                  <div ng-messages="projectForm.min2.$error" md-auto-hide="false" ng-if="projectForm.min2.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-            </div>
-            <div flex>
-                <md-input-container>
-                  <label>Máx</label>
-                  <input required type="number" name="max2" ng-model="producto.descuentos[1].maximoProductos" min="0" />
-                  <div class="hint" ng-if="!projectForm.max2.$touched">Máximo</div>
-                  <div ng-messages="projectForm.max2.$error" md-auto-hide="false" ng-if="projectForm.max2.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-              </div>
-            <div flex>
-                <md-input-container>
-                  <label>% Dto</label>
-                  <input required type="number" name="dto2" ng-model="producto.descuentos[1].descuento" min="0" />
-                  <div class="hint" ng-if="!projectForm.dto2.$touched">Descuento</div>
-                  <div ng-messages="projectForm.dto2.$error" md-auto-hide="false" ng-if="projectForm.dto2.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-              </div>
-          </div>
-          <div layout="row">
-            <div flex>
-                <md-input-container>
-                  <label>Min</label>
-                  <input required type="number" name="min3" ng-model="producto.descuentos[2].minimoProductos" min="0" />
-                  <div class="hint" ng-if="!projectForm.min3.$touched">Mínimo</div>
-                  <div ng-messages="projectForm.min3.$error" md-auto-hide="false" ng-if="projectForm.min3.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-            </div>
-            <div flex>
-                <md-input-container>
-                  <label>Máx</label>
-                  <input required type="number" name="max3" ng-model="producto.descuentos[2].maximoProductos" min="0" />
-                  <div class="hint" ng-if="!projectForm.max3.$touched">Máximo</div>
-                  <div ng-messages="projectForm.max3.$error" md-auto-hide="false" ng-if="projectForm.max3.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-              </div>
-            <div flex>
-                <md-input-container>
-                  <label>% Dto</label>
-                  <input required type="number" name="dto3" ng-model="producto.descuentos[2].descuento" min="0" />
-                  <div class="hint" ng-if="!projectForm.dto3.$touched">Descuento</div>
-                  <div ng-messages="projectForm.dto3.$error" md-auto-hide="false" ng-if="projectForm.dto3.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-              </div>
-          </div>
-          <div layout="row">
-            <div flex>
-                <md-input-container>
-                  <label>Min</label>
-                  <input required type="number" name="min4" ng-model="producto.descuentos[3].minimoProductos" min="0" />
-                  <div class="hint" ng-if="!projectForm.min4.$touched">Mínimo</div>
-                  <div ng-messages="projectForm.min4.$error" md-auto-hide="false" ng-if="projectForm.min4.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-            </div>
-            <div flex>
-                <md-input-container>
-                  <label>Máx</label>
-                  <input required type="number" name="max4" ng-model="producto.descuentos[3].maximoProductos" min="0" />
-                  <div class="hint" ng-if="!projectForm.max4.$touched">Máximo</div>
-                  <div ng-messages="projectForm.max4.$error" md-auto-hide="false" ng-if="projectForm.max4.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-              </div>
-            <div flex>
-                <md-input-container>
-                  <label>% Dto</label>
-                  <input required type="number" name="dto4" ng-model="producto.descuentos[3].descuento" min="0" />
-                  <div class="hint" ng-if="!projectForm.dto4.$touched">Descuento</div>
-                  <div ng-messages="projectForm.dto4.$error" md-auto-hide="false" ng-if="projectForm.dto4.$touched">
-                    <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
-                    <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
-                  </div>
-                </md-input-container>
-              </div>
-          </div>
+          <md-button class="md-raised md-primary" ng-click="update(producto.id)" ng-disabled="projectForm.$invalid">Submit</md-button>
         </form>
       </div>
     </div>
-    <md-button class="md-raised md-primary" ng-click="update(producto.id)" ng-disabled="projectForm.$invalid">Submit</md-button>
+    <div layout="row">
+      <form name="descuentoForm">
+        <h4>Descuentos</h4>
+        <div layout="row">
+          <div flex="10">
+            Dto 1
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>Min</label>
+              <input required type="number" name="min1" ng-model="producto.descuentos[0].minimoProductos" min="0" />
+              <div class="hint" ng-if="!descuentoForm.min1.$touched">Mínimo</div>
+              <div ng-messages="descuentoForm.min1.$error" md-auto-hide="false" ng-if="descuentoForm.min1.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>Máx</label>
+              <input required type="number" name="max1" ng-model="producto.descuentos[0].maximoProductos" min="0" />
+              <div class="hint" ng-if="!descuentoForm.max1.$touched">Máximo</div>
+              <div ng-messages="descuentoForm.max1.$error" md-auto-hide="false" ng-if="descuentoForm.max1.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>% Dto</label>
+              <input required type="number" name="dto1" ng-model="producto.descuentos[0].descuento" min="0" />
+              <div class="hint" ng-if="!descuentoForm.dto1.$touched">Descuento</div>
+              <div ng-messages="descuentoForm.dto1.$error" md-auto-hide="false" ng-if="descuentoForm.dto1.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+        </div>
+        <div layout="row">
+          <div flex="10">
+            Dto 2
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>Min</label>
+              <input required type="number" name="min2" ng-model="producto.descuentos[1].minimoProductos" min="0" />
+              <div class="hint" ng-if="!descuentoForm.min2.$touched">Mínimo</div>
+              <div ng-messages="descuentoForm.min2.$error" md-auto-hide="false" ng-if="descuentoForm.min2.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>Máx</label>
+              <input required type="number" name="max2" ng-model="producto.descuentos[1].maximoProductos" min="0" />
+              <div class="hint" ng-if="!descuentoForm.max2.$touched">Máximo</div>
+              <div ng-messages="descuentoForm.max2.$error" md-auto-hide="false" ng-if="descuentoForm.max2.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>% Dto</label>
+              <input required type="number" name="dto2" ng-model="producto.descuentos[1].descuento" min="0" />
+              <div class="hint" ng-if="!descuentoForm.dto2.$touched">Descuento</div>
+              <div ng-messages="descuentoForm.dto2.$error" md-auto-hide="false" ng-if="descuentoForm.dto2.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+        </div>
+        <div layout="row">
+          <div flex="10">
+            Dto 3
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>Min</label>
+              <input required type="number" name="min3" ng-model="producto.descuentos[2].minimoProductos" min="0" />
+              <div class="hint" ng-if="!descuentoForm.min3.$touched">Mínimo</div>
+              <div ng-messages="descuentoForm.min3.$error" md-auto-hide="false" ng-if="descuentoForm.min3.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>Máx</label>
+              <input required type="number" name="max3" ng-model="producto.descuentos[2].maximoProductos" min="0" />
+              <div class="hint" ng-if="!descuentoForm.max3.$touched">Máximo</div>
+              <div ng-messages="descuentoForm.max3.$error" md-auto-hide="false" ng-if="descuentoForm.max3.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>% Dto</label>
+              <input required type="number" name="dto3" ng-model="producto.descuentos[2].descuento" min="0" />
+              <div class="hint" ng-if="!descuentoForm.dto3.$touched">Descuento</div>
+              <div ng-messages="descuentoForm.dto3.$error" md-auto-hide="false" ng-if="descuentoForm.dto3.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+        </div>
+        <div layout="row">
+          <div flex="10">
+            Dto 4
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>Min</label>
+              <input required type="number" name="min4" ng-model="producto.descuentos[3].minimoProductos" min="0" />
+              <div class="hint" ng-if="!descuentoForm.min4.$touched">Mínimo</div>
+              <div ng-messages="descuentoForm.min4.$error" md-auto-hide="false" ng-if="descuentoForm.min4.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>Máx</label>
+              <input required type="number" name="max4" ng-model="producto.descuentos[3].maximoProductos" min="0" />
+              <div class="hint" ng-if="!descuentoForm.max4.$touched">Máximo</div>
+              <div ng-messages="descuentoForm.max4.$error" md-auto-hide="false" ng-if="descuentoForm.max4.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+          <div flex>
+            <md-input-container>
+              <label>% Dto</label>
+              <input required type="number" name="dto4" ng-model="producto.descuentos[3].descuento" min="0" />
+              <div class="hint" ng-if="!descuentoForm.dto4.$touched">Descuento</div>
+              <div ng-messages="descuentoForm.dto4.$error" md-auto-hide="false" ng-if="descuentoForm.dto4.$touched">
+                <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+              </div>
+            </md-input-container>
+          </div>
+        </div>
+        <md-button class="md-raised md-primary" ng-click="updateDescuentos(producto.id)" ng-disabled="projectForm.$invalid">Actualizar Descuentos</md-button>
+      </form>
+    </div>
   </md-dialog-content>
 </md-dialog>
