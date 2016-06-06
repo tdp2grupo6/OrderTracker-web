@@ -40,6 +40,7 @@
     $scope.marcas = {};
     $scope.categorias = {};
     $scope.descuentos = {};
+    $scope.productoId = '';
     $scope.descuentosArray = [];
     $scope.bodyDescuentos = {};
 
@@ -302,6 +303,7 @@
         Productos.guardarProducto($scope.form,
           function(data) {
             console.log(data);
+            $scope.productoId = data.id;
             $mdToast.show($mdToast.simple().textContent('El Producto ha sido agregado satisfactoriamente').position($scope.getToastPosition()).hideDelay(3000));
           },
           function(data) {
@@ -310,14 +312,14 @@
       }
     };
 
-    $scope.submitDescuento = function(){
+    $scope.crearDescuento = function(){
 
     for ( var i=0 ; i < $scope.descuentosArray.length; i++) {
-          $scope.bodyDescuentos.idProducto = $scope.producto.id;
-          $scope.bodyDescuentos.nombreProducto = $scope.producto.nombreProducto;
-          $scope.bodyDescuentos.descuento = descuentosArray[i].descuento;
-          $scope.bodyDescuentos.minimoProductos = descuentosArray[i].minimoProductos;
-          $scope.bodyDescuentos.maximoProductos = descuentosArray[i].maximoProductos;
+          $scope.bodyDescuentos.producto = {id: $scope.productoId};
+          //$scope.bodyDescuentos.nombreProducto = $scope.producto.nombreProducto;
+          $scope.bodyDescuentos.descuento = $scope.descuentosArray[i].descuento;
+          $scope.bodyDescuentos.minimoProductos = $scope.descuentosArray[i].minimoProductos;
+          $scope.bodyDescuentos.maximoProductos = $scope.descuentosArray[i].maximoProductos;
           Descuentos.guardarDescuento($scope.bodyDescuentos,
               function(data) {
                 console.log(data);
@@ -564,25 +566,25 @@
       });
     };
 
-    $scope.agregarTramoDescuento = function(id) {
-      if ($scope.producto.descuentos.length < 4) {
-        $scope.producto.descuentos.push({
+    $scope.agregarTramoDescuento = function(id, array) {
+      if (array.length < 4) {
+        array.push({
           newItem: true
         });
         //$scope.$apply();
       }
     };
 
-    $scope.eliminarTramoDescuento = function(objDesc) {
+    $scope.eliminarTramoDescuento = function(objDesc, array) {
       if (objDesc.newItem===true) {
-        var index = $scope.producto.descuentos.indexOf(objDesc);
-        $scope.producto.descuentos.splice(index, 1);
+        var index = array.indexOf(objDesc);
+        array.splice(index, 1);
       }
       else {
         Descuentos.borrarDescuento({id: objDesc.id},
           function(data) {
-            var index = $scope.producto.descuentos.indexOf(objDesc);
-            $scope.producto.descuentos.splice(index, 1);
+            var index = array.indexOf(objDesc);
+            array.splice(index, 1);
           },
           function(error) {
 

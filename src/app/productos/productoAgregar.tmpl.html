@@ -76,8 +76,56 @@
         </md-input-container>
         <md-button class="md-raised md-primary" ng-click="submit()" ng-disabled="projectForm.$invalid">Submit</md-button>
         </form>
-        <form name="projectForm2" layout="column" method="POST">
-        <h5>Descuentos</h5>
+        <form name="descuentoForm">
+          <h4>Descuentos</h4>
+          <md-button class="md-fab md-warn md-mini" ng-click="agregarTramoDescuento(productoId, descuentosArray)" aria-label="+">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </md-button>
+          <div layout="row" ng-repeat="desc in descuentosArray">
+            <div flex="10">
+              Dto {{$index+1}}
+            </div>
+            <div flex>
+              <md-input-container>
+                <label>Min</label>
+                <input required type="number" name="min" ng-model="desc.minimoProductos" min="0" />
+                <div class="hint" ng-if="!descuentoForm.min.$touched">Mínimo</div>
+                <div ng-messages="descuentoForm.min.$error" md-auto-hide="false" ng-if="descuentoForm.min.$touched">
+                  <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                  <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div flex>
+              <md-input-container>
+                <label>Máx</label>
+                <input required type="number" name="max" ng-model="desc.maximoProductos" min="0" />
+                <div class="hint" ng-if="!descuentoForm.max.$touched">Máximo</div>
+                <div ng-messages="descuentoForm.max.$error" md-auto-hide="false" ng-if="descuentoForm.max.$touched">
+                  <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                  <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div flex>
+              <md-input-container>
+                <label>% Dto</label>
+                <input required type="number" name="dto" ng-model="desc.descuento" min="0" max="100" />
+                <div class="hint" ng-if="!descuentoForm.dto.$touched">Descuento</div>
+                <div ng-messages="descuentoForm.dto.$error" md-auto-hide="false" ng-if="descuentoForm.dto.$touched">
+                  <div ng-message="min" md-auto-hide="false">Valor debe ser positivo</div>
+                  <div ng-message="type" md-auto-hide="false">Valor no es un número</div>
+                </div>
+              </md-input-container>
+            </div>
+            <div flex="10">
+              <md-button class="md-fab md-accent md-mini" ng-click="eliminarTramoDescuento(desc, descuentosArray)" aria-label="eliminar">
+                <i class="fa fa-eraser" aria-hidden="true"></i>
+              </md-button>
+            </div>
+          </div>
+          <md-button class="md-raised md-primary" ng-click="crearDescuento()">Crear Descuentos</md-button>
+          <!--
           <div layout="row">
             <div flex>
                 <md-input-container>
@@ -218,7 +266,7 @@
                 </md-input-container>
               </div>
           </div>
-          <md-button class="md-raised md-primary" ng-click="submitDescuento()">Submit Descuentos</md-button>
+          -->
         </form>
     </div>
   </md-dialog-content>

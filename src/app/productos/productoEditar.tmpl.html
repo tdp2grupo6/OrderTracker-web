@@ -85,7 +85,7 @@
     <div layout="row">
       <form name="descuentoForm">
         <h4>Descuentos</h4>
-        <md-button class="md-fab md-warn md-mini" ng-click="agregarTramoDescuento(producto.id)" aria-label="+">
+        <md-button class="md-fab md-warn md-mini" ng-click="agregarTramoDescuento(producto.id, producto.descuentos)" aria-label="+">
           <i class="fa fa-plus" aria-hidden="true"></i>
         </md-button>
         <div layout="row" ng-repeat="desc in producto.descuentos">
@@ -126,7 +126,7 @@
             </md-input-container>
           </div>
           <div flex="10">
-            <md-button class="md-fab md-accent md-mini" ng-click="eliminarTramoDescuento(desc)" aria-label="eliminar">
+            <md-button class="md-fab md-accent md-mini" ng-click="eliminarTramoDescuento(desc, producto.descuentos)" aria-label="eliminar">
               <i class="fa fa-eraser" aria-hidden="true"></i>
             </md-button>
           </div>
