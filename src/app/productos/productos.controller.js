@@ -509,7 +509,8 @@
 
       Descuentos.guardarDescuento(desc,
         function(data) {
-          console.log(data);
+          desc.id = data.id;
+          console.log(desc);
           defered.resolve(data);
         },
         function(err) {
@@ -525,7 +526,8 @@
 
       Descuentos.actualizarDescuento({id: id}, desc,
         function(data) {
-          console.log(data);
+          desc.id = data.id;
+          console.log(desc);
           defered.resolve(data);
         },
         function(err) {
@@ -547,9 +549,10 @@
           delete prods[i].nombreProducto;
           delete prods[i].$$hashKey;
           prods[i].producto = {id: id};
-          console.log(prods[i]);
+          //console.log(prods[i]);
 
           if (prods[i].newItem===true) {
+            delete prods[i].newItem;
             promises.push($scope.submitDescuento(id, prods[i]));
           }
           else {
@@ -576,7 +579,9 @@
     };
 
     $scope.eliminarTramoDescuento = function(objDesc, array) {
+      console.log(objDesc);
       if (objDesc.newItem===true) {
+        delete objDesc.newItem;
         var index = array.indexOf(objDesc);
         array.splice(index, 1);
       }
